@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { products, productsDuplicate } from './utilities/rawData';
+import { products } from './utilities/rawData';
+import * as connectTo from './utilities/reusables';
 
 const ProductPage = () => {
 
-    const [allProducts, setAllProducts] = useState(productsDuplicate);
+    const [allProducts, setAllProducts] = useState(products);
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get("id");
     const [productId, setProductId] = useState(id);
-    const productData = allProducts.find(product => product.id === productId) || allProducts[0];
+    const productData = connectTo.oneItemFromArray(allProducts, "id", productId);
+    productData.color.selected = true;
 
     useEffect(() => {
         const groupId = productData.groupId;
@@ -165,7 +167,7 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
                         {/* Half Star */}
                         <span className="material-symbols-outlined text-[20px]!">star_half</span>
                     </div>
-                    <a className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:underline" href="#reviews">
+                    <a className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:underline">
                         ({product.reviewCount} reviews)
                     </a>
                 </div>
@@ -187,7 +189,7 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
                         <div className="mt-2 flex items-center gap-3" id="color">
                             {colors.map(color => (
                                 <button
-                                    key={color.name}
+                                    key={color.id}
                                     className={`cursor-pointer size-8 rounded-full ${color.hex} ${selectedColor === color.name
                                         ? 'ring-2 ring-primary ring-offset-2 ring-offset-background-light dark:ring-offset-background-dark'
                                         : 'hover:ring-2 hover:ring-primary/50'

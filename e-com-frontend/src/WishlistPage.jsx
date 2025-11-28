@@ -11,40 +11,6 @@ const mockWishlistItems = [
 ];
 
 // --- Sub-Components ---
-
-const Header = () => (
-    <header className="sticky top-0 z-10 w-full border-b border-slate-200/80 dark:border-slate-800/80 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
-        <div className="container mx-auto flex items-center justify-between whitespace-nowrap px-4 py-3">
-            <div className="flex items-center gap-8">
-                {/* Logo */}
-                <div className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
-                    <span className="material-symbols-outlined text-primary text-3xl">storefront</span>
-                    <h2 className="text-lg font-bold">Brand</h2>
-                </div>
-            </div>
-
-            {/* Main Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
-                {['Shop', 'Categories', 'Deals', 'Account'].map(item => (
-                    <a key={item} className="text-sm font-medium hover:text-primary dark:hover:text-primary" href="#">{item}</a>
-                ))}
-            </nav>
-
-            {/* Utility Icons */}
-            <div className="flex items-center gap-4">
-                <button className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-slate-200/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:bg-slate-300/60 dark:hover:bg-slate-700/60">
-                    <span className="material-symbols-outlined">search</span>
-                </button>
-                <button className="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-slate-200/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:bg-slate-300/60 dark:hover:bg-slate-700/60">
-                    <span className="material-symbols-outlined">shopping_cart</span>
-                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white text-xs font-bold">3</span>
-                </button>
-                <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="user avatar placeholder image" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCOGQ1RQDW3-5ENSUGlykCLvuqrVdDck0DgJPhJim6rqJPQr6h8i_JfeIDfuFr9VsiCcFnY6RTu6g8vHGfD9JcDpTG3LBQqwPfcID4yRzmNLBRCiZ1MHe5_A3YRjAr-B0mc3T9VM-2a9cIgxJ3kcUsZSMC_nmwLvz4PDofdbq2iUt35sNgWtj7naiQrZ5vvKMdgplcZkf6u0yUObrtMV-YgMbL7F6jFsgKDcmgt0U-64WkFbuzzLFsX2Mqi0i_aeeSRdqgX4sL6fz8")' }}></div>
-            </div>
-        </div>
-    </header>
-);
-
 const WishlistItemCard = ({ item }) => (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/50 shadow-sm transition-all hover:shadow-lg dark:hover:shadow-slate-800/60">
         <div
@@ -82,8 +48,8 @@ const Pagination = () => {
                 <a
                     key={page}
                     className={`text-sm leading-normal flex size-10 items-center justify-center rounded-full transition-colors ${page === 1
-                            ? 'font-bold text-white bg-primary'
-                            : 'font-normal text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-800/80'
+                        ? 'font-bold text-white bg-primary'
+                        : 'font-normal text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-800/80'
                         }`}
                     href="#"
                 >
@@ -99,14 +65,10 @@ const Pagination = () => {
 };
 
 // --- Main Page Component ---
-
 const WishlistPage = () => {
     return (
         <div className="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen">
             <div className="relative flex min-h-screen w-full flex-col">
-
-                {/* Sticky Header */}
-                <Header />
 
                 <main className="flex-grow">
                     <div className="container mx-auto px-4 py-8 sm:py-12">

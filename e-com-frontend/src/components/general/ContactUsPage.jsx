@@ -1,13 +1,5 @@
 import React from 'react';
 
-// --- Mock Data ---
-const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Products', href: '#' },
-    { name: 'About Us', href: '#' },
-    { name: 'Contact Us', href: '#', current: true },
-];
-
 const contactInfo = [
     {
         icon: 'location_on',
@@ -32,58 +24,7 @@ const openingHours = [
     { day: 'Sunday', hours: 'Closed' },
 ];
 
-const footerSections = [
-    {
-        title: 'Shop',
-        links: ['New Arrivals', 'Best Sellers', 'Sale']
-    },
-    {
-        title: 'Support',
-        links: ['Help Center', 'Shipping', 'Returns']
-    },
-    {
-        title: 'Company',
-        links: ['About Us', 'Careers', 'Contact Us']
-    },
-];
-
 // --- Sub-Components ---
-
-const TopNavBar = ({ links }) => (
-    <header className="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 px-4 sm:px-6 lg:px-10 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
-        <div className="flex items-center gap-8">
-            <div className="flex items-center gap-4 text-slate-900 dark:text-white">
-                <div className="size-6 text-primary">
-                    <span className="material-symbols-outlined !text-3xl">storefront</span>
-                </div>
-                <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">E-Commerce Brand</h2>
-            </div>
-        </div>
-        <nav className="hidden md:flex items-center gap-9">
-            {links.map(link => (
-                <a
-                    key={link.name}
-                    className={`${link.current ? 'text-primary dark:text-primary text-sm font-bold' : 'text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium'} leading-normal`}
-                    href={link.href}
-                >
-                    {link.name}
-                </a>
-            ))}
-        </nav>
-        <div className="flex flex-1 justify-end items-center gap-2">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
-                <span className="truncate">Sign In</span>
-            </button>
-            <button className="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold leading-normal tracking-[0.015em]">
-                <span className="truncate">Sign Up</span>
-            </button>
-            <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                <span className="material-symbols-outlined text-xl">shopping_cart</span>
-            </button>
-        </div>
-    </header>
-);
-
 const ContactForm = () => (
     <div className="bg-white dark:bg-background-dark p-6 sm:p-8 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
         <h2 className="text-slate-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] mb-6">Send Us a Message</h2>
@@ -189,48 +130,11 @@ const ContactDetails = ({ info, hours }) => (
     </div>
 );
 
-const Footer = ({ sections }) => (
-    <footer className="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 mt-16">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {/* Brand Info */}
-                <div className="col-span-2 md:col-span-1">
-                    <div className="flex items-center gap-2 mb-4">
-                        <span className="material-symbols-outlined !text-2xl text-primary">storefront</span>
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">E-Commerce Brand</h3>
-                    </div>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm">Your one-stop shop for everything you need.</p>
-                </div>
-
-                {/* Footer Links */}
-                {sections.map(section => (
-                    <div key={section.title}>
-                        <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-200 tracking-wider uppercase">{section.title}</h4>
-                        <ul className="mt-4 space-y-2">
-                            {section.links.map(link => (
-                                <li key={link}><a className="text-base text-slate-500 dark:text-slate-400 hover:text-primary" href="#">{link}</a></li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-            </div>
-            <div className="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 text-center">
-                <p className="text-base text-slate-400 dark:text-slate-500">© 2024 E-Commerce Brand. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-);
-
-
 // --- Main Page Component ---
-
 const ContactUsPage = () => (
     <div className="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen">
         <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
             <div className="layout-container flex h-full grow flex-col">
-
-                {/* Top Navigation Bar */}
-                <TopNavBar links={navLinks} />
 
                 <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
                     {/* Page Heading */}
@@ -251,8 +155,6 @@ const ContactUsPage = () => (
                     </div>
                 </main>
 
-                {/* Footer */}
-                <Footer sections={footerSections} />
             </div>
         </div>
     </div>

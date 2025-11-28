@@ -1,13 +1,6 @@
 import React from 'react';
 
 // --- Mock Data ---
-const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Shop', href: '#' },
-    { name: 'About Us', href: '#', current: true },
-    { name: 'Contact', href: '#' },
-];
-
 const timelineEvents = [
     { year: '2018', title: 'The Beginning', description: 'OurBrand was founded with a simple mission: to create beautiful, high-quality products that last.', icon: 'flag' },
     { year: '2020', title: 'First Major Milestone', description: 'We reached 10,000 happy customers and launched our first sustainable product line.', icon: 'emoji_events' },
@@ -25,45 +18,6 @@ const coreValues = [
 ];
 
 // --- Sub-Components ---
-
-const TopNavBar = ({ links }) => (
-    <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
-        <div className="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl h-16">
-            <div className="flex items-center gap-8">
-                <div className="flex items-center gap-2 text-slate-900 dark:text-slate-50">
-                    <span className="material-symbols-outlined text-primary text-2xl">diamond</span>
-                    <h2 className="text-slate-900 dark:text-slate-50 text-lg font-bold leading-tight tracking-[-0.015em]">OurBrand</h2>
-                </div>
-                <div className="hidden md:flex items-center gap-8">
-                    {links.map(link => (
-                        <a
-                            key={link.name}
-                            className={`${link.current ? 'text-primary dark:text-primary text-sm font-bold' : 'text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium'} leading-normal`}
-                            href={link.href}
-                        >
-                            {link.name}
-                        </a>
-                    ))}
-                </div>
-            </div>
-            <div className="flex items-center justify-end gap-2">
-                <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                    <span className="material-symbols-outlined text-xl">search</span>
-                </button>
-                <button className="hidden sm:flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                    <span className="material-symbols-outlined text-xl">shopping_cart</span>
-                </button>
-                <div className="hidden md:flex items-center gap-2">
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
-                        <span className="truncate">Sign Up</span>
-                    </button>
-                    <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLZUDA295YEqzHaUNfHZssSI5JR5fuuc87dJjvTX1p9y_DZbhKNCLLxPbrjuxUZwkwlnK4EpaNAfMBh6VG8vm4UoNO5zZCDwvz8GNrjorXdE1j7vAZEqUHLSTSNRVXOIUsZD1DxBYlgDsUxw36vUv0Hg9hSQfrCe35xr3RQXrcxfgMfcGAwDyTeYK0HbXgonJpF9A0ya03Ht0d-L3LP97FMdz-0M6x_lZAY8hTgnU2u4vou63j-iAPd1CtPxLIFjKksGEhYzzg-6k")' }}></div>
-                </div>
-            </div>
-        </div>
-    </header>
-);
-
 const HeroSection = () => (
     <section className="w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
@@ -174,7 +128,9 @@ const CTASection = () => (
                 <div className="flex flex-col gap-4 items-center">
                     <h2 className="text-white tracking-tighter text-3xl font-bold leading-tight md:text-4xl">Ready to Join Our Story?</h2>
                     <p className="text-white/90 text-base font-normal leading-normal md:text-lg max-w-2xl">Explore our curated collection of products, crafted with passion and purpose. Find something you'll love for years to come.</p>
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-white text-primary text-base font-bold leading-normal tracking-[0.015em] mt-4">
+                    <button
+                        onClick={() => window.location.href = "/"}
+                        className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-white text-primary text-base font-bold leading-normal tracking-[0.015em] mt-4">
                         <span className="truncate">Shop Our Collection</span>
                     </button>
                 </div>
@@ -190,9 +146,6 @@ const AboutUsPage = () => (
     <div className="font-display bg-background-light dark:bg-background-dark min-h-screen">
         <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
             <div className="layout-container flex h-full grow flex-col">
-
-                {/* Top Navigation Bar */}
-                <TopNavBar links={navLinks} />
 
                 <main className="flex-1">
                     {/* Hero Section */}

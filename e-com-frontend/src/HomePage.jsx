@@ -1,6 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { productsDuplicate } from './utilities/rawData';
+import { products } from './utilities/rawData';
 
 export default function HomePage() {
 
@@ -42,7 +41,7 @@ export default function HomePage() {
                                 <div className="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                                     <div className="flex items-stretch p-1 -ml-4 gap-4 w-full flex-wrap">
 
-                                        {productsDuplicate.map((product) => (
+                                        {products.map((product) => (
                                             <div
                                                 key={product.id}
                                                 className="flex flex-1 flex-col gap-4 rounded-xl bg-white dark:bg-slate-900/50 shadow-sm min-w-64 cursor-pointer"

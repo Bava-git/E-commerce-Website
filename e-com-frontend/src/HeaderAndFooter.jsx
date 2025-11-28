@@ -9,7 +9,7 @@ export const Header = ({ links }) => (
                                 <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor" />
                             </svg>
                         </div>
-                        <h2 className="text-xl font-bold leading-tight tracking-tighter">Khapara</h2>
+                        <h2 className="text-xl font-bold leading-tight tracking-tighter cursor-pointer underline" onClick={() => window.location.href = "/"}>Khapara</h2>
                     </div>
                 </div>
                 <div className="hidden sm:block w-7xl max-w-xl">
@@ -60,7 +60,7 @@ export const Footer = () => (
                                 <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor" />
                             </svg>
                         </div>
-                        <h2 className="text-xl font-bold leading-tight tracking-tighter">AURA</h2>
+                        <h2 className="text-xl font-bold leading-tight tracking-tighter underline">Khapara</h2>
                     </div>
                     <p className="text-sm text-slate-600 dark:text-slate-400 max-w-sm">Quality apparel and accessories designed for the modern individual. Experience style that lasts.</p>
                 </div>
@@ -77,7 +77,7 @@ export const Footer = () => (
                     <div>
                         <h5 className="font-bold text-slate-900 dark:text-slate-50 mb-4">Company</h5>
                         <ul className="space-y-3">
-                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="#">About Us</a></li>
+                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="/aboutus">About Us</a></li>
                             <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="#">Careers</a></li>
                             <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="#">Press</a></li>
                         </ul>
@@ -85,9 +85,9 @@ export const Footer = () => (
                     <div>
                         <h5 className="font-bold text-slate-900 dark:text-slate-50 mb-4">Support</h5>
                         <ul className="space-y-3">
-                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="#">Contact Us</a></li>
-                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="#">FAQ</a></li>
-                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="#">Shipping</a></li>
+                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="/contactus">Contact Us</a></li>
+                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="/helpcenter">Help Center</a></li>
+                            <li><a className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary" href="/returninfo">Returns & Shipping Information</a></li>
                         </ul>
                     </div>
                     <div>

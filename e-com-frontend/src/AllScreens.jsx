@@ -1,33 +1,23 @@
-import HomePage from './HomePage'
-import ProductListingPage from './ProductListingPage'
-import ShoppingCartPage from './ShoppingCartPage'
-import ProductPage from './ProductPage'
-import CheckoutShippingMethodPage from './CheckoutShippingMethodPage'
-import CheckoutShippingInfoPage from './CheckoutShippingInfoPage'
-import OrderConfirmationPage from './OrderConfirmationPage'
 import CheckoutPaymentPage from './CheckoutPaymentPage'
-import OrderReviewPage from './OrderReviewPage'
-import MyOrdersPage from './MyOrdersPage'
-import LoginPage from './LoginPage'
+import CheckoutShippingInfoPage from './CheckoutShippingInfoPage'
+import CheckoutShippingMethodPage from './CheckoutShippingMethodPage'
 import CreateAccountPage from './CreateAccountPage'
 import CustomerDashboard from './CustomerDashboard'
-import WishlistPage from './WishlistPage'
-import ShipmentTrackingPage from './ShipmentTrackingPage'
 import GiftCardPurchasePage from './GiftCardPurchasePage'
-import ReturnsAndShippingPage from './ReturnsAndShippingPage'
-import HelpCenterPage from './HelpCenterPage'
-import AboutUsPage from './AboutUsPage'
-import ContactUsPage from './ContactUsPage'
-import NotFoundPage from './NotFoundPage'
+import LoginPage from './LoginPage'
+import MyOrdersPage from './MyOrdersPage'
+import OrderConfirmationPage from './OrderConfirmationPage'
+import OrderReviewPage from './OrderReviewPage'
+import ProductListingPage from './ProductListingPage'
+import ShipmentTrackingPage from './ShipmentTrackingPage'
+import ShoppingCartPage from './ShoppingCartPage'
+import WishlistPage from './WishlistPage'
 
 const AllScreens = () => {
     return (
         <>
-            <HomePage />
-            <CheckoutShippingMethodPage />
+            <WishlistPage />
             <ShoppingCartPage />
-            <ProductPage />
-            <div>h</div>
             <ProductListingPage />
             <CheckoutShippingMethodPage />
             <CheckoutShippingInfoPage />
@@ -38,14 +28,8 @@ const AllScreens = () => {
             <LoginPage />
             <CreateAccountPage />
             <CustomerDashboard />
-            <WishlistPage />
             <ShipmentTrackingPage />
             <GiftCardPurchasePage />
-            <ReturnsAndShippingPage />
-            <HelpCenterPage />
-            <AboutUsPage />
-            <ContactUsPage />
-            <NotFoundPage />
         </>
     )
 }

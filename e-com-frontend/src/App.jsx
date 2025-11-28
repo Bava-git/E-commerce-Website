@@ -21,15 +21,19 @@ import CustomerDashboard from './CustomerDashboard'
 import WishlistPage from './WishlistPage'
 import ShipmentTrackingPage from './ShipmentTrackingPage'
 import GiftCardPurchasePage from './GiftCardPurchasePage'
-import ReturnsAndShippingPage from './ReturnsAndShippingPage'
-import HelpCenterPage from './HelpCenterPage'
-import AboutUsPage from './AboutUsPage'
-import ContactUsPage from './ContactUsPage'
-import NotFoundPage from './NotFoundPage'
+
+// General -----------------------------------------------------------------------------
+import { Header, Footer } from './HeaderAndFooter'
+import ReturnsAndShippingPage from './components/general/ReturnsAndShippingPage'
+import HelpCenterPage from './components/general/HelpCenterPage'
+import AboutUsPage from './components/general/AboutUsPage'
+import ContactUsPage from './components/general/ContactUsPage'
+import NotFoundPage from './components/general/NotFoundPage'
+
+// Developer -----------------------------------------------------------------------------
 import TestScreen from './TestScreen'
 import AllScreens from './AllScreens'
 
-import { Header, Footer } from './HeaderAndFooter'
 
 function App() {
 
@@ -38,13 +42,21 @@ function App() {
       <Header links={dealsLinks} />
       <BrowserRouter>
         <Routes>
+          {/* Developer */}
           <Route path='/testscreen' element={<TestScreen />} />
           <Route path='/allscreens' element={<AllScreens />} />
-          <Route path='/*' element={<NotFoundPage />} />
+          {/* READY */}
           <Route path='/' element={<HomePage />} />
+          <Route path='/product' element={<ProductPage />} />
+          {/* General */}
+          <Route path='/aboutus' element={<AboutUsPage />} />
+          <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
+          <Route path='/helpcenter' element={<HelpCenterPage />} />
+          <Route path='/contactus' element={<ContactUsPage />} />
+          <Route path='/*' element={<NotFoundPage />} />
+          {/* NOT-READY */}
           <Route path='/productlist' element={<ProductListingPage />} />
           <Route path='/cart' element={<ShoppingCartPage />} />
-          <Route path='/product' element={<ProductPage />} />
           <Route path='/products' element={<CheckoutShippingMethodPage />} />
           {/* <CheckoutShippingMethodPage />
           <CheckoutShippingInfoPage />
@@ -57,12 +69,7 @@ function App() {
           <CustomerDashboard />
           <WishlistPage />
           <ShipmentTrackingPage />
-          <GiftCardPurchasePage />
-          <ReturnsAndShippingPage />
-          <HelpCenterPage />
-          <AboutUsPage />
-          <ContactUsPage />
-          <NotFoundPage /> */}
+          <GiftCardPurchasePage /> */}
         </Routes>
       </BrowserRouter>
       <Footer />
