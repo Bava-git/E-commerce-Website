@@ -1,0 +1,1 @@
+generate shoe images like front view, back view, right side view, left side view, angled view
