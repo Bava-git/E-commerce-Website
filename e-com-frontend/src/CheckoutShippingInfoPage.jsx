@@ -1,12 +1,26 @@
-import { OrderSummary } from './ShoppingCartPage';
+import { toast } from 'sonner';
+import { useState } from 'react';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+import { OrderSummary } from './components/reusables/OrderSummary';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 // --- Sub-Components ---
 const ShippingForm = () => {
     // In a real app, this would use form state management (e.g., useState/useReducer or a library like Formik)
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Submitting Shipping Info...");
-        // Logic to proceed to the next step (Payment)
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            console.log(data);
+            toast.error("Error");
+        }
+
+
     };
 
     const inputClasses = "block w-full rounded-lg border-0 py-2.5 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary text-sm sm:leading-6";
@@ -14,6 +28,13 @@ const ShippingForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-8">
+
+            {/* Shipping Form Heading */}
+            <div className="flex flex-col gap-3">
+                <p className="text-slate-900 dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">Shipping Information</p>
+                <p className="text-slate-600 dark:text-slate-300 text-base font-normal leading-normal">Please enter your shipping details below.</p>
+            </div>
+
             {/* Contact Information */}
             <div className="space-y-6">
                 <h2 className="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">Contact Information</h2>
@@ -82,19 +103,32 @@ const ShippingForm = () => {
 
             {/* Action Buttons */}
             <div className="mt-6 flex items-center justify-between">
-                <a className="text-sm font-semibold leading-6 text-primary hover:text-primary/80 flex items-center gap-2" href="#">
+                <a className="text-sm font-semibold leading-6 text-primary hover:text-primary/80 flex items-center gap-2" href="/cart">
                     <span className="material-symbols-outlined text-base">arrow_back</span>
                     Return to cart
                 </a>
-                <button className="flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="submit">
-                    Continue to Payment
+                <button
+                    className="cursor-pointer flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="submit">
+                    Continue to Delivery Option
                 </button>
             </div>
         </form>
     );
 };
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 const CheckoutShippingInfoPage = () => {
+
+    const shippingOptions = [
+        { id: 'standard', name: 'Standard Ground', price: 0, eta: 'Nov 28', isPopular: true },
+        { id: 'expedited', name: 'Expedited 2-Day', price: 12.00, eta: 'Nov 26', isPopular: false },
+        { id: 'express', name: 'Overnight Express', price: 25.00, eta: 'Nov 25', isPopular: false },
+    ];
+
+    const [selectedShipping, setSelectedShipping] = useState(shippingOptions.find(o => o.id === 'standard'));
+    console.log(selectedShipping);
+
     return (
         <div className="font-display bg-background-light dark:bg-background-dark min-h-screen">
             <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
@@ -105,36 +139,85 @@ const CheckoutShippingInfoPage = () => {
                         <div className="flex flex-col">
 
                             {/* Heading */}
-                            <div className="mt-10">
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Shipping Info</a>
-                                    <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
-                                    <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Shipping Method</a>
-                                    <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
-                                    <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Payment</a>
-                                    <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
-                                    <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Review</a>
-                                    <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
-                                    <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Confirmation</a>
-                                </div>
-                                <div className="flex flex-col gap-3">
-                                    <p className="text-slate-900 dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">Shipping Information</p>
-                                    <p className="text-slate-600 dark:text-slate-300 text-base font-normal leading-normal">Please enter your shipping details below.</p>
-                                </div>
+                            <div className="flex flex-wrap gap-2 mb-4">
+                                <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Shipping Info</a>
+                                <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
+                                <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Shipping Method</a>
+                                <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
+                                <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Payment</a>
+                                <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
+                                <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Review</a>
+                                <span className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary">/</span>
+                                <a className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Confirmation</a>
                             </div>
 
                             {/* Shipping Form */}
                             <ShippingForm />
 
+                            {/* Shipping Options */}
+                            <ShippingMethodOption
+                                shippingOptions={shippingOptions}
+                                selectedShipping={selectedShipping}
+                                setSelectedShipping={setSelectedShipping}
+                            />
+
                         </div>
 
                         {/* Order Summary */}
-                        <OrderSummary subtotal={1000} marketPlaceFee={5} total={1005} />
+                        <OrderSummary
+                            subtotal={1000}
+                            marketPlaceFee={5}
+                            total={1005}
+                            disableCheckout={false}
+                        />
                     </div>
                 </main>
-            </div>
+            </div >
+        </div >
+    );
+};
+export default CheckoutShippingInfoPage;
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+const ShippingMethodOption = ({ shippingOptions, selectedShipping, setSelectedShipping }) => {
+
+    return (
+        <div className="flex flex-col gap-4">
+
+            {/* Shipping Options Heading */}
+            <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tighter mx-2 my-10" > Choose a Delivery Option</h1 >
+            {shippingOptions.map(option => (
+                <label key={option.id}
+                    className={`flex cursor-pointer items-start gap-4 rounded-xl p-4 ring-offset-background-light dark:ring-offset-background-dark focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 transition-all 
+                        ${selectedShipping.id
+                            ? 'border-2 border-primary bg-primary/5 dark:bg-primary/10'
+                            : 'border border-border-light dark:border-border-dark bg-neutral-light dark:bg-neutral-dark'
+                        }`}
+                >
+                    <input
+                        className="mt-1 h-5 w-5 appearance-none rounded-full border-2 border-text-muted-light dark:border-text-muted-dark bg-transparent text-transparent checked:border-primary checked:bg-primary checked:bg-[image:--radio-dot-svg] focus:outline-none"
+                        name="shipping_method"
+                        type="radio"
+                        checked={selectedShipping}
+                        onChange={() => setSelectedShipping(option)}
+                        // Inline style needed for radio dot SVG defined in original HTML
+                        style={{ '--radio-dot-svg': "url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27%23ffffff%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e')" }}
+                    />
+                    <div className="flex grow flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex flex-col">
+                            <p className="font-bold text-text-light dark:text-text-dark">{option.name}</p>
+                            <p className="text-sm text-white text-text-muted-light dark:text-text-muted-dark">Arrives by {option.eta}</p>
+                        </div>
+                        <p className="mt-1 text-sm font-bold text-text-light dark:text-text-dark sm:mt-0">{(option.price === 0) ? 'FREE' : `$${option.price.toFixed(2)}`}</p>
+                    </div>
+                    {option.isPopular && (
+                        <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-semibold text-amber-600 dark:text-amber-400">
+                            <span className="material-symbols-outlined !text-[16px]">star</span>
+                            <span>Most Popular</span>
+                        </div>
+                    )}
+                </label>
+            ))}
         </div>
     );
 };
-
-export default CheckoutShippingInfoPage;

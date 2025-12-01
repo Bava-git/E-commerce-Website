@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+import { OrderSummary } from './components/reusables/OrderSummary';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Utility to simulate image URLs
 const getImageUrl = (id) => `https://images.unsplash.com/photo-1595341144933-66236b282d8c?q=80&w=2787&auto=format&fit=crop&id=${id}`;
 
@@ -58,70 +62,71 @@ const ShippingMethodOption = ({ option, isSelected, onSelect }) => {
     );
 };
 
-const OrderSummary = ({ order, selectedShipping }) => {
-    // Recalculate based on currently selected shipping
-    const subtotal = order.subtotal;
-    const shippingCost = selectedShipping?.price || 0;
-    const estimatedTaxes = subtotal * order.taxRate;
-    const orderTotal = subtotal + shippingCost + estimatedTaxes;
+// const OrderSummary = ({ order, selectedShipping }) => {
+//     // Recalculate based on currently selected shipping
+//     const subtotal = order.subtotal;
+//     const shippingCost = selectedShipping?.price || 0;
+//     const estimatedTaxes = subtotal * order.taxRate;
+//     const orderTotal = subtotal + shippingCost + estimatedTaxes;
 
-    const shippingText = selectedShipping?.price === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`;
+//     const shippingText = selectedShipping?.price === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`;
 
-    return (
-        <aside className="lg:col-span-1">
-            <div className="sticky top-8 rounded-xl border border-border-light dark:border-border-dark bg-neutral-light dark:bg-neutral-dark p-6">
-                <h3 className="text-xl font-bold mb-6">Order Summary</h3>
+//     return (
+//         <aside className="lg:col-span-1">
+//             <div className="sticky top-8 rounded-xl border border-border-light dark:border-border-dark bg-neutral-light dark:bg-neutral-dark p-6">
+//                 <h3 className="text-xl font-bold mb-6">Order Summary</h3>
 
-                {/* Item List */}
-                <div className="space-y-4">
-                    {order.items.map(item => (
-                        <div key={item.id} className="flex items-center gap-4">
-                            <div
-                                className="aspect-square w-16 rounded-lg bg-cover bg-center"
-                                style={{ backgroundImage: `url('${getImageUrl(item.imageId)}')` }}
-                                data-alt={item.name}
-                            />
-                            <div className="flex-1">
-                                <p className="font-medium text-text-light dark:text-text-dark">{item.name}</p>
-                                <p className="text-sm text-text-muted-light dark:text-text-muted-dark">Qty: {item.qty}</p>
-                            </div>
-                            <p className="font-medium text-text-light dark:text-text-dark">${item.price.toFixed(2)}</p>
-                        </div>
-                    ))}
-                </div>
+//                 {/* Item List */}
+//                 <div className="space-y-4">
+//                     {order.items.map(item => (
+//                         <div key={item.id} className="flex items-center gap-4">
+//                             <div
+//                                 className="aspect-square w-16 rounded-lg bg-cover bg-center"
+//                                 style={{ backgroundImage: `url('${getImageUrl(item.imageId)}')` }}
+//                                 data-alt={item.name}
+//                             />
+//                             <div className="flex-1">
+//                                 <p className="font-medium text-text-light dark:text-text-dark">{item.name}</p>
+//                                 <p className="text-sm text-text-muted-light dark:text-text-muted-dark">Qty: {item.qty}</p>
+//                             </div>
+//                             <p className="font-medium text-text-light dark:text-text-dark">${item.price.toFixed(2)}</p>
+//                         </div>
+//                     ))}
+//                 </div>
 
-                {/* Price Breakdown */}
-                <div className="mt-6 pt-6 border-t border-border-light dark:border-border-dark space-y-3 text-sm">
-                    <div className="flex justify-between">
-                        <span className="text-text-muted-light dark:text-text-muted-dark">Subtotal</span>
-                        <span className="font-medium text-text-light dark:text-text-dark">${subtotal.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span className="text-text-muted-light dark:text-text-muted-dark">Shipping</span>
-                        <span className="font-medium text-text-light dark:text-text-dark">{shippingText}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span className="text-text-muted-light dark:text-text-muted-dark">Estimated Taxes</span>
-                        <span className="font-medium text-text-light dark:text-text-dark">${estimatedTaxes.toFixed(2)}</span>
-                    </div>
-                </div>
+//                 {/* Price Breakdown */}
+//                 <div className="mt-6 pt-6 border-t border-border-light dark:border-border-dark space-y-3 text-sm">
+//                     <div className="flex justify-between">
+//                         <span className="text-text-muted-light dark:text-text-muted-dark">Subtotal</span>
+//                         <span className="font-medium text-text-light dark:text-text-dark">${subtotal.toFixed(2)}</span>
+//                     </div>
+//                     <div className="flex justify-between">
+//                         <span className="text-text-muted-light dark:text-text-muted-dark">Shipping</span>
+//                         <span className="font-medium text-text-light dark:text-text-dark">{shippingText}</span>
+//                     </div>
+//                     <div className="flex justify-between">
+//                         <span className="text-text-muted-light dark:text-text-muted-dark">Estimated Taxes</span>
+//                         <span className="font-medium text-text-light dark:text-text-dark">${estimatedTaxes.toFixed(2)}</span>
+//                     </div>
+//                 </div>
 
-                {/* Grand Total */}
-                <div className="mt-4 pt-4 border-t border-border-light dark:border-border-dark">
-                    <div className="flex justify-between items-center font-bold text-lg">
-                        <span>Order Total</span>
-                        <span>${orderTotal.toFixed(2)}</span>
-                    </div>
-                </div>
-            </div>
-        </aside>
-    );
-};
+//                 {/* Grand Total */}
+//                 <div className="mt-4 pt-4 border-t border-border-light dark:border-border-dark">
+//                     <div className="flex justify-between items-center font-bold text-lg">
+//                         <span>Order Total</span>
+//                         <span>${orderTotal.toFixed(2)}</span>
+//                     </div>
+//                 </div>
+//             </div>
+//         </aside>
+//     );
+// };
 
 
 // --- Main Component ---
+
 const CheckoutShippingMethodPage = () => {
-    // Standard Ground is pre-selected in the HTML
+
     const [selectedShipping, setSelectedShipping] = useState(shippingOptions.find(o => o.id === 'standard'));
 
     return (
@@ -163,9 +168,17 @@ const CheckoutShippingMethodPage = () => {
                             </div>
 
                             {/* Right Column: Order Summary */}
-                            <OrderSummary
+                            {/* <OrderSummary
                                 order={mockOrder}
                                 selectedShipping={selectedShipping}
+                            /> */}
+
+                            {/* Order Summary */}
+                            <OrderSummary
+                                subtotal={1000}
+                                marketPlaceFee={5}
+                                total={1005}
+                                disableCheckout={false}
                             />
                         </div>
                     </div>

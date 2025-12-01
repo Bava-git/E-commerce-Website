@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-
+import { Toaster } from 'sonner';
 
 
 import './App.css'
@@ -40,6 +40,7 @@ function App() {
   return (
     <div className="bg-white dark:bg-background-dark">
       <Header links={dealsLinks} />
+      <Toaster richColors duration={3000} position='top-right' />
       <BrowserRouter>
         <Routes>
           {/* Developer */}
@@ -49,6 +50,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/product' element={<ProductPage />} />
           <Route path='/wishlist' element={<WishlistPage />} />
+          <Route path='/cart' element={<ShoppingCartPage />} />
           {/* General */}
           <Route path='/aboutus' element={<AboutUsPage />} />
           <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
@@ -56,8 +58,8 @@ function App() {
           <Route path='/contactus' element={<ContactUsPage />} />
           <Route path='/*' element={<NotFoundPage />} />
           {/* NOT-READY */}
+          <Route path='/checkout' element={<CheckoutShippingInfoPage />} />
           <Route path='/productlist' element={<ProductListingPage />} />
-          <Route path='/cart' element={<ShoppingCartPage />} />
           <Route path='/products' element={<CheckoutShippingMethodPage />} />
           {/* <CheckoutShippingMethodPage />
           <CheckoutShippingInfoPage />
