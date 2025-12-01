@@ -48,6 +48,7 @@ function App() {
           {/* READY */}
           <Route path='/' element={<HomePage />} />
           <Route path='/product' element={<ProductPage />} />
+          <Route path='/wishlist' element={<WishlistPage />} />
           {/* General */}
           <Route path='/aboutus' element={<AboutUsPage />} />
           <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
@@ -67,7 +68,6 @@ function App() {
           <LoginPage />
           <CreateAccountPage />
           <CustomerDashboard />
-          <WishlistPage />
           <ShipmentTrackingPage />
           <GiftCardPurchasePage /> */}
         </Routes>

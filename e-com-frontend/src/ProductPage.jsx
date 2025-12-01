@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { products } from './utilities/rawData';
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { products, myWishlist, cartList } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
 
 const ProductPage = () => {
@@ -142,9 +142,31 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
     const sizes = product?.sizes;
     const [selectedColor, setSelectedColor] = useState(product?.color.selected ? product.color.name : "");
     const [selectedSize, setSelectedSize] = useState(sizes.find(s => s.selected)?.value);
+    const Navigate = useNavigate();
 
     const handleQuantityChange = (delta) => {
         setQuantity(prev => Math.max(1, prev + delta));
+    };
+
+    const handleAddWishlist = (product) => {
+        connectTo.addToArray(myWishlist, product);
+        Navigate(`/wishlist?id=${product.id}`);
+    };
+
+    const handleAddCart = (product) => {
+        console.log(selectedSize);
+        const cartItem = {
+            id: cartList?.length + 1,
+            productId: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.images[0].href,
+            color: selectedColor,
+            size: selectedSize || "",
+            quantity
+        }
+        connectTo.addToArray(cartList, cartItem);
+        console.log(cartList);
     };
 
     return (
@@ -245,12 +267,16 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <button className="cursor-pointer flex flex-1 items-center justify-center rounded-lg bg-primary px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors">
+                <button
+                    onClick={() => handleAddCart(product)}
+                    className="cursor-pointer flex flex-1 items-center justify-center rounded-lg bg-primary px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors">
                     Add to cart
                 </button>
 
                 {/* Wishlist Button */}
-                <button className="cursor-pointer flex h-[52px] w-[52px] items-center justify-center rounded-lg border border-gray-300 dark:border-gray-600 text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors">
+                <button
+                    onClick={() => handleAddWishlist(product)}
+                    className="cursor-pointer flex h-[52px] w-[52px] items-center justify-center rounded-lg border border-gray-300 dark:border-gray-600 text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors">
                     <span className="material-symbols-outlined">favorite</span>
                 </button>
             </div>

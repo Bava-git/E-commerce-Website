@@ -14,8 +14,8 @@ export const products = [
         name: 'Khapara Black Shoe',
         brand: "Khapara",
         tagline: 'Elegance in every step.',
-        price: generateInteger(10000),
-        reviewCount: generateInteger(10000),
+        price: generateInteger(1000),
+        reviewCount: generateInteger(1000),
         averageRating: generateOneDecimalUnder5(),
         images: [
             { id: 1, href: "/shoe/blackshoe/shoe (1).png", alt: 'AngledView' },
@@ -40,7 +40,7 @@ export const products = [
         name: 'Khapara Blue Shoe',
         brand: "Khapara",
         tagline: 'Confidence crafted in every shoe.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -66,7 +66,7 @@ export const products = [
         name: 'Khapara Classic Bold Brown Shoe',
         brand: "Khapara",
         tagline: 'Timeless style, modern stride.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -92,7 +92,7 @@ export const products = [
         name: 'Khapara Classic Brown Shoe',
         brand: "Khapara",
         tagline: 'Walk bold, walk classic.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -118,7 +118,7 @@ export const products = [
         name: 'Khapara White Shoe',
         brand: "Khapara",
         tagline: 'Sophistication from heel to toe.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -144,7 +144,7 @@ export const products = [
         name: 'Khapara Red Shoe',
         brand: "Khapara",
         tagline: 'The power of the shoe, perfected.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -170,7 +170,7 @@ export const products = [
         name: 'Premium Watch',
         brand: "Premium",
         tagline: 'Crafted for those who lead.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -191,7 +191,7 @@ export const products = [
         name: 'Impex Battery Fan',
         brand: "Impex",
         tagline: 'Cool comfort, anywhere you go.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -210,7 +210,7 @@ export const products = [
         name: 'Tanco Premium Ladies Purse',
         brand: "Tanco",
         tagline: 'Carry elegance, carry yourself.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -228,7 +228,7 @@ export const products = [
         name: 'Kammee Black Neckband',
         brand: "Kammee",
         tagline: 'Style meets sound.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -247,7 +247,7 @@ export const products = [
         name: 'Kammee Sliver and Green Neckband',
         brand: "Kammee",
         tagline: 'Style meets sound.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -268,7 +268,7 @@ export const products = [
         name: 'Kammee Red Neckband',
         brand: "Kammee",
         tagline: 'Style meets sound.',
-        price: generateInteger(10000),
+        price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -284,3 +284,86 @@ export const products = [
 ];
 
 export const myWishlist = [];
+
+export const cartList = [
+    {
+        id: 1,
+        productId: 1,
+        color: "Black",
+        size: "s9",
+        quantity: 1,
+        name: "Khapara Black Shoe",
+        price: 6486,
+        image: "/shoe/blackshoe/shoe (1).png",
+    },
+    {
+        id: 2,
+        productId: 12,
+        color: "Red",
+        size: "",
+        quantity: 2,
+        name: "Kammee Red Neckband",
+        price: 5142,
+        image: "/nechband/blackNeckband/nechbandBlack (1).jpg",
+    },
+    {
+        id: 3,
+        productId: 7,
+        color: "Sliver",
+        size: "medium",
+        quantity: 4,
+        name: 'Premium Watch',
+        price: 150,
+        image: "/watch/watch (1).png",
+    },
+    {
+        id: 4,
+        productId: 8,
+        color: "Grey",
+        size: "",
+        quantity: 1,
+        name: 'Impex Battery Fan',
+        price: 600,
+        image: "/fan/batteryBlueFan/batteryFan (1).jpg",
+    },
+    {
+        id: 5,
+        productId: 1,
+        color: "Black",
+        size: "s9",
+        quantity: 1,
+        name: "Khapara Black Shoe",
+        price: 6486,
+        image: "/shoe/blackshoe/shoe (1).png",
+    },
+    {
+        id: 6,
+        productId: 12,
+        color: "Red",
+        size: "",
+        quantity: 2,
+        name: "Kammee Red Neckband",
+        price: 5142,
+        image: "/nechband/blackNeckband/nechbandBlack (1).jpg",
+    },
+    {
+        id: 7,
+        productId: 7,
+        color: "Sliver",
+        size: "medium",
+        quantity: 4,
+        name: 'Premium Watch',
+        price: 150,
+        image: "/watch/watch (1).png",
+    },
+    {
+        id: 8,
+        productId: 8,
+        color: "Grey",
+        size: "",
+        quantity: 1,
+        name: 'Impex Battery Fan',
+        price: 600,
+        image: "/fan/batteryBlueFan/batteryFan (1).jpg",
+    },
+];

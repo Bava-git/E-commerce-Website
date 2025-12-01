@@ -8,22 +8,18 @@ import LoginPage from './LoginPage'
 import MyOrdersPage from './MyOrdersPage'
 import OrderConfirmationPage from './OrderConfirmationPage'
 import OrderReviewPage from './OrderReviewPage'
-import ProductListingPage from './ProductListingPage'
 import ShipmentTrackingPage from './ShipmentTrackingPage'
 import ShoppingCartPage from './ShoppingCartPage'
-import WishlistPage from './WishlistPage'
 
 const AllScreens = () => {
     return (
         <>
-            <WishlistPage />
-            <ShoppingCartPage />
-            <ProductListingPage />
-            <CheckoutShippingMethodPage />
+            {/* <ShoppingCartPage /> */}
             <CheckoutShippingInfoPage />
-            <OrderConfirmationPage />
+            <CheckoutShippingMethodPage />
             <CheckoutPaymentPage />
             <OrderReviewPage />
+            <OrderConfirmationPage />
             <MyOrdersPage />
             <LoginPage />
             <CreateAccountPage />

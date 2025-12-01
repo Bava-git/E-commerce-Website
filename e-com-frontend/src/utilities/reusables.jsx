@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 export const safeSortAscending = (array, identifier) => {
     if (!Array.isArray(array) || array.length === 0) {
         return [];
@@ -77,18 +79,17 @@ export const delFromArray = (array, identifier, selectedId) => {
         return [];
     }
 
-    const returnArray = array.filter(item => item?.[identifier] !== selectedId);
+    const returnArray = array.filter(item => String(item?.[identifier]) !== String(selectedId));
     return returnArray;
 };
 
-export const Pagenation = ({ data, ItemPerPage, setTableData, setCountOfItem }) => {
+export const Pagination = ({ data, ItemPerPage, setTableData }) => {
 
     let CurrentPage = 0;
     const [buttons, setButtons] = useState([]);
 
     useEffect(() => {
         loadPage(data, 0);
-        setCountOfItem(data?.length ?? 0);
     }, [data, ItemPerPage]);
 
     const loadPage = (data, pageno) => {
@@ -115,32 +116,39 @@ export const Pagenation = ({ data, ItemPerPage, setTableData, setCountOfItem }) 
     const pagenation = (data) => {
         let NoOfPages = Math.ceil(data?.length / ItemPerPage);
         const allButtons = [
-            <a key="previous" className='pagination-item' onClick={() => {
+            <a key="previous" className='flex size-10 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-primary' onClick={() => {
                 if (CurrentPage === 0) {
                     return;
                 }
                 CurrentPage--;
                 loadPage(data, CurrentPage);
-            }}>Previous</a>,
-            <a key="first" className={CurrentPage === 0 ? "pagination-item pagination-active" : "pagination-item"} onClick={() => {
-                CurrentPage = 0;
-                loadPage(data, CurrentPage);
-            }
-            }> First</a>,
+            }}>
+                <span className="material-symbols-outlined">chevron_left</span>
+            </a>,
+            // <a key="first" className={CurrentPage === 0 ? "pagination-item pagination-active" : "pagination-item"} onClick={() => {
+            //     CurrentPage = 0;
+            //     loadPage(data, CurrentPage);
+            // }
+            // }> First</a>,
         ];
         for (let i = 2; i < NoOfPages; i++) {
             allButtons.push(
-                <a key={i} className={CurrentPage === (i - 1) ? "pagination-item pagination-active" : "pagination-item"} onClick={() => {
-                    CurrentPage = (i - 1);
-                    loadPage(data, (i - 1));
-                }}>{i}</a>);
+                <a key={i}
+                    className={`text-sm leading-normal flex size-10 items-center justify-center rounded-full transition-colors ${CurrentPage === (i - 1)
+                        ? 'font-bold text-white bg-primary'
+                        : 'font-normal text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-800/80'
+                        }`}
+                    onClick={() => {
+                        CurrentPage = (i - 1);
+                        loadPage(data, (i - 1));
+                    }}>{i}</a>);
         }
         allButtons.push(
-            <a key="last" className={CurrentPage === (NoOfPages - 1) ? "pagination-item pagination-active" : "pagination-item"} onClick={() => {
-                CurrentPage = NoOfPages - 1
-                loadPage(data, (NoOfPages - 1));
-            }}>Last</a>,
-            <a key="next" className='pagination-item' onClick={() => {
+            // <a key="last" className={CurrentPage === (NoOfPages - 1) ? "pagination-item pagination-active" : "pagination-item"} onClick={() => {
+            //     CurrentPage = NoOfPages - 1
+            //     loadPage(data, (NoOfPages - 1));
+            // }}>Last</a>,
+            <a key="next" className='flex size-10 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-primary' onClick={() => {
                 if (CurrentPage === (NoOfPages - 1)) {
                     return;
                 }

@@ -1,26 +1,5 @@
 import React, { useState } from 'react';
 
-// --- Placeholder Components ---
-
-const Header = () => (
-    <header className="w-full border-b border-border-light dark:border-border-dark bg-neutral-light dark:bg-neutral-dark/50">
-        <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between whitespace-nowrap py-4">
-                <div className="flex items-center gap-3">
-                    <svg className="size-6 text-text-light dark:text-text-dark" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
-                    </svg>
-                    <h2 className="text-lg font-bold tracking-tight">Checkout</h2>
-                </div>
-                <div className="flex items-center gap-4">
-                    <a className="text-sm font-medium text-text-muted-light dark:text-text-muted-dark hover:text-text-light dark:hover:text-text-dark" href="#">Need help?</a>
-                    <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBi-tWWTU0Gj0ZCL8HBosQhfHXxmG785dFGqd8Q63g-nSYHBQd0x59Ebq6FpoLQKD6QnWB4cK1Z2MI4q7P_EYL9Lh8cJ6vPWVd8U0JDbOyzCdkAyY61wwYoLDBKwyQKElPQ4a1hIbD_WMHOmEChkJ2A3N-wUEzI6n1Cl4SHXy7oJImNpXbi-xGlSlra6Meii2GQtNunzxN6sSncyp_ZvwdQ8QZ_W8TrZWF1r9BTVsI-UcSl5uUkZvDwL4s0RxtjguUE2eRkmAguQPI')" }}></div>
-                </div>
-            </div>
-        </div>
-    </header>
-);
-
 // Utility to simulate image URLs
 const getImageUrl = (id) => `https://images.unsplash.com/photo-1595341144933-66236b282d8c?q=80&w=2787&auto=format&fit=crop&id=${id}`;
 
@@ -49,8 +28,8 @@ const ShippingMethodOption = ({ option, isSelected, onSelect }) => {
     return (
         <label
             className={`flex cursor-pointer items-start gap-4 rounded-xl p-4 ring-offset-background-light dark:ring-offset-background-dark focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 transition-all ${isSelected
-                    ? 'border-2 border-primary bg-primary/5 dark:bg-primary/10'
-                    : 'border border-border-light dark:border-border-dark bg-neutral-light dark:bg-neutral-dark'
+                ? 'border-2 border-primary bg-primary/5 dark:bg-primary/10'
+                : 'border border-border-light dark:border-border-dark bg-neutral-light dark:bg-neutral-dark'
                 }`}
         >
             <input
@@ -148,21 +127,12 @@ const CheckoutShippingMethodPage = () => {
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark min-h-screen">
             <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-                <Header />
                 <main className="flex-1">
                     <div className="container mx-auto px-4 py-8 md:py-12">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-12">
                             {/* Left Column: Shipping Method Selection */}
                             <div className="lg:col-span-2">
                                 <div className="flex flex-col gap-8">
-                                    {/* Breadcrumbs */}
-                                    <div className="flex flex-wrap items-center gap-2">
-                                        <a className="text-text-muted-light dark:text-text-muted-dark text-sm font-medium" href="#">Shipping Info</a>
-                                        <span className="material-symbols-outlined text-text-muted-light dark:text-text-muted-dark text-lg">chevron_right</span>
-                                        <span className="text-text-light dark:text-text-dark text-sm font-bold">Shipping Method</span>
-                                        <span className="material-symbols-outlined text-text-muted-light dark:text-text-muted-dark text-lg">chevron_right</span>
-                                        <span className="text-text-muted-light dark:text-text-muted-dark text-sm font-medium">Payment</span>
-                                    </div>
 
                                     {/* Page Heading */}
                                     <h1 className="text-3xl lg:text-4xl font-black tracking-tighter">Choose a Delivery Option</h1>
@@ -200,7 +170,6 @@ const CheckoutShippingMethodPage = () => {
                         </div>
                     </div>
                 </main>
-                {/* Footer component would typically go here */}
             </div>
         </div>
     );

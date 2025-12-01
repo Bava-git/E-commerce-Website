@@ -1,5 +1,15 @@
-export const Header = ({ links }) => (
-    <header>
+import { useEffect } from "react";
+import { cartList } from "./utilities/rawData";
+
+export const Header = ({ links }) => {
+
+    let cartItemCount = cartList?.length;
+
+    useEffect(() => {
+        cartItemCount = cartList?.length;
+    }, [cartList])
+
+    return (<header>
         <div className="z-50 flex items-center justify-center whitespace-nowrap border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
             <div className="flex items-center justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
                 <div className="flex items-center gap-8">
@@ -22,12 +32,16 @@ export const Header = ({ links }) => (
                     <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
                         <span className="truncate">Sign In</span>
                     </button>
-                    <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    <button
+                        onClick={() => window.location.href = "/wishlist"}
+                        className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                         <span className="material-symbols-outlined text-xl">favorite</span>
                     </button>
-                    <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    <button
+                        onClick={() => window.location.href = "/cart"}
+                        className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                         <span className="material-symbols-outlined text-xl">shopping_cart</span>
-                        <span className="absolute top-0 right-12 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white text-xs font-bold">3</span>
+                        <span className="absolute top-0 right-12 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white text-xs font-bold">{cartItemCount}</span>
                     </button>
                     <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                         <span className="material-symbols-outlined text-xl">person</span>
@@ -46,8 +60,8 @@ export const Header = ({ links }) => (
                 ))}
             </div>
         }
-    </header>
-);
+    </header>)
+};
 
 export const Footer = () => (
     <footer className="w-full bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
