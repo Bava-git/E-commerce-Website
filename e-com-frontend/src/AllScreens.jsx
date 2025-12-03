@@ -1,6 +1,6 @@
-import CheckoutPaymentPage from './CheckoutPaymentPage'
+// import CheckoutPaymentPage from './components/bin/CheckoutPaymentPage'
 import CheckoutShippingInfoPage from './CheckoutShippingInfoPage'
-import CheckoutShippingMethodPage from './CheckoutShippingMethodPage'
+// import CheckoutShippingMethodPage from './components/bin/CheckoutShippingMethodPage'
 import CreateAccountPage from './CreateAccountPage'
 import CustomerDashboard from './CustomerDashboard'
 import GiftCardPurchasePage from './GiftCardPurchasePage'
@@ -15,9 +15,9 @@ const AllScreens = () => {
     return (
         <>
             {/* <ShoppingCartPage /> */}
-            <CheckoutShippingInfoPage />
-            <CheckoutShippingMethodPage />
-            <CheckoutPaymentPage />
+            {/* <CheckoutShippingInfoPage /> */}
+            {/* <CheckoutShippingMethodPage /> */}
+            {/* <CheckoutPaymentPage /> */}
             <OrderReviewPage />
             <OrderConfirmationPage />
             <MyOrdersPage />

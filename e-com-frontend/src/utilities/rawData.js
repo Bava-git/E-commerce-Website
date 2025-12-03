@@ -14,7 +14,7 @@ export const products = [
         name: 'Khapara Black Shoe',
         brand: "Khapara",
         tagline: 'Elegance in every step.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(1000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -40,7 +40,7 @@ export const products = [
         name: 'Khapara Blue Shoe',
         brand: "Khapara",
         tagline: 'Confidence crafted in every shoe.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -66,7 +66,7 @@ export const products = [
         name: 'Khapara Classic Bold Brown Shoe',
         brand: "Khapara",
         tagline: 'Timeless style, modern stride.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -92,7 +92,7 @@ export const products = [
         name: 'Khapara Classic Brown Shoe',
         brand: "Khapara",
         tagline: 'Walk bold, walk classic.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -118,7 +118,7 @@ export const products = [
         name: 'Khapara White Shoe',
         brand: "Khapara",
         tagline: 'Sophistication from heel to toe.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -144,7 +144,7 @@ export const products = [
         name: 'Khapara Red Shoe',
         brand: "Khapara",
         tagline: 'The power of the shoe, perfected.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -170,7 +170,7 @@ export const products = [
         name: 'Premium Watch',
         brand: "Premium",
         tagline: 'Crafted for those who lead.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -191,7 +191,7 @@ export const products = [
         name: 'Impex Battery Fan',
         brand: "Impex",
         tagline: 'Cool comfort, anywhere you go.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -210,7 +210,7 @@ export const products = [
         name: 'Tanco Premium Ladies Purse',
         brand: "Tanco",
         tagline: 'Carry elegance, carry yourself.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -228,7 +228,7 @@ export const products = [
         name: 'Kammee Black Neckband',
         brand: "Kammee",
         tagline: 'Style meets sound.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -247,7 +247,7 @@ export const products = [
         name: 'Kammee Sliver and Green Neckband',
         brand: "Kammee",
         tagline: 'Style meets sound.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -268,7 +268,7 @@ export const products = [
         name: 'Kammee Red Neckband',
         brand: "Kammee",
         tagline: 'Style meets sound.',
-        price: generateInteger(1000),
+        price: generateInteger(100),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
         images: [
@@ -367,3 +367,17 @@ export const cartList = [
         image: "/fan/batteryBlueFan/batteryFan (1).jpg",
     },
 ];
+
+export const shippingInfo = [];
+
+export const paymentInfo = {
+    card: {
+        name: "",
+        cardNumber: "",
+        expirationDate: "",
+        ccv: "",
+    },
+    upi: {
+        upiId: ""
+    },
+};

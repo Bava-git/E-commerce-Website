@@ -89,9 +89,8 @@ const ShoppingCartPage = () => {
         item.price = tempProduct.price;
     });
 
-    // Calculation Logic (Based on the mock data in the original HTML)
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const DeliveryFee = (subtotal > 100 || subtotal === 0) ? 0 : 40; // 8% tax rate inferred from HTML: (205 + 5 + 16.40 = 226.40, 16.40/205 = 0.08)
+    const DeliveryFee = (subtotal > 100 || subtotal === 0) ? 0 : 40;
     const marketPlaceFee = (subtotal === 0) ? 0 : 5;
     const total = Math.round(subtotal + marketPlaceFee + DeliveryFee);
 

@@ -108,7 +108,13 @@ export const Footer = () => (
                         <h5 className="font-bold text-slate-900 dark:text-slate-50 mb-4">Newsletter</h5>
                         <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">Get 10% off your first order.</p>
                         <form className="flex">
-                            <input className="form-input w-full rounded-l-md border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100 focus:ring-primary focus:border-primary" placeholder="Your Email" type="email" />
+                            <input
+                                className="form-input w-full rounded-l-md border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100 focus:ring-primary focus:border-primary"
+                                placeholder="Your Email"
+                                autoComplete="email"
+                                name="newsletter-email"
+                                id="newsletter-email"
+                                type="email" />
                             <button className="bg-primary text-white p-2 rounded-r-md hover:bg-primary/90">
                                 <span className="material-symbols-outlined text-xl">arrow_forward</span>
                             </button>

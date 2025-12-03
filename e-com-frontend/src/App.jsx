@@ -5,14 +5,11 @@ import { Toaster } from 'sonner';
 
 import './App.css'
 
-import HomePage from './HomePage'
 import ProductListingPage from './ProductListingPage'
 import ShoppingCartPage from './ShoppingCartPage'
 import ProductPage from './ProductPage'
-import CheckoutShippingMethodPage from './CheckoutShippingMethodPage'
 import CheckoutShippingInfoPage from './CheckoutShippingInfoPage'
 import OrderConfirmationPage from './OrderConfirmationPage'
-import CheckoutPaymentPage from './CheckoutPaymentPage'
 import OrderReviewPage from './OrderReviewPage'
 import MyOrdersPage from './MyOrdersPage'
 import LoginPage from './LoginPage'
@@ -22,8 +19,13 @@ import WishlistPage from './WishlistPage'
 import ShipmentTrackingPage from './ShipmentTrackingPage'
 import GiftCardPurchasePage from './GiftCardPurchasePage'
 
+// Bin -----------------------------------------------------------------------------
+// import CheckoutShippingMethodPage from './components/bin/CheckoutShippingMethodPage'
+// import CheckoutPaymentPage from './components/bin/CheckoutPaymentPage'
+
 // General -----------------------------------------------------------------------------
 import { Header, Footer } from './HeaderAndFooter'
+import HomePage from './HomePage'
 import ReturnsAndShippingPage from './components/general/ReturnsAndShippingPage'
 import HelpCenterPage from './components/general/HelpCenterPage'
 import AboutUsPage from './components/general/AboutUsPage'
@@ -60,7 +62,6 @@ function App() {
           {/* NOT-READY */}
           <Route path='/checkout' element={<CheckoutShippingInfoPage />} />
           <Route path='/productlist' element={<ProductListingPage />} />
-          <Route path='/products' element={<CheckoutShippingMethodPage />} />
           {/* <CheckoutShippingMethodPage />
           <CheckoutShippingInfoPage />
           <OrderConfirmationPage />
