@@ -1,19 +1,38 @@
 import { useEffect, useState } from 'react';
-import { myWishlist } from './utilities/rawData';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+import { myWishlist, cartList } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
 import { Pagination } from './utilities/reusables';
-import { useNavigate } from 'react-router-dom';
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 const handleDeleteWishlist = (id) => {
-    console.log(myWishlist);
     connectTo.delFromArray(myWishlist, "id", id);
-    window.location.href = "/wishlist"
+    window.location.href = "/cart"
 };
 
 const handleWishlistProducts = (id) => {
-    window.location.href = `/product?id=${id}`
-}
+    window.location.href = `/product?id=${id}`;
+};
+
+const handleAddCart = (product) => {
+    const cartItem = {
+        id: cartList?.length + 1,
+        productId: product?.id,
+        name: product?.name,
+        price: product?.price,
+        image: product?.image,
+        color: product?.color,
+        size: product?.size || "",
+        quantity: 1,
+    }
+    connectTo.addToArray(cartList, cartItem);
+    toast.success("Product added in cart");
+    handleDeleteWishlist(product.id);
+};
 
 // --- Sub-Components ---
 const WishlistItemCard = ({ item }) => (
@@ -21,11 +40,10 @@ const WishlistItemCard = ({ item }) => (
         <div
             className="relative w-full bg-center bg-no-repeat aspect-square bg-cover cursor-pointer"
             data-alt={item.name}
-            style={{ backgroundImage: `url("${item.images[0].href}")` }}
-            onClick={() => handleWishlistProducts(item.id)}
+            style={{ backgroundImage: `url("${item.image}")` }}
         >
             <button
-                onClick={() => handleDeleteWishlist()}
+                onClick={() => handleDeleteWishlist(item.id)}
                 className="cursor-pointer absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="material-symbols-outlined">delete</span>
             </button>
@@ -39,7 +57,9 @@ const WishlistItemCard = ({ item }) => (
             </div>
             <div className="flex items-center justify-between">
                 <p className="text-slate-900 dark:text-white text-lg font-bold">₹{item.price}</p>
-                <button className="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary text-white gap-2 text-sm font-bold min-w-0 px-4 hover:bg-primary/90 transition-colors">
+                <button
+                    onClick={() => handleAddCart(item)}
+                    className="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary text-white gap-2 text-sm font-bold min-w-0 px-4 hover:bg-primary/90 transition-colors">
                     <span>Add to Cart</span>
                 </button>
             </div>

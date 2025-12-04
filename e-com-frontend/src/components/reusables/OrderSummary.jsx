@@ -1,15 +1,16 @@
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-export const OrderSummary = ({ orderPrices, disableCheckout, isPaymentPage }) => {
+export const OrderSummary = ({ orderPrices, isPage, handleFinalProcess, handlePromoPercentage }) => {
 
     const Navigate = useNavigate();
     const { subtotal, deliveryFee, marketPlaceFee, total } = orderPrices;
     const deliveryText = (deliveryFee === 0) ? Number(40).toFixed(2) : Number(100).toFixed(2)
-
+    const [promoCode, setPromoCode] = useState('');
 
     return (
         <div className="lg:col-span-1">
-            <div className="sticky top-24 md:mt-28">
+            <div className="sticky top-24 md:mt-33">
                 <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 flex flex-col gap-6">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">Order Summary</h3>
 
@@ -36,16 +37,24 @@ export const OrderSummary = ({ orderPrices, disableCheckout, isPaymentPage }) =>
                     }
 
                     {/* Promo Code */}
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5" htmlFor="promo-code">Promo Code</label>
-                        <div className="flex gap-2">
-                            <input
-                                autoComplete="off"
-                                className="flex-grow block w-full rounded-md border-slate-300 dark:border-slate-700 shadow-sm focus:border-primary focus:ring-primary text-sm bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-                                id="promo-code" placeholder="Enter code" type="text" />
-                            <button className="px-4 py-2 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-sm font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-300/80 dark:hover:bg-slate-700/80 transition-colors">Apply</button>
+                    {isPage.isReviewPage &&
+                        <div>
+                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5" htmlFor="promo-code">Promo Code</label>
+                            <div className="flex gap-2">
+                                <input
+                                    autoComplete="off"
+                                    className="flex-grow block w-full rounded-md border-slate-300 dark:border-slate-700 shadow-sm focus:border-primary focus:ring-primary text-sm bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                                    id="promo-code" placeholder="Enter code" type="text"
+                                    onChange={(e) => setPromoCode(e.target.value)}
+                                />
+                                <button
+                                    onClick={() => handlePromoPercentage(promoCode)}
+                                    className="cursor-pointer px-4 py-2 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-sm font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-300/80 dark:hover:bg-slate-700/80 transition-colors">
+                                    Apply
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    }
 
                     {/* Grand Total */}
                     <div className="flex justify-between items-center border-t border-gray-200 dark:border-gray-800 pt-4">
@@ -54,7 +63,7 @@ export const OrderSummary = ({ orderPrices, disableCheckout, isPaymentPage }) =>
                     </div>
 
                     {/* CTAs */}
-                    {disableCheckout &&
+                    {isPage.isCheckoutPage &&
                         <div className="flex flex-col gap-4 mt-2">
                             <button
                                 onClick={() => Navigate("/checkout")}
@@ -69,7 +78,7 @@ export const OrderSummary = ({ orderPrices, disableCheckout, isPaymentPage }) =>
                     }
 
                     {/* Security Info */}
-                    {isPaymentPage &&
+                    {isPage.isPaymentPage &&
                         <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400 mt-2">
                             <span className="material-symbols-outlined text-base!">lock</span>
                             <p className="text-xs font-medium">Secure payments by Stripe</p>
@@ -77,13 +86,18 @@ export const OrderSummary = ({ orderPrices, disableCheckout, isPaymentPage }) =>
                     }
 
                     {/* Primary CTA Button */}
-                    <button className="w-full flex items-center justify-center gap-2 h-12 px-6 bg-primary text-white rounded-lg text-base font-bold hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark">
-                        <span className="material-symbols-outlined text-xl">lock</span>
-                        Place Order
-                    </button>
+                    {isPage.isReviewPage &&
+                        <>
+                            <button
+                                onClick={() => handleFinalProcess()}
+                                className="cursor-pointer w-full flex items-center justify-center gap-2 h-12 px-6 bg-primary text-white rounded-lg text-base font-bold hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark">
+                                <span className="material-symbols-outlined text-xl">orders</span>
+                                Place Order
+                            </button>
 
-                    <p className="text-xs text-slate-500 dark:text-slate-400 text-center">By placing your order, you agree to our Terms of Service and Privacy Policy.</p>
-
+                            <p className="text-xs text-slate-500 dark:text-slate-400 text-center">By placing your order, you agree to our Terms of Service and Privacy Policy.</p>
+                        </>
+                    }
                 </div>
             </div>
         </div>

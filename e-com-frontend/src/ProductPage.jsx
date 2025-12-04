@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 import { products, myWishlist, cartList } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 const ProductPage = () => {
 
@@ -46,7 +51,8 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const ProductInfoTabs = () => {
     // In a real app, this would be stateful and switch content based on the active tab
     const tabs = ['Description', 'Specifications', 'Shipping & Returns'];
@@ -96,9 +102,8 @@ const ProductInfoTabs = () => {
         </div>
     );
 };
-
-const getImageUrl = (id) => `https://images.unsplash.com/photo-1542496658-e3d8f6d14876?q=80&w=2940&auto=format&fit=crop&id=${id}`;
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const ProductGallery = ({ images }) => {
     // In a real application, you'd manage the selected image index here
     const [selectedImageId, setSelectedImageId] = useState(images[0]?.id);
@@ -134,7 +139,8 @@ const ProductGallery = ({ images }) => {
         </div>
     );
 };
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const ProductDetails = ({ product, allProducts, setProductId }) => {
 
     const [quantity, setQuantity] = useState(1);
@@ -149,12 +155,21 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
     };
 
     const handleAddWishlist = (product) => {
-        connectTo.addToArray(myWishlist, product);
-        Navigate(`/wishlist?id=${product.id}`);
+        const wishlistItem = {
+            id: myWishlist?.length + 1,
+            productId: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.images[0].href,
+            color: selectedColor,
+            size: selectedSize || "",
+        }
+        connectTo.addToArray(myWishlist, wishlistItem);
+        toast.success("Product added in wishlist");
+        Navigate("/wishlist")
     };
 
     const handleAddCart = (product) => {
-        console.log(selectedSize);
         const cartItem = {
             id: cartList?.length + 1,
             productId: product.id,
@@ -166,7 +181,7 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
             quantity
         }
         connectTo.addToArray(cartList, cartItem);
-        console.log(cartList);
+        toast.success("Product added in cart");
     };
 
     return (
@@ -283,12 +298,14 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
         </div>
     );
 };
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const reviews = [
     { id: 1, name: 'Sarah L.', rating: 5, comment: "Absolutely stunning watch! The quality is top-notch and it looks even better in person. I've received so many compliments on it.", avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBTaE6RxuvoENwHaMNhnqPmUhvgSRjqxh0ZwliYOmk2HzvDeCQ1bGZYRyaj3dpmqs-9hhSzwmadNH4vA9Umitu_P65pMyj2nmZLb3i1oWCJhBWfwCKEMnQAZI3UitQX15Z64NDsXYZuvLWks6n4JVK1d1nQXTykn3URHt_nXcY6zR7JZ04_4tCR7aPmkDxaPdk4Qx-_UJ_lmXGxRsubsRP2Sov0DnqPofpVC73hel4KgWTb87HyMQYP3e82Fi3yMaXhjoLUL-GgrRI' },
     { id: 2, name: 'Mark C.', rating: 4, comment: "Great watch for the price. The leather is a bit stiff at first but softens up nicely. Very happy with my purchase.", avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDrlbxrYt6y-rmPfxN0bxHaWO-jhrUp6IDUrH5XXYB09xad0buEuQ9gC3_GehAaj_sUzs0H36o1OAoXHOkBS2kYIXktTy_sX6mhPqUCAUIaQbR6D0uRasn8nRBU26ZyCCF_JJvJvNiMul3lok1tjHLEY4uSYmimmBDZGWc6-DMqQ_axqRFW4XRjRF-ScaRoY5RfajpfbV4rJi4eM0B25-u4b4Ox5gbylj9meuoA19SLJhG6Wu0p5gbMhK_uKn2sglbDFBxoIZ4fKHg' },
 ];
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -306,7 +323,8 @@ const renderStars = (rating) => {
         </div>
     );
 };
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const ReviewSection = ({ averageRating, totalReviews }) => {
     return (
         <div className="pt-12" id="reviews">

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 
 export const safeSortAscending = (array, identifier) => {
     if (!Array.isArray(array) || array.length === 0) {
@@ -12,7 +13,6 @@ export const safeSortAscending = (array, identifier) => {
         return 0;
     });
 };
-
 
 export const safeSortDescending = (array, identifier) => {
     if (!Array.isArray(array) || array.length === 0) {
@@ -165,4 +165,16 @@ export const Pagination = ({ data, ItemPerPage, setTableData }) => {
         </nav>
     )
 
+};
+
+export const CopyButton = async (textToCopy) => {
+    try {
+        await navigator.clipboard.writeText(textToCopy);
+        toast.success("Copied!");
+        return true;
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+        alert('Failed to copy text. Please copy manually.');
+        return false;
+    }
 };

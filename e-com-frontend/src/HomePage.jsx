@@ -1,12 +1,26 @@
-import { useNavigate } from 'react-router-dom';
-import { products } from './utilities/rawData';
+import { toast } from "sonner";
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+import { cartList, products } from './utilities/rawData';
+import * as connectTo from './utilities/reusables';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 export default function HomePage() {
 
-    const Navigate = useNavigate();
-
-    const handleRedirection = (id) => {
-        Navigate(`/product?id=${id}`)
+    const handleAddCart = (product) => {
+        const cartItem = {
+            id: cartList?.length + 1,
+            productId: product?.id,
+            name: product?.name,
+            price: product?.price,
+            image: product?.images[0].href,
+            color: product?.color.name,
+            size: product?.sizes[0].value ?? "",
+            quantity: 1,
+        }
+        connectTo.addToArray(cartList, cartItem);
+        toast.success("Product added in cart");
     };
 
     return (
@@ -45,20 +59,35 @@ export default function HomePage() {
                                             <div
                                                 key={product.id}
                                                 className="flex flex-1 flex-col gap-4 rounded-xl bg-white dark:bg-slate-900/50 shadow-sm min-w-64 cursor-pointer"
-                                                onClick={() => handleRedirection(product.id)}>
-                                                <div className="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl flex flex-col"
+                                            >
+                                                <a
+                                                    href={`/product?id=${product.id}`}
+                                                    className="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl flex flex-col"
                                                     style={{ backgroundImage: `url("${product?.images[0].href}")` }}>
-                                                </div>
+                                                </a>
                                                 <div className="flex flex-col flex-1 justify-between max-h-xl p-4 pt-0 gap-4">
                                                     <div>
-                                                        <p className="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal">
-                                                            {product.name}
+                                                        <a
+                                                            href={`/product?id=${product?.id}`}
+                                                            className="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal hover:underline">
+                                                            {product?.name}
+                                                        </a>
+                                                        <p className="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
+                                                            ₹{product?.price}
                                                         </p>
                                                         <p className="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
-                                                            ₹{product.price}
+                                                            <strong className="text-gray-300">Color:</strong> {product?.color?.name}
+                                                            {product?.sizes?.length !== 0 && (
+                                                                <>
+                                                                    {" "}
+                                                                    <strong className="text-gray-300">Size:</strong> {product?.sizes[0]?.label}
+                                                                </>
+                                                            )}
                                                         </p>
                                                     </div>
-                                                    <button className="flex min-w-[84px] w-full max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary hover:text-white transition-colors">
+                                                    <button
+                                                        onClick={() => handleAddCart(product)}
+                                                        className="flex min-w-[84px] w-full max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary hover:text-white transition-colors">
                                                         <span className="truncate">Add to Cart</span>
                                                     </button>
                                                 </div>

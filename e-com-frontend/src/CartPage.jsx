@@ -1,10 +1,13 @@
 import { useState } from 'react';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 import { cartList, products } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
 import { OrderSummary } from './components/reusables/OrderSummary';
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const CartItem = ({ product, onDelete, onUpdateQuantity }) => {
-    // Note: In a real app, product details would come from props/state
+
     const { id, name, color, size, price, quantity, image } = product;
     const details = `Color: ${color} ${size ? `\nSize : ${size}` : ""}`;
     const itemTotal = price * quantity;
@@ -90,16 +93,17 @@ const ShoppingCartPage = () => {
     });
 
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const DeliveryFee = (subtotal > 100 || subtotal === 0) ? 0 : 40;
+    const deliveryFee = (subtotal > 100 || subtotal === 0) ? 0 : 40;
     const marketPlaceFee = (subtotal === 0) ? 0 : 5;
-    const total = Math.round(subtotal + marketPlaceFee + DeliveryFee);
+    const total = Math.round(subtotal + marketPlaceFee + deliveryFee);
+    const orderPrices = { subtotal, deliveryFee, marketPlaceFee, total };
 
     return (
         <div className="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
             <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root">
 
                 {/* Main Content Area */}
-                <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 grow">
+                <main className="container w-full flex flex-col px-4 sm:px-6 lg:px-8 py-8 md:py-12 grow">
                     {/* Breadcrumbs & Heading */}
                     <div className="mb-8">
                         <div className="flex flex-wrap justify-between gap-3">
@@ -108,10 +112,10 @@ const ShoppingCartPage = () => {
                     </div>
 
                     {/* Two-Column Layout */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                    <div className="flex justify-around">
                         {/* Left Column: Cart Items */}
-                        <div className="lg:col-span-2">
-                            <div className="flex flex-col gap-px rounded-xl bg-gray-200 dark:bg-gray-800 overflow-hidden shadow-sm">
+                        <div className="lg:col-span-2 h-10">
+                            <div className="overflow-y-auto h-150 flex flex-col gap-px rounded-xl bg-gray-200 dark:bg-gray-800 overflow-hidden shadow-sm">
                                 {cartItems.map(item => (
                                     <CartItem
                                         key={item.id}
@@ -124,13 +128,15 @@ const ShoppingCartPage = () => {
                         </div>
 
                         {/* Right Column: Order Summary */}
-                        <OrderSummary
-                            subtotal={subtotal}
-                            deliveryFee={DeliveryFee}
-                            marketPlaceFee={marketPlaceFee}
-                            total={total}
-                            disableCheckout={true}
-                        />
+                        <div>
+                            <OrderSummary
+                                orderPrices={orderPrices}
+                                isPage={{
+                                    isCheckoutPage: true,
+                                }}
+                            />
+                        </div>
+
                     </div>
                 </main>
 

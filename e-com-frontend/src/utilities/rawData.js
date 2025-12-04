@@ -368,16 +368,20 @@ export const cartList = [
     },
 ];
 
-export const shippingInfo = [];
+export const shippingInfo = [
+    {
+        id: 1,
+        name: 'Alex Thompson',
+        address: ['123 Maple Street, Apt 4B', 'Springfield, IL, 62704', 'United States'],
+    },
+];
 
-export const paymentInfo = {
-    card: {
-        name: "",
-        cardNumber: "",
-        expirationDate: "",
-        ccv: "",
-    },
-    upi: {
-        upiId: ""
-    },
-};
+export const paymentInfo = [];
+
+export const promoCodes = [
+    { code: "FIRST20", percentage: 0.20 },
+    { code: "SECOND10", percentage: 0.10 },
+    { code: "DIWALI15", percentage: 0.15 }
+];
+
+export const totalSummarys = [];
