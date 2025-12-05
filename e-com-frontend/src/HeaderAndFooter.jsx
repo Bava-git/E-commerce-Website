@@ -1,13 +1,15 @@
 import { useEffect } from "react";
-import { cartList } from "./utilities/rawData";
+import { cartList, myWishlist } from "./utilities/rawData";
 
 export const Header = ({ links }) => {
 
     let cartItemCount = cartList?.length;
+    let wishlistItemCount = myWishlist?.length;
 
     useEffect(() => {
         cartItemCount = cartList?.length;
-    }, [cartList])
+        wishlistItemCount = myWishlist?.length;
+    }, [cartList, myWishlist])
 
     return (<header>
         <div className="z-50 flex items-center justify-center whitespace-nowrap border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
@@ -36,6 +38,7 @@ export const Header = ({ links }) => {
                         onClick={() => window.location.href = "/wishlist"}
                         className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                         <span className="material-symbols-outlined text-xl">favorite</span>
+                        <span className="absolute top-0 right-25 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white text-xs font-bold">{wishlistItemCount}</span>
                     </button>
                     <button
                         onClick={() => window.location.href = "/cart"}
@@ -43,7 +46,9 @@ export const Header = ({ links }) => {
                         <span className="material-symbols-outlined text-xl">shopping_cart</span>
                         <span className="absolute top-0 right-12 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white text-xs font-bold">{cartItemCount}</span>
                     </button>
-                    <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    <button
+                        onClick={() => window.location.href = "/dashboard"}
+                        className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                         <span className="material-symbols-outlined text-xl">person</span>
                     </button>
                 </div>

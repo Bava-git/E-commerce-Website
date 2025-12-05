@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { totalSummarys } from './utilities/rawData';
 // --- Mock Data ---
 const mockOrders = [
     { id: '#10523', name: 'Modern Armchair', status: 'In Transit', date: 'Oct 31', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCXQ3Q0OI4Wfy2Df5wKq4peU1ndLnqp3QZX-aN0pl4fSSzj09vGTL7vvl7Xn3SxnQV_L3A7vQc5uqTP7zRVoC_3dXBundkTu1qO38mFFti-gnLrKWOIZCUB7OvgjEPTJ6YMzMazLHhSD4lMk_9zSHUL3SvisTJaYWZeFweoFhksHj3JyUCWTN5PkXCIJkB0BxnN2Ozd091GGVZgvE9NHKsJL7NF9nkuejEsybtyxLKQNWix4a4KwG-dRihFgoTMkBNmy0aq5-s-gpk', statusColor: 'amber', isSelected: true },
@@ -23,38 +23,8 @@ const trackingSteps = [
 ];
 
 // --- Sub-Components ---
-
-const TopNavBar = () => (
-    <header className="flex items-center justify-between whitespace-nowrap border-b border-gray-200 dark:border-gray-700 px-6 sm:px-10 lg:px-20 py-3 bg-white dark:bg-background-dark sticky top-0 z-10">
-        <div className="flex items-center gap-8">
-            <div className="flex items-center gap-3 text-gray-900 dark:text-white">
-                <span className="material-symbols-outlined text-primary text-3xl"> local_shipping </span>
-                <h2 className="text-lg font-bold leading-tight tracking-[-0.015em]">ShipTrackr</h2>
-            </div>
-            <nav className="hidden md:flex items-center gap-9">
-                <a className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Home</a>
-                <a className="text-primary dark:text-primary text-sm font-bold leading-normal" href="#">Orders</a>
-                <a className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Account</a>
-            </nav>
-        </div>
-        <div className="flex flex-1 justify-end items-center gap-4">
-            <div className="hidden sm:flex relative min-w-40 max-w-64">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"> search </span>
-                <input className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-gray-100 dark:bg-gray-800 h-10 placeholder:text-gray-500 dark:placeholder:text-gray-400 pl-10 pr-4 text-sm font-normal leading-normal" placeholder="Search orders..." type="text" />
-            </div>
-            <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 aspect-square bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
-                <span className="material-symbols-outlined text-xl"> notifications </span>
-            </button>
-            <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 aspect-square bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
-                <span className="material-symbols-outlined text-xl"> shopping_cart </span>
-            </button>
-            <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMEOq4smOXOBQ5VGCM3pGy4dKFI1LP12dRkGglLJ8md-YSwebeNwC6ggWtOFU1iZzYtNoQo01ryMNqRuuXGwb8uS6pj2veCdT-6IlzJvdm7H9MIUQnh_z0R-50c0Flhdv_xEHdhP-bUiHWqBX4Xl2kr-CsdmMwYLIJK2gM7eRAFS3sE6RcRu_FJjwdiX6DZdvIAfwRvUt0RmpNCYL4iUfL5vz1950w_JWfEnGrnGjcdGEhHSr0AOwtQmz8mCUzc2RRQX__PTAuKVg")' }}></div>
-        </div>
-    </header>
-);
-
 const OrderSidebar = ({ orders }) => (
-    <aside className="w-full lg:w-1/3 lg:max-w-sm flex-shrink-0">
+    <aside className="w-full lg:w-1/3 lg:max-w-sm shrink-0">
         <div className="flex flex-col gap-4 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 h-full">
             <div className="flex items-center justify-between">
                 <h1 className="text-gray-900 dark:text-white text-lg font-bold leading-normal">Current Shipments</h1>
@@ -78,7 +48,7 @@ const OrderSidebar = ({ orders }) => (
                                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusStyles[order.statusColor]}`}>{order.status}</span>
                                 </div>
                                 <p className="text-gray-700 dark:text-gray-300 text-sm font-medium">{order.name}</p>
-                                <p className="text-gray-500 dark:text-gray-400 text-xs">{order.status === 'Delivered' ? `Delivered: ${order.date}` : `Est. Delivery: ${order.date}`}</p>
+                                <p className="text-gray-500 dark:text-gray-400 text-xs">{order.status === 'Delivered' ? `Delivered: ${order.date}` : `Est. Delivery: ${order.eta}`}</p>
                             </div>
                         </div>
                     );
@@ -236,20 +206,20 @@ const MainTrackingContent = ({ selectedOrder }) => (
 // --- Main Page Component ---
 
 const ShipmentTrackingPage = () => {
-    const selectedOrder = mockOrders.find(o => o.isSelected) || mockOrders[0];
+
+    const getItemDetails = totalSummarys[0].items;
+
+    const selectedOrder = getItemDetails.find(o => o.isSelected) || getItemDetails[0];
 
     return (
         <div className="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
             <div className="relative flex h-auto min-h-screen w-full flex-col">
 
-                {/* Top Navigation Bar */}
-                <TopNavBar />
-
                 <main className="flex-grow w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl">
                     <div className="flex flex-col lg:flex-row gap-8 py-8">
 
                         {/* SideNavBar - Order List */}
-                        <OrderSidebar orders={mockOrders} />
+                        <OrderSidebar orders={getItemDetails} />
 
                         {/* Main Content Panel */}
                         <MainTrackingContent selectedOrder={selectedOrder} />

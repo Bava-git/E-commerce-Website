@@ -63,6 +63,7 @@ function App() {
           <Route path='/*' element={<NotFoundPage />} />
           {/* NOT-READY */}
           <Route path='/productlist' element={<ProductListingPage />} />
+          <Route path='/dashboard' element={<CustomerDashboard />} />
           {/* <CheckoutShippingMethodPage />
           <CheckoutShippingInfoPage />
           <OrderConfirmationPage />

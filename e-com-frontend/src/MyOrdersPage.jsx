@@ -1,38 +1,11 @@
-import React from 'react';
-
-// --- Constants & Mock Data ---
-
-const mockOrders = [
-    {
-        id: '123-4567890-1234567',
-        date: 'October 26, 2023',
-        total: 124.50,
-        status: 'Delivered',
-        statusColor: 'green',
-    },
-    {
-        id: '123-9876543-2109876',
-        date: 'September 15, 2023',
-        total: 89.99,
-        status: 'Shipped',
-        statusColor: 'blue',
-    },
-    {
-        id: '123-1122334-5566778',
-        date: 'August 02, 2023',
-        total: 250.00,
-        status: 'Processing',
-        statusColor: 'orange',
-    },
-    {
-        id: '123-4455667-8899001',
-        date: 'July 21, 2023',
-        total: 45.20,
-        status: 'Cancelled',
-        statusColor: 'slate',
-    },
-];
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+import { Pagination } from './utilities/reusables';
+import { totalSummarys } from './utilities/rawData';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const getStatusBadge = (status, color) => {
     const colorMap = {
         green: { bg: 'bg-green-100 dark:bg-green-900/50', text: 'text-green-700 dark:text-green-300', dot: 'bg-green-500' },
@@ -49,52 +22,18 @@ const getStatusBadge = (status, color) => {
         </span>
     );
 };
-
-// --- Sub-Components ---
-
-const Header = () => (
-    <header className="sticky top-0 z-10 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-            <div className="flex h-16 items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <span className="material-symbols-outlined text-primary text-2xl">store</span>
-                    <h2 className="text-slate-900 dark:text-white text-lg font-bold">E-Commerce</h2>
-                </div>
-                <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-                    {['Home', 'Shop', 'Deals', 'New Arrivals'].map((link, index) => (
-                        <a
-                            key={link}
-                            className={`transition-colors ${index === 1 ? 'text-primary font-semibold' : 'text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary'}`}
-                            href="#"
-                        >
-                            {link}
-                        </a>
-                    ))}
-                </nav>
-                <div className="flex items-center gap-3">
-                    <button className="flex h-9 w-9 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
-                        <span className="material-symbols-outlined text-xl">search</span>
-                    </button>
-                    <button className="flex h-9 w-9 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
-                        <span className="material-symbols-outlined text-xl">shopping_cart</span>
-                    </button>
-                    <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCPziZgTZ8eZod93aPlA-xn6Q1xs4oOkJHq6EcyXATbRdFfHbHSeC503zDnJf4fxMWNaEFRvyiKTta06DbaKzBTXSxktFIR1n_S9LqBUB5l770cPe-91npU4z7ytP0KIs7Dmhoc9FYH3joUcO7bnAngbo1SS3CNwC2Il39fPYj14s1SdQI-cBJhSipE-oAxUPrA1Wwhaf8zqIzPv3eqHzJN17kS-Ukw4I3XtBRmF0h1RCew2cT8h8EmJZhaKIJxCo_ah8koo973hiw")' }}></div>
-                </div>
-            </div>
-        </div>
-    </header>
-);
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const SearchAndFilterBar = () => (
     <div className="p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
                 <label className="flex flex-col w-full">
                     <div className="flex w-full flex-1 items-stretch rounded-lg h-12">
-                        <div className="text-slate-500 flex bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg">
+                        <div className="text-slate-500 flex bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg h-12">
                             <span className="material-symbols-outlined text-xl">search</span>
                         </div>
-                        <input className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-slate-100 dark:bg-slate-800 h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 text-base font-normal" placeholder="Search by order number or product name" defaultValue="" />
+                        <input className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-slate-100 dark:bg-slate-800 h-12 placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 text-base font-normal" placeholder="Search by order number or product name" defaultValue="" />
                     </div>
                 </label>
             </div>
@@ -111,20 +50,21 @@ const SearchAndFilterBar = () => (
         </div>
     </div>
 );
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const OrderRow = ({ order }) => (
     <a className="grid grid-cols-2 md:grid-cols-12 gap-4 px-6 py-5 items-center border-b border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer" href="#">
         <div className="md:col-span-3">
             <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{order.id}</p>
         </div>
         <div className="md:col-span-3">
-            <p className="text-sm text-slate-600 dark:text-slate-300">{order.date}</p>
+            <p className="text-sm text-slate-600 dark:text-slate-300">{order?.shippingMethod.eta}</p>
         </div>
         <div className="md:col-span-2">
-            <p className="text-sm font-medium text-slate-800 dark:text-slate-200">${order.total.toFixed(2)}</p>
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200">₹{order?.totalSummary.total.toFixed(2)}</p>
         </div>
         <div className="md:col-span-2">
-            {getStatusBadge(order.status, order.statusColor)}
+            {getStatusBadge(order?.deliveryStatus.status, order.statusColor)}
         </div>
         <div className="col-span-2 md:col-span-2 flex justify-end">
             <button className="flex h-9 items-center justify-center gap-x-2 rounded-lg bg-slate-200/70 dark:bg-slate-800 px-4 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
@@ -133,7 +73,8 @@ const OrderRow = ({ order }) => (
         </div>
     </a>
 );
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const OrderTable = ({ orders }) => (
     <div className="bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
         {/* Table Header (Desktop only) */}
@@ -151,78 +92,50 @@ const OrderTable = ({ orders }) => (
         ))}
     </div>
 );
-
-const Pagination = () => (
-    <div className="flex items-center justify-between pt-4">
-        <button className="flex items-center gap-2 rounded-lg px-4 h-10 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-            <span className="material-symbols-outlined text-lg">arrow_back</span>
-            Previous
-        </button>
-        <div className="hidden md:flex items-center gap-1 text-sm font-medium">
-            {[1, 2, 3, '...', 10].map((page, index) => (
-                <a
-                    key={index}
-                    className={`flex items-center justify-center size-9 rounded-lg ${page === 1
-                            ? 'bg-primary text-white'
-                            : 'hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors'
-                        }`}
-                    href="#"
-                >
-                    {page}
-                </a>
-            ))}
-        </div>
-        <button className="flex items-center gap-2 rounded-lg px-4 h-10 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-            Next
-            <span className="material-symbols-outlined text-lg">arrow_forward</span>
-        </button>
-    </div>
-);
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // --- Main Page Component ---
-
 const MyOrdersPage = () => {
-    return (
-        <div className="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen">
-            <div className="relative flex h-auto min-h-screen w-full flex-col">
-                <Header />
-                <main className="flex-1 w-full">
-                    <div className="container mx-auto px-4 py-8 md:py-12">
 
-                        {/* Title */}
-                        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-                            <h1 className="text-slate-900 dark:text-white text-4xl font-black tracking-tight">My Orders</h1>
-                        </div>
+    const Navigate = useNavigate();
+    const [tableData, setTableData] = useState([]);
 
-                        <div className="space-y-6">
+    return (<main className="flex-1 w-full">
+        <div className="container mx-auto px-4 py-8 md:py-12">
 
-                            {/* Search and Filter */}
-                            <SearchAndFilterBar />
+            {/* Title */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+                <h1 className="text-slate-900 dark:text-white text-4xl font-black tracking-tight">My Orders</h1>
+            </div>
 
-                            {/* Order List Table */}
-                            <OrderTable orders={mockOrders} />
+            <div className="space-y-6">
+                {totalSummarys?.length != 0 ?
+                    (<>
+                        {/* Search and Filter */}
+                        < SearchAndFilterBar />
 
-                            {/* Pagination */}
-                            <Pagination />
+                        {/* Order List Table */}
+                        < OrderTable orders={tableData} />
 
-                            {/* The HTML included an empty state example which is commented out here */}
-                            {/* <div className="text-center py-24 px-6 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
-                                <div className="flex justify-center mb-4">
-                                    <div className="flex items-center justify-center size-16 rounded-full bg-primary/10 text-primary">
-                                        <span className="material-symbols-outlined text-4xl">inventory_2</span>
-                                    </div>
-                                </div>
-                                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">You have no past orders</h2>
-                                <p className="text-slate-600 dark:text-slate-400 mb-6">Looks like you haven't made any purchases yet. Let's change that!</p>
-                                <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-primary text-white gap-2 text-base font-bold leading-normal tracking-wide min-w-[160px] mx-auto px-6">Start Shopping</button>
+                        {/* Pagination */}
+                        <Pagination data={totalSummarys} ItemPerPage={10} setTableData={setTableData} />
+                    </>)
+                    :
+                    (<div className="text-center py-24 px-6 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+                        <div className="flex justify-center mb-4">
+                            <div className="flex items-center justify-center size-16 rounded-full bg-primary/10 text-primary">
+                                <span className="material-symbols-outlined text-4xl">inventory_2</span>
                             </div>
-                            */}
                         </div>
-                    </div>
-                </main>
+                        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">You have no past orders</h2>
+                        <p className="text-slate-600 dark:text-slate-400 mb-6">Looks like you haven't made any purchases yet. Let's change that!</p>
+                        <button onClick={() => Navigate("/")} className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-primary text-white gap-2 text-base font-bold leading-normal tracking-wide min-w-[160px] mx-auto px-6">Start Shopping</button>
+                    </div>)
+                }
+
             </div>
         </div>
-    );
+    </main>);
 };
 
 export default MyOrdersPage;

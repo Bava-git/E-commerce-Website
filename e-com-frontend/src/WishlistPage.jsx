@@ -73,10 +73,6 @@ const WishlistPage = () => {
     const [tableData, setTableData] = useState([]);
     const Navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(myWishlist);
-    }, []);
-
     return (
         <div className="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen">
             <div className="relative flex min-h-screen w-full flex-col">

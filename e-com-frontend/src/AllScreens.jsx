@@ -11,13 +11,11 @@ import ShipmentTrackingPage from './ShipmentTrackingPage'
 const AllScreens = () => {
     return (
         <>
-            <OrderConfirmationPage />
-            <MyOrdersPage />
-            <LoginPage />
-            <CreateAccountPage />
-            <CustomerDashboard />
+            {/* <CustomerDashboard /> */}
+            {/* <LoginPage /> */}
+            {/* <CreateAccountPage /> */}
             <ShipmentTrackingPage />
-            <GiftCardPurchasePage />
+            {/* <GiftCardPurchasePage /> */}
         </>
     )
 }

@@ -283,7 +283,26 @@ export const products = [
     },
 ];
 
-export const myWishlist = [];
+export const myWishlist = [
+    {
+        id: 1,
+        productId: 1,
+        name: "Khapara Black Shoe",
+        price: 91,
+        image: "/shoe/blackshoe/shoe (1).png",
+        color: "Black",
+        size: "s5"
+    },
+    {
+        id: 2,
+        productId: 8,
+        name: "Impex Battery Fan",
+        price: 21,
+        image: "/fan/batteryBlueFan/batteryFan (1).jpg",
+        color: "Grey",
+        size: ""
+    }
+];
 
 export const cartList = [
     {
@@ -384,4 +403,119 @@ export const promoCodes = [
     { code: "DIWALI15", percentage: 0.15 }
 ];
 
-export const totalSummarys = [];
+export const totalSummarys = [
+    {
+        id: "3e5b7884-c8c2-4cef-a07e-6c3d55421a7d",
+        congineeDetail: {
+            id: 1,
+            name: "Alex Thompson",
+            address: [
+                "123 Maple Street, Apt 4B",
+                "Springfield, IL, 62704",
+                "United States"
+            ]
+        },
+        shippingMethod: {
+            id: "express",
+            name: "Overnight Express",
+            price: 100,
+            eta: "Dec-06",
+            isPopular: false
+        },
+        paymentMethod: {
+            id: 1,
+            paymentType: "COD"
+        },
+        items: [
+            {
+                id: 1,
+                productId: 1,
+                color: "Black",
+                size: "s9",
+                quantity: 1,
+                name: "Khapara Black Shoe",
+                price: 70,
+                image: "/shoe/blackshoe/shoe (1).png"
+            },
+            {
+                id: 2,
+                productId: 12,
+                color: "Red",
+                size: "",
+                quantity: 2,
+                name: "Kammee Red Neckband",
+                price: 62,
+                image: "/nechband/blackNeckband/nechbandBlack (1).jpg"
+            },
+            {
+                id: 3,
+                productId: 7,
+                color: "Sliver",
+                size: "medium",
+                quantity: 4,
+                name: "Premium Watch",
+                price: 14,
+                image: "/watch/watch (1).png"
+            },
+            {
+                id: 4,
+                productId: 8,
+                color: "Grey",
+                size: "",
+                quantity: 1,
+                name: "Impex Battery Fan",
+                price: 53,
+                image: "/fan/batteryBlueFan/batteryFan (1).jpg"
+            },
+            {
+                id: 5,
+                productId: 1,
+                color: "Black",
+                size: "s9",
+                quantity: 1,
+                name: "Khapara Black Shoe",
+                price: 11,
+                image: "/shoe/blackshoe/shoe (1).png"
+            },
+            {
+                id: 6,
+                productId: 12,
+                color: "Red",
+                size: "",
+                quantity: 2,
+                name: "Kammee Red Neckband",
+                price: 35,
+                image: "/nechband/blackNeckband/nechbandBlack (1).jpg"
+            },
+            {
+                id: 7,
+                productId: 7,
+                color: "Sliver",
+                size: "medium",
+                quantity: 4,
+                name: "Premium Watch",
+                price: 28,
+                image: "/watch/watch (1).png"
+            },
+            {
+                id: 8,
+                productId: 8,
+                color: "Grey",
+                size: "",
+                quantity: 1,
+                name: "Impex Battery Fan",
+                price: 81,
+                image: "/fan/batteryBlueFan/batteryFan (1).jpg"
+            }
+        ],
+        totalSummary: {
+            subtotal: 577,
+            deliveryFee: 100,
+            marketPlaceFee: 5,
+            total: 682
+        },
+        deliveryStatus: {
+            status: "Pending"
+        },
+    },
+];
