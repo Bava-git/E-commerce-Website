@@ -308,12 +308,12 @@ export const cartList = [
     {
         id: 1,
         productId: 1,
-        color: "Black",
-        size: "s9",
         quantity: 1,
         name: "Khapara Black Shoe",
         price: 6486,
         image: "/shoe/blackshoe/shoe (1).png",
+        color: "Black",
+        size: "s9",
     },
     {
         id: 2,
@@ -391,17 +391,31 @@ export const shippingInfo = [
     {
         id: 1,
         name: 'Alex Thompson',
-        address: ['123 Maple Street, Apt 4B', 'Springfield, IL, 62704', 'United States'],
+        address: ['123 Maple Street, Apt 4B', 'Springfield, IL', '62704'],
+        label: "home",
     },
+    {
+        id: 2,
+        name: "Bava khan",
+        address: [
+            "10A/2, Thippu sulthan street",
+            "Tirunelveli, Tamil nadu",
+            "627453"
+        ],
+        nearByLandmark: "Veppamaram stop",
+        emailId: "bava@gmail.com",
+        telephoneNumber: "9988776655",
+        label: "apartment",
+    }
 ];
-
-export const paymentInfo = [];
 
 export const promoCodes = [
     { code: "FIRST20", percentage: 0.20 },
     { code: "SECOND10", percentage: 0.10 },
     { code: "DIWALI15", percentage: 0.15 }
 ];
+
+export const paymentInfo = [];
 
 export const totalSummarys = [
     {
@@ -512,10 +526,130 @@ export const totalSummarys = [
             subtotal: 577,
             deliveryFee: 100,
             marketPlaceFee: 5,
-            total: 682
+            total: 682,
         },
         deliveryStatus: {
-            status: "Pending"
+            orderDate: "Dec-05",
+            status: "Pending",
         },
     },
+];
+
+export const itemsStatus = [
+    {
+        id: "3e5b7884-c8c2-4cef-a07e-6c3d55421a7d",
+        items: [
+            {
+                id: 1,
+                productId: 1,
+                color: "Black",
+                size: "s9",
+                quantity: 1,
+                name: "Khapara Black Shoe",
+                price: 70,
+                image: "/shoe/blackshoe/shoe (1).png",
+                status: "Pending",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            },
+            {
+                id: 2,
+                productId: 12,
+                color: "Red",
+                size: "",
+                quantity: 2,
+                name: "Kammee Red Neckband",
+                price: 62,
+                image: "/nechband/blackNeckband/nechbandBlack (1).jpg",
+                status: "Confirmed",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            },
+            {
+                id: 3,
+                productId: 7,
+                color: "Sliver",
+                size: "medium",
+                quantity: 4,
+                name: "Premium Watch",
+                price: 14,
+                image: "/watch/watch (1).png",
+                status: "Shipped",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            },
+            {
+                id: 4,
+                productId: 8,
+                color: "Grey",
+                size: "",
+                quantity: 1,
+                name: "Impex Battery Fan",
+                price: 53,
+                image: "/fan/batteryBlueFan/batteryFan (1).jpg",
+                status: "In Transit",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            },
+            {
+                id: 5,
+                productId: 1,
+                color: "Black",
+                size: "s9",
+                quantity: 1,
+                name: "Khapara Black Shoe",
+                price: 11,
+                image: "/shoe/blackshoe/shoe (1).png",
+                status: "Out for Delivery",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            },
+            {
+                id: 6,
+                productId: 12,
+                color: "Red",
+                size: "",
+                quantity: 2,
+                name: "Kammee Red Neckband",
+                price: 35,
+                image: "/nechband/blackNeckband/nechbandBlack (1).jpg",
+                status: "Delivered",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            },
+            {
+                id: 7,
+                productId: 7,
+                color: "Sliver",
+                size: "medium",
+                quantity: 4,
+                name: "Premium Watch",
+                price: 28,
+                image: "/watch/watch (1).png",
+                status: "Pending",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            },
+            {
+                id: 8,
+                productId: 8,
+                color: "Grey",
+                size: "",
+                quantity: 1,
+                name: "Impex Battery Fan",
+                price: 81,
+                image: "/fan/batteryBlueFan/batteryFan (1).jpg",
+                status: "Pending",
+                orderDate: "Dec-05",
+                eta: "Dec-06",
+                ata: "Jan-06",
+            }],
+    }
 ];

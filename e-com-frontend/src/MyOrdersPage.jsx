@@ -67,7 +67,9 @@ const OrderRow = ({ order }) => (
             {getStatusBadge(order?.deliveryStatus.status, order.statusColor)}
         </div>
         <div className="col-span-2 md:col-span-2 flex justify-end">
-            <button className="flex h-9 items-center justify-center gap-x-2 rounded-lg bg-slate-200/70 dark:bg-slate-800 px-4 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+            <button
+                onClick={() => window.location.href = `/trackingshipment?orderId=${order.id}`}
+                className="flex h-9 items-center justify-center gap-x-2 rounded-lg bg-slate-200/70 dark:bg-slate-800 px-4 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                 View Details
             </button>
         </div>

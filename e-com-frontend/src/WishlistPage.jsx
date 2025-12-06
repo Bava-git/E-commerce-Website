@@ -54,6 +54,11 @@ const WishlistItemCard = ({ item }) => (
                     onClick={() => handleWishlistProducts(item.id)}
                     className="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal select-none cursor-pointer hover:underline">{item.name}</h3>
                 <p className="text-slate-500 dark:text-slate-400 text-sm font-normal">{item.brand}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
+                    <strong className="text-gray-300">Color:</strong> <span>{item?.color}</span>
+                    <br />
+                    {item?.size && <><strong className="text-gray-300">Size:</strong> <span>{item?.size}</span></>}
+                </p>
             </div>
             <div className="flex items-center justify-between">
                 <p className="text-slate-900 dark:text-white text-lg font-bold">₹{item.price}</p>
@@ -64,7 +69,7 @@ const WishlistItemCard = ({ item }) => (
                 </button>
             </div>
         </div>
-    </div>
+    </div >
 );
 
 // --- Main Page Component ---

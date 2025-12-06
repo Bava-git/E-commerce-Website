@@ -6,15 +6,14 @@ import GiftCardPurchasePage from './GiftCardPurchasePage'
 import LoginPage from './LoginPage'
 import MyOrdersPage from './MyOrdersPage'
 import OrderConfirmationPage from './ConfirmationPage'
-import ShipmentTrackingPage from './ShipmentTrackingPage'
+import ShipmentTrackingPage from './TrackingPage'
 
 const AllScreens = () => {
     return (
         <>
-            {/* <CustomerDashboard /> */}
+            <CustomerDashboard />
             {/* <LoginPage /> */}
             {/* <CreateAccountPage /> */}
-            <ShipmentTrackingPage />
             {/* <GiftCardPurchasePage /> */}
         </>
     )

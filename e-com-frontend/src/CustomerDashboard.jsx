@@ -2,6 +2,9 @@ import { useState } from "react";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 import MyOrdersPage from "./MyOrdersPage";
+import MyDashboardPage from "./MyDashboardPage";
+import MyAddressPage from "./MyAddressPage";
+import MyPreferencePage from "./MyPreferencePage";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // --- Sub-Components ---
@@ -48,6 +51,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                                         ? "bg-primary/10 text-primary"
                                         : "text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
                                         }`}
+                                    href="#"
                                 >
                                     <span className="material-symbols-outlined">{item.icon}</span>
                                     <p className="text-sm font-medium leading-normal">
@@ -90,10 +94,20 @@ const CustomerDashboard = () => {
                         setActiveTab={setActiveTab}
                     />
 
-                    {activeTab === "Orders" &&
-                        <MyOrdersPage
+                    {activeTab === "Dashboard" &&
+                        <MyDashboardPage />
+                    }
 
-                        />
+                    {activeTab === "Orders" &&
+                        <MyOrdersPage />
+                    }
+
+                    {activeTab === "Addresses" &&
+                        <MyAddressPage />
+                    }
+
+                    {activeTab === "Preferences" &&
+                        <MyPreferencePage />
                     }
                 </main>
 

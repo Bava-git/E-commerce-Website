@@ -247,11 +247,14 @@ const ShippingForm = ({ selectedShippingAddress, setSelectedShippingAddress }) =
                     formData.houseNumber + ", " + formData.streetName,
                     formData.cityName + ", " + formData.stateName,
                     formData.postalCode,
-                    "near by landmark - " + formData.nearByLandmark,
                 ],
+                nearByLandmark: formData.nearByLandmark,
+                emailId: formData.emailId,
+                telephoneNumber: formData.telephoneNumber,
             };
-            connectTo.addToArray(shippingInfo, sendData);
-            setShippingInfoData(shippingInfo);
+            console.log(sendData);
+
+            setShippingInfoData(connectTo.addToArray(shippingInfo, sendData));
             setSelectedShippingAddress(sendData);
             toast.success("Shipping saved successfully..!");
         }
@@ -294,6 +297,7 @@ const ShippingForm = ({ selectedShippingAddress, setSelectedShippingAddress }) =
                                     <div className="text-slate-600 dark:text-slate-400 text-sm space-y-1">
                                         <p className="font-medium text-slate-800 dark:text-slate-200">{address.name}</p>
                                         {address.address.map((line, index) => <p key={index}>{line}</p>)}
+                                        <p className="font-medium text-slate-800 dark:text-slate-400">near by landmark -{address.nearByLandmark}</p>
                                     </div>
                                 </div>
                             </label>

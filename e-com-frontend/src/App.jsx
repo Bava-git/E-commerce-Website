@@ -16,7 +16,7 @@ import LoginPage from './LoginPage'
 import CreateAccountPage from './CreateAccountPage'
 import CustomerDashboard from './CustomerDashboard'
 import WishlistPage from './WishlistPage'
-import ShipmentTrackingPage from './ShipmentTrackingPage'
+import ShipmentTrackingPage from './TrackingPage'
 import GiftCardPurchasePage from './GiftCardPurchasePage'
 
 // Bin -----------------------------------------------------------------------------
@@ -48,6 +48,12 @@ function App() {
           {/* Developer */}
           <Route path='/testscreen' element={<TestScreen />} />
           <Route path='/allscreens' element={<AllScreens />} />
+          {/* General */}
+          <Route path='/aboutus' element={<AboutUsPage />} />
+          <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
+          <Route path='/helpcenter' element={<HelpCenterPage />} />
+          <Route path='/contactus' element={<ContactUsPage />} />
+          <Route path='/*' element={<NotFoundPage />} />
           {/* READY */}
           <Route path='/' element={<HomePage />} />
           <Route path='/product' element={<ProductPage />} />
@@ -55,15 +61,10 @@ function App() {
           <Route path='/cart' element={<ShoppingCartPage />} />
           <Route path='/checkout' element={<CheckoutPage />} />
           <Route path='/confirmation' element={<OrderConfirmationPage />} />
-          {/* General */}
-          <Route path='/aboutus' element={<AboutUsPage />} />
-          <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
-          <Route path='/helpcenter' element={<HelpCenterPage />} />
-          <Route path='/contactus' element={<ContactUsPage />} />
-          <Route path='/*' element={<NotFoundPage />} />
+          <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
           {/* NOT-READY */}
-          <Route path='/productlist' element={<ProductListingPage />} />
           <Route path='/dashboard' element={<CustomerDashboard />} />
+          <Route path='/productlist' element={<ProductListingPage />} />
           {/* <CheckoutShippingMethodPage />
           <CheckoutShippingInfoPage />
           <OrderConfirmationPage />
