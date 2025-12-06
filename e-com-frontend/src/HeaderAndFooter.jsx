@@ -31,7 +31,14 @@ export const Header = ({ links }) => {
                     </label>
                 </div>
                 <div className="flex items-center gap-2 relative">
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                    <button
+                        onClick={() => window.location.href = "/signup"}
+                        className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                        <span className="truncate">Sign Up</span>
+                    </button>
+                    <button
+                        onClick={() => window.location.href = "/signin"}
+                        className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
                         <span className="truncate">Sign In</span>
                     </button>
                     <button

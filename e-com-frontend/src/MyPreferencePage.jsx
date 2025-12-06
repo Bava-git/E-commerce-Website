@@ -49,6 +49,27 @@ const MyPreferencePage = () => {
                             </label>
                         </div>
                     </div>
+                    <div className='text-slate-600 dark:text-slate-400 text-sm flex flex-row justify-between items-center gap-2 border p-3 mx-3 my-1 rounded-xl w-full border-border-dark'>
+                        <div>
+                            <p className='font-medium text-slate-800 dark:text-slate-200'>Dark mode</p>
+                        </div>
+                        <div>
+                            <div className="radio-inputs">
+                                <label className="radio">
+                                    <input type="radio" name="radio" defaultChecked />
+                                    <span className="name">HTML</span>
+                                </label>
+                                <label className="radio">
+                                    <input type="radio" name="radio" />
+                                    <span className="name">React</span>
+                                </label>
+                                <label className="radio">
+                                    <input type="radio" name="radio" />
+                                    <span className="name">Vue</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </ div>
         </ main >

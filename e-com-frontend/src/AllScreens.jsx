@@ -11,10 +11,8 @@ import ShipmentTrackingPage from './TrackingPage'
 const AllScreens = () => {
     return (
         <>
-            <CustomerDashboard />
-            {/* <LoginPage /> */}
-            {/* <CreateAccountPage /> */}
-            {/* <GiftCardPurchasePage /> */}
+            {/* <CustomerDashboard /> */}
+            <GiftCardPurchasePage />
         </>
     )
 }

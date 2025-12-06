@@ -4,8 +4,12 @@ import React, { useState } from 'react';
 
 const BrandHeader = () => (
     <div className="flex items-center gap-2 mb-8">
-        <span className="material-symbols-outlined text-primary text-4xl">shopping_bag</span>
-        <p className="font-display text-2xl font-bold text-slate-800 dark:text-slate-200">BrandName</p>
+        <div className="w-6 h-6 text-slate-900 dark:text-slate-50">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor" />
+            </svg>
+        </div>
+        <p className="font-display text-2xl font-bold text-slate-800 dark:text-slate-200 underline">Khapara</p>
     </div>
 );
 
@@ -84,7 +88,7 @@ const LoginForm = () => {
 
 const Footer = () => (
     <div className="w-full max-w-md mt-16 text-center">
-        <p className="font-display text-slate-400 dark:text-slate-500 text-xs">© 2023 BrandName. All rights reserved.</p>
+        <p className="font-display text-slate-400 dark:text-slate-500 text-xs">© 2025 Khapara. All rights reserved.</p>
         <div className="flex justify-center gap-4 mt-2">
             <a className="font-display text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-primary text-xs hover:underline" href="#">Terms of Service</a>
             <a className="font-display text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-primary text-xs hover:underline" href="#">Privacy Policy</a>
@@ -106,9 +110,8 @@ const LoginPage = () => {
                                 <div
                                     className="hidden md:flex w-full bg-center bg-no-repeat bg-cover flex-col justify-end overflow-hidden"
                                     data-alt="A stylish person wearing modern fashion accessories, representing the e-commerce brand's lifestyle."
-                                    style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCqPfK_9RhhYvI_8fWNHBcb7iulsuybMyehuEso2x39eLEaI4lpgemETUEMr1ZFH_toVya5TRa9w3W_qMwlE7khkdTII3UQFjBpQFxUxInOhxTy-B1iaz_a_X2wr-MWFJE0f7rtqZGyizcvDBa-oHRUnI3ufRGW6SsN75EQv2ngQpTpTL1uzN6nwoaWeEnzGXQqdBuVLkQ7ZtXtpHvyfz8uhUblM2qhpwx4cSmbYyMmiMV8ymV0FI4HWhP6XHsvQ95Nc7IisgBWhXc")' }}
+                                    style={{ backgroundImage: 'url("/signinimage.jpg")' }}
                                 >
-                                    {/* Optional: Add a subtle overlay or text here */}
                                 </div>
 
                                 {/* Right Column: Form */}
