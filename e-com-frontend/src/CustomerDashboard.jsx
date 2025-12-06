@@ -5,6 +5,7 @@ import MyOrdersPage from "./MyOrdersPage";
 import MyDashboardPage from "./MyDashboardPage";
 import MyAddressPage from "./MyAddressPage";
 import MyPreferencePage from "./MyPreferencePage";
+import GiftCardPurchasePage from "./GiftCardPurchasePage";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // --- Sub-Components ---
@@ -13,6 +14,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         { icon: "dashboard", label: "Dashboard", href: "#" },
         { icon: "package_2", label: "Orders", href: "#" },
         { icon: "pin_drop", label: "Addresses", href: "#" },
+        { icon: "payment_card", label: "Gift Card", href: "#" },
         { icon: "person", label: "Profile", href: "#" },
         { icon: "settings", label: "Preferences", href: "#" },
     ];
@@ -100,6 +102,10 @@ const CustomerDashboard = () => {
 
                     {activeTab === "Orders" &&
                         <MyOrdersPage />
+                    }
+
+                    {activeTab === "Gift Card" &&
+                        <GiftCardPurchasePage />
                     }
 
                     {activeTab === "Addresses" &&

@@ -20,29 +20,10 @@
         </div>
     </div> */}
 
-// const Pagination = () => (
-//     <div className="flex items-center justify-between pt-4">
-//         <button className="flex items-center gap-2 rounded-lg px-4 h-10 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-//             <span className="material-symbols-outlined text-lg">arrow_back</span>
-//             Previous
-//         </button>
-//         <div className="hidden md:flex items-center gap-1 text-sm font-medium">
-//             {[1, 2, 3, '...', 10].map((page, index) => (
-//                 <a
-//                     key={index}
-//                     className={`flex items-center justify-center size-9 rounded-lg ${page === 1
-//                         ? 'bg-primary text-white'
-//                         : 'hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors'
-//                         }`}
-//                     href="#"
-//                 >
-//                     {page}
-//                 </a>
-//             ))}
-//         </div>
-//         <button className="flex items-center gap-2 rounded-lg px-4 h-10 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-//             Next
-//             <span className="material-symbols-outlined text-lg">arrow_forward</span>
-//         </button>
-//     </div>
-// );
+// const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+// let deliveryFee = (subtotal > 100 || subtotal === 0) ? 0 : 40;
+// deliveryFee = deliveryFee + selectedShippingMethod?.price;
+// const marketPlaceFee = (subtotal === 0) ? 0 : 5;
+// const originalPrice = Math.round(subtotal + marketPlaceFee + deliveryFee);
+// const [total, setTotal] = useState(originalPrice);
+// const orderPrices = { subtotal, deliveryFee, marketPlaceFee, total };

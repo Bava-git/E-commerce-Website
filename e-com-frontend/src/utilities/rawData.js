@@ -415,7 +415,24 @@ export const promoCodes = [
     { code: "DIWALI15", percentage: 0.15 }
 ];
 
-export const paymentInfo = [];
+export const paymentInfo = [
+    {
+        id: 1,
+        cardNumber: "1234123412341234",
+        cardHolderName: "John Deo",
+        cardExpirationDate: "04/12",
+        cardCVVNumber: "123",
+        paymentType: "Credit Card"
+    },
+    {
+        id: 2,
+        cardNumber: "1234123412340000",
+        cardHolderName: "John Deo",
+        cardExpirationDate: "04/12",
+        cardCVVNumber: "123",
+        paymentType: "Credit Card"
+    },
+];
 
 export const totalSummarys = [
     {
@@ -533,6 +550,125 @@ export const totalSummarys = [
             status: "Pending",
         },
     },
+    {
+        id: "2b772fc9-8fd2-45d9-9c45-936525037c19",
+        congineeDetail: {
+            id: 2,
+            name: "Bava khan",
+            address: [
+                "10A/2, Thippu sulthan street",
+                "Tirunelveli, Tamil nadu",
+                "627453"
+            ],
+            nearByLandmark: "Veppamaram stop",
+            emailId: "bava@gmail.com",
+            telephoneNumber: "9988776655",
+            label: "apartment"
+        },
+        shippingMethod: {
+            id: "express",
+            name: "Overnight Express",
+            price: 100,
+            eta: "Dec-08",
+            isPopular: false
+        },
+        paymentMethod: {
+            id: 1,
+            cardNumber: "1234123412341234",
+            cardHolderName: "John Deo",
+            cardExpirationDate: "04/12",
+            cardCVVNumber: "123",
+            paymentType: "Credit Card"
+        },
+        items: [
+            {
+                id: 1,
+                productId: 1,
+                quantity: 1,
+                name: "Khapara Black Shoe",
+                price: 91,
+                image: "/shoe/blackshoe/shoe (1).png",
+                color: "Black",
+                size: "s9"
+            },
+            {
+                id: 2,
+                productId: 12,
+                color: "Red",
+                size: "",
+                quantity: 2,
+                name: "Kammee Red Neckband",
+                price: 40,
+                image: "/nechband/blackNeckband/nechbandBlack (1).jpg"
+            },
+            {
+                id: 3,
+                productId: 7,
+                color: "Sliver",
+                size: "medium",
+                quantity: 4,
+                name: "Premium Watch",
+                price: 76,
+                image: "/watch/watch (1).png"
+            },
+            {
+                id: 4,
+                productId: 8,
+                color: "Grey",
+                size: "",
+                quantity: 1,
+                name: "Impex Battery Fan",
+                price: 60,
+                image: "/fan/batteryBlueFan/batteryFan (1).jpg"
+            },
+            {
+                id: 5,
+                productId: 1,
+                color: "Black",
+                size: "s9",
+                quantity: 1,
+                name: "Khapara Black Shoe",
+                price: 88,
+                image: "/shoe/blackshoe/shoe (1).png"
+            },
+            {
+                id: 6,
+                productId: 12,
+                color: "Red",
+                size: "",
+                quantity: 2,
+                name: "Kammee Red Neckband",
+                price: 13,
+                image: "/nechband/blackNeckband/nechbandBlack (1).jpg"
+            },
+            {
+                id: 7,
+                productId: 7,
+                color: "Sliver",
+                size: "medium",
+                quantity: 4,
+                name: "Premium Watch",
+                price: 93,
+                image: "/watch/watch (1).png"
+            },
+            {
+                id: 8,
+                productId: 8,
+                color: "Grey",
+                size: "",
+                quantity: 1,
+                name: "Impex Battery Fan",
+                price: 51,
+                image: "/fan/batteryBlueFan/batteryFan (1).jpg"
+            }
+        ],
+        totalSummary: {
+            subtotal: 1072,
+            deliveryFee: 100,
+            marketPlaceFee: 5,
+            total: 1177
+        }
+    }
 ];
 
 export const itemsStatus = [

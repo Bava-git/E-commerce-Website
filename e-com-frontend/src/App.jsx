@@ -5,9 +5,9 @@ import { Toaster } from 'sonner';
 
 import './App.css'
 
-import ProductListingPage from './ProductListingPage'
+import SearchedProductsListingPage from './SearchedProductsListingPage'
 import ShoppingCartPage from './CartPage'
-import ProductPage from './ProductPage'
+import SelectedProductPage from './SelectedProductPage'
 import CheckoutPage from './CheckoutPage'
 import OrderConfirmationPage from './ConfirmationPage'
 import OrderReviewPage from './ReviewPage'
@@ -59,7 +59,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/signin' element={<LoginPage />} />
           <Route path='/signup' element={<CreateAccountPage />} />
-          <Route path='/product' element={<ProductPage />} />
+          <Route path='/product' element={<SelectedProductPage />} />
           <Route path='/wishlist' element={<WishlistPage />} />
           <Route path='/cart' element={<ShoppingCartPage />} />
           <Route path='/checkout' element={<CheckoutPage />} />
@@ -67,17 +67,7 @@ function App() {
           <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
           {/* NOT-READY */}
           <Route path='/dashboard' element={<CustomerDashboard />} />
-          <Route path='/productlist' element={<ProductListingPage />} />
-          {/* <CheckoutShippingMethodPage />
-          <CheckoutShippingInfoPage />
-          <OrderConfirmationPage />
-          <CheckoutPaymentPage />
-          <OrderReviewPage />
-          <MyOrdersPage />
-          <CreateAccountPage />
-          <CustomerDashboard />
-          <ShipmentTrackingPage />
-          <GiftCardPurchasePage /> */}
+          <Route path='/productlist' element={<SearchedProductsListingPage />} />
         </Routes>
       </BrowserRouter>
       <Footer />

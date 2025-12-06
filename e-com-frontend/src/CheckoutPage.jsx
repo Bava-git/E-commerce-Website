@@ -30,6 +30,26 @@ const buttonOptions = [
 // ---------------------------------------------------------------------------
 const loadingTime = 200;
 // ---------------------------------------------------------------------------
+function calculateOrderPrices(cartItems, selectedShippingMethod) {
+
+    cartItems.forEach(item => {
+        let tempProduct = connectTo.oneItemFromArray(products, "id", item.id);
+        item.price = tempProduct.price;
+    });
+
+    const subtotal = cartItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
+
+    let deliveryFee = (subtotal > 100 || subtotal === 0) ? 0 : 40;
+    deliveryFee += selectedShippingMethod?.price || 0;
+    const marketPlaceFee = (subtotal === 0) ? 0 : 5;
+    const total = Math.round(subtotal + marketPlaceFee + deliveryFee);
+
+    return { subtotal, deliveryFee, marketPlaceFee, total };
+}
+
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const CheckoutShippingInfoPage = () => {
@@ -38,19 +58,10 @@ const CheckoutShippingInfoPage = () => {
 
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(shippingOptions.find(o => o.id === 'standard'));
     const [cartItems, setCartItems] = useState(cartList);
-
-    cartList.forEach(item => {
-        let tempProduct = connectTo.oneItemFromArray(products, "id", item.id);
-        item.price = tempProduct.price;
-    });
-
-    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    let deliveryFee = (subtotal > 100 || subtotal === 0) ? 0 : 40;
-    deliveryFee = deliveryFee + selectedShippingMethod?.price
-    const marketPlaceFee = (subtotal === 0) ? 0 : 5;
-    const originalPrice = Math.round(subtotal + marketPlaceFee + deliveryFee);
-    const [total, setTotal] = useState(originalPrice);
-    const orderPrices = { subtotal, deliveryFee, marketPlaceFee, total };
+    const orderPrices = calculateOrderPrices(cartItems, selectedShippingMethod);
+    console.log(orderPrices);
+    const [total, setTotal] = useState(orderPrices.total);
+    const originalPrice = orderPrices.total;
 
     const [selectedScreen, setSelectedScreen] = useState(buttonOptions.find(o => o.id === 'shippingInfo'));
     const breadcrumbItems = [
@@ -60,7 +71,7 @@ const CheckoutShippingInfoPage = () => {
         { id: "review", label: "Review", href: "#" },
     ];
 
-    const [selectedPaymentDetails, setSelectedPaymentDetails] = useState({});
+    const [selectedPaymentDetails, setSelectedPaymentDetails] = useState(paymentInfo.find(o => o.id === 1));
     const [selectedShippingAddress, setSelectedShippingAddress] = useState(shippingInfo.find(o => o.id === 1));
 
     const totalSummary = {
@@ -91,115 +102,117 @@ const CheckoutShippingInfoPage = () => {
     };
 
     useEffect(() => {
-        buttonOptions.find(o => o.id === 'payment').buttonDisable = true;
+        let filterButtonOptions = buttonOptions.find(o => o.id === 'payment');
+        filterButtonOptions.buttonDisable = true;
         setTotal(originalPrice);
     }, [selectedScreen]);
 
     return (
         <div className="font-display bg-background-light dark:bg-background-dark min-h-screen">
             <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-                <main className="flex flex-1 justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-                    <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12">
+                <main className="justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12">
 
-                        {/* Form and Progress */}
-                        <div className="flex flex-col">
+                    {/* Form and Progress */}
+                    <div className="flex flex-col">
 
-                            {/* Breadcrumb Component */}
-                            <Breadcrumb
-                                items={breadcrumbItems}
-                                current={selectedScreen?.id}
-                                setSelectedScreen={setSelectedScreen}
-                            />
-
-                            {/* Shipping Form */}
-                            {(selectedScreen?.id === "shippingInfo") &&
-                                <ShippingForm
-                                    selectedShippingAddress={selectedShippingAddress}
-                                    setSelectedShippingAddress={setSelectedShippingAddress}
-                                />
-                            }
-
-                            {/* Shipping Method */}
-                            {(selectedScreen?.id === "shippingMethod") &&
-                                <ShippingMethodOption
-                                    selectedShippingMethod={selectedShippingMethod}
-                                    setSelectedShippingMethod={setSelectedShippingMethod}
-                                />
-                            }
-
-                            {/* Payment Form */}
-                            {(selectedScreen?.id === "payment") &&
-                                <PaymentForm
-                                    setSelectedPaymentDetails={setSelectedPaymentDetails}
-                                />
-                            }
-
-                            {/* Review Page */}
-                            {(selectedScreen?.id === "review") &&
-                                <OrderReviewPage
-                                    totalSummery={totalSummary}
-                                    setSelectedScreen={setSelectedScreen}
-                                    buttonOptions={buttonOptions}
-                                />
-                            }
-
-                            {/* Loading Screen */}
-                            {(selectedScreen?.id === "loading") &&
-                                <LoadingScreen />
-                            }
-
-
-                            {/* Action Buttons */}
-                            <div className="mt-6 flex items-center justify-between">
-                                {selectedScreen?.leftButtonText != "hide" ?
-                                    (<a
-                                        onClick={() => {
-                                            setSelectedScreen(buttonOptions.find(o => o.id === selectedScreen.leftButtonHref));
-                                        }}
-                                        className="text-sm font-semibold leading-6 text-primary hover:text-primary/80 flex items-center gap-2"
-                                        href="#">
-                                        <span className="material-symbols-outlined text-base">arrow_back</span>
-                                        {selectedScreen.leftButtonText}
-                                    </a>)
-                                    :
-                                    (<a></a>)
-                                }
-                                {selectedScreen?.rightButtonText != "hide" &&
-                                    <a
-                                        onClick={() => {
-
-                                            if (selectedScreen?.buttonDisable) {
-                                                toast.error("Confirm payment method..!");
-                                                return;
-                                            }
-
-                                            setSelectedScreen({ id: "loading" });
-                                            setTimeout(() => {
-                                                setSelectedScreen(buttonOptions.find(o => o.id === selectedScreen.rightButtonHref));
-                                            }, loadingTime);
-                                        }}
-                                        className={`${selectedScreen?.buttonDisable ? "bg-gray-500 cursor-not-allowed" : "bg-primary hover:bg-primary/90 cursor-pointer"}  flex items-center justify-center gap-2 rounded-lg  px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
-                                        href="#">
-                                        {selectedScreen.rightButtonText}
-                                    </a>
-                                }
-                            </div>
-
-                        </div>
-
-                        {/* Order Summary */}
-                        <OrderSummary
-                            orderPrices={orderPrices}
-                            isPage={{
-                                isCheckoutPage: false,
-                                isPaymentPage: selectedScreen?.id === "payment",
-                                isReviewPage: selectedScreen?.id === "review",
-                            }}
-                            handleFinalProcess={handleFinalProcess}
-                            handlePromoPercentage={handlePromoPercentage}
+                        {/* Breadcrumb Component */}
+                        <Breadcrumb
+                            items={breadcrumbItems}
+                            current={selectedScreen?.id}
+                            setSelectedScreen={setSelectedScreen}
                         />
 
+                        {/* Shipping Form */}
+                        {(selectedScreen?.id === "shippingInfo") &&
+                            <ShippingForm
+                                selectedShippingAddress={selectedShippingAddress}
+                                setSelectedShippingAddress={setSelectedShippingAddress}
+                            />
+                        }
+
+                        {/* Shipping Method */}
+                        {(selectedScreen?.id === "shippingMethod") &&
+                            <ShippingMethodOption
+                                selectedShippingMethod={selectedShippingMethod}
+                                setSelectedShippingMethod={setSelectedShippingMethod}
+                            />
+                        }
+
+                        {/* Payment Form */}
+                        {(selectedScreen?.id === "payment") &&
+                            <PaymentForm
+                                selectedPaymentDetails={selectedPaymentDetails}
+                                setSelectedPaymentDetails={setSelectedPaymentDetails}
+                                setSelectedScreen={setSelectedScreen}
+                            />
+                        }
+
+                        {/* Review Page */}
+                        {(selectedScreen?.id === "review") &&
+                            <OrderReviewPage
+                                totalSummery={totalSummary}
+                                setSelectedScreen={setSelectedScreen}
+                                buttonOptions={buttonOptions}
+                            />
+                        }
+
+                        {/* Loading Screen */}
+                        {(selectedScreen?.id === "loading") &&
+                            <LoadingScreen />
+                        }
+
+
+                        {/* Action Buttons */}
+                        <div className="mt-6 flex items-center justify-between">
+                            {selectedScreen?.leftButtonText != "hide" ?
+                                (<a
+                                    onClick={() => {
+                                        setSelectedScreen(buttonOptions.find(o => o.id === selectedScreen.leftButtonHref));
+                                    }}
+                                    className="text-sm font-semibold leading-6 text-primary hover:text-primary/80 flex items-center gap-2"
+                                    href="#">
+                                    <span className="material-symbols-outlined text-base">arrow_back</span>
+                                    {selectedScreen.leftButtonText}
+                                </a>)
+                                :
+                                (<a></a>)
+                            }
+                            {selectedScreen?.rightButtonText != "hide" &&
+                                <a
+                                    onClick={(e) => {
+
+                                        if (selectedScreen?.buttonDisable) {
+                                            e.preventDefault();
+                                            toast.error("Confirm payment method..!");
+                                            return;
+                                        }
+
+                                        setSelectedScreen({ id: "loading" });
+                                        setTimeout(() => {
+                                            setSelectedScreen(buttonOptions.find(o => o.id === selectedScreen.rightButtonHref));
+                                        }, loadingTime);
+                                    }}
+                                    className={`${selectedScreen?.buttonDisable ? "bg-gray-500 cursor-not-allowed" : "bg-primary hover:bg-primary/90 cursor-pointer"}  flex items-center justify-center gap-2 rounded-lg  px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
+                                    href="#">
+                                    {selectedScreen.rightButtonText}
+                                </a>
+                            }
+                        </div>
+
                     </div>
+
+                    {/* Order Summary */}
+                    <OrderSummary
+                        orderPrices={orderPrices}
+                        isPage={{
+                            isCheckoutPage: false,
+                            isPaymentPage: selectedScreen?.id === "payment",
+                            isReviewPage: selectedScreen?.id === "review",
+                        }}
+                        handleFinalProcess={handleFinalProcess}
+                        handlePromoPercentage={handlePromoPercentage}
+                    />
+
                 </main>
             </div >
         </div >
@@ -454,11 +467,12 @@ const ShippingMethodOption = ({ selectedShippingMethod, setSelectedShippingMetho
 };
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-const PaymentForm = ({ setSelectedPaymentDetails }) => {
+const PaymentForm = ({ selectedPaymentDetails, setSelectedPaymentDetails, setSelectedScreen }) => {
     const inputClasses = "block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:text-white bg-background-light dark:bg-background-dark shadow-sm focus:border-primary focus:ring-primary text-sm";
     const labelClasses = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
 
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Credit Card');
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('UPI Pay');
+    const [paymentInfoCopy, setPaymentInfoCopy] = useState(paymentInfo);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -508,7 +522,6 @@ const PaymentForm = ({ setSelectedPaymentDetails }) => {
                     paymentType: 'UPI Pay',
                 };
                 break;
-
             default:
 
                 sendData = {
@@ -525,10 +538,32 @@ const PaymentForm = ({ setSelectedPaymentDetails }) => {
             return;
         }
 
-        connectTo.addToArray(paymentInfo, sendData);
+        setPaymentInfoCopy(connectTo.addToArray(paymentInfo, sendData));
         setSelectedPaymentDetails(sendData);
+        setShowFrom(!showFrom);
         buttonOptions.find(o => o.id === 'payment').buttonDisable = false;
     };
+
+    const [showFrom, setShowFrom] = useState(false);
+
+    const handleRester = (method) => {
+
+        if (method === 'Credit Card') {
+            setShowFrom(false);
+            const filteredPaymentInfo = paymentInfo.filter(card => card.paymentType === "Credit Card");
+            setPaymentInfoCopy(filteredPaymentInfo);
+            setSelectedPaymentDetails(filteredPaymentInfo[0]);
+            let filterButtonOptions = buttonOptions.find(o => o.id === 'payment');
+            filterButtonOptions.buttonDisable = false;
+            setSelectedScreen(filterButtonOptions);
+        } else {
+            let filterButtonOptions = buttonOptions.find(o => o.id === 'payment');
+            filterButtonOptions.buttonDisable = true;
+            setSelectedScreen(filterButtonOptions);
+        }
+        setSelectedPaymentMethod(method);
+
+    }
 
     return (
         <div className="space-y-8">
@@ -552,7 +587,7 @@ const PaymentForm = ({ setSelectedPaymentDetails }) => {
                                 type="radio"
                                 value={method}
                                 checked={selectedPaymentMethod === method}
-                                onChange={() => setSelectedPaymentMethod(method)}
+                                onChange={() => handleRester(method)}
                             />
                         </label>
                     ))}
@@ -562,46 +597,74 @@ const PaymentForm = ({ setSelectedPaymentDetails }) => {
             {/* Card Information */}
             {selectedPaymentMethod === 'Credit Card' && (
                 <div className="bg-white dark:bg-gray-900/50 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
-                    <div className="flex items-center justify-center gap-4">
-                        {cardLogos.map((logo, index) => (
-                            <img key={index} alt={logo.alt} className="h-6" src={logo.url} />
-                        ))}
-                    </div>
-                    <h2 className="text-gray-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] mb-4">Card Information</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 gap-4">
-                            <div>
-                                <label className={labelClasses} htmlFor="card-number">Card Number</label>
-                                <div className="relative">
-                                    <input className={inputClasses} id="card-number" placeholder="0000 0000 0000 0000" type="number" name='cardNumber' />
-                                    <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">credit_card</span>
-                                </div>
-                            </div>
-                            <div>
-                                <label className={labelClasses} htmlFor="card-name">Name on Card</label>
-                                <input className={inputClasses} id="card-name" placeholder="John Doe" type="text" name='cardHolderName' />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className={labelClasses} htmlFor="expiry-date">Expiration Date</label>
-                                    <input className={inputClasses} id="expiry-date" placeholder="MM/YY" type="text" name='cardExpirationDate' />
-                                </div>
-                                <div>
-                                    <label className={labelClasses} htmlFor="cvv">
-                                        CVV
-                                        <span className="material-symbols-outlined text-xs align-middle text-gray-400 cursor-help" title="3-4 digit code on the back of your card">help</span>
-                                    </label>
-                                    <input className={inputClasses} id="cvv" placeholder="123" type="password" name='cardCVVNumber' />
-                                </div>
-                            </div>
+                    <div className='mb-12'>
+                        <div className="flex items-center justify-between mx-2 my-5 gap-4">
+                            <p className='font-medium text-xl text-slate-800 dark:text-slate-200'>Saved cards</p>
                             <button
-                                className="cursor-pointer px-4 py-2 my-3 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-sm font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-300/80 dark:hover:bg-slate-700/80 transition-colors"
-                                type='submit'
-                            >
-                                Verify
-                            </button>
+                                onClick={() => setShowFrom(!showFrom)}
+                                className='text-primary cursor-pointer hover:underline'>New</button>
                         </div>
-                    </form>
+                        {paymentInfoCopy.map(card => (
+                            <label key={card.id} className={`flex items-center gap-3 my-4 p-2 border rounded-xl cursor-pointer
+                        ${(card.id === selectedPaymentDetails.id) ? 'border-2 border-primary bg-primary/5 dark:bg-primary/10'
+                                    : 'border border-border-light dark:border-border-dark bg-neutral-light dark:bg-neutral-dark'}`}>
+                                <input
+                                    className="absolute size-15 hidden cursor-pointer border-gray-300 text-primary focus:ring-primary"
+                                    id="payment-card"
+                                    name="payment-card"
+                                    type="radio"
+                                    checked={card.id === selectedPaymentDetails.id}
+                                    onChange={() => setSelectedPaymentDetails(card)}
+                                />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEBUlEQVR4nO1Za0gUURT2Xz/62c72tIjQgopKiooeEPWjokiKHlD+iGYmy970sLKyl1ZEL4vK6AVpQQ8hKS3LmfHRaqZu2sO02tLemtZmmrrOiXN3586MrrKwC7vlfHDY2e/eOfd895577jATFGTAgAEDBgwYcI8evDDaxIpxDCecDSQzsWKciZfCgjwBwwr7GE6QGU6EwDRBZlhxT+cilolz/R+o6JGZ2cw5HQoxcWK6vwNkPDVWuNuZkAq/B8h5Zhhrx0JY0fbPCGFFmyGECSAzGUK4f1BIcOQ9CIlK1ZmZF9o5G7AqG6btKyQ2de8Twk3c+Zhy2K7t32u5BKO2WGDirgIIXpnlNsBR0Xn0frz2WkhUfAyU3Q4FkLoRq73PwOLdB3XONieVg4Ksl7WEq7Y3U27kFgvhxmzLh7Tiamh2yKBFyftfYOZVf2ZehNdfGmi79KLWN6nVk8+ExOTDIFuCiZiSlKE6Z7mv6uigXOJzCFmbQ//X/3GQwIZsyIWvP5vAHYrf2XX+Fh0v0bXX/W7RCfVqj2AgclMNgHUKOMTu0C/yPuGHbXwEra4JrrE3Q98VEsyIL6JBWF1Bbr9WQbm8ih8wfsdjIjj8sBVWXyzTjfWg9Hs7sbiaPtvsz6vqAVobwVE0BebvOU+46GQ1wFP3KgmHgSm4bvlCuLiUt5RLt9ZAn0jJbWDjYvJBllXB2pX2mZAzGVVOr01fIenmEcJZyp2D4eA4y8idSKukAaAA5GYdLNbNsO1bA0See9EuZRIffnAO0SLDdM3Knkyv9J2QiJOl1PEtKQ+Gb1LTKqesjva7W1xN+y09rc4kinIoN2hWB9MR2weuzgZ7o4PwqYXfiEjlf7bGv9dCBq3JoYHgBt12VU0rnF2l36tPvymPJVbrY3JsAQleC6x62LZV429xQqmukPxsaIGevA8PxCKb3bX0rVD41nldW98M/VznQe/lEkkLREurTGe7rV0QPtKgMZ20JVeWAZJyPsNl6RNUfFYnBfePz4Ro81/B6Ywq3WZVgIEhh4fapivlMCm2AELX5ZLfzGdqZYo49QwWHtOXXHfQrrrXQha4GXDCTucmR1uSoO6jNGsN4Q7dtkFHuCR+JH0ySlRhya7VQMOq527CvBaCjxtK6iCwamnbY2+8oW0Jrkpz9M57kmZalFb+ooVg7PZ8WjQwXRndYSySQxXxqM1YXglBm3mgCOYdeUqs7UGFqaW04fOUwvePyiIphSV18Ppc3T0jNlvoPe72wYx453hYwn0qJJDMZAjhAstMXUMI97+8DuL+kxd0Zl4I93uAnGfWY5k4O6gz4AvigH+JzQmxnYqgKcZLYQwn7Pf3ZwSmreGXAlYY6ZEIAwYMGDBgoCviL0TtZIzGdHmCAAAAAElFTkSuQmCC" alt="visa" />
+                                <div className="text-slate-600 dark:text-slate-400 text-sm">
+                                    <p className="font-medium text-slate-800 dark:text-slate-200">{card?.paymentType}</p>
+                                    <p>{card?.cardNumber.substring(12, 16)}</p>
+                                </div>
+                            </label>
+                        ))
+                        }
+                    </div>
+                    {showFrom &&
+                        <>
+                            <h2 className="text-gray-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] mb-4">Card Information</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="grid grid-cols-1 gap-4">
+                                    <div>
+                                        <label className={labelClasses} htmlFor="card-number">Card Number</label>
+                                        <div className="relative">
+                                            <input className={inputClasses} id="card-number" placeholder="0000 0000 0000 0000" type="number" name='cardNumber' />
+                                            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">credit_card</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className={labelClasses} htmlFor="card-name">Name on Card</label>
+                                        <input className={inputClasses} id="card-name" placeholder="John Doe" type="text" name='cardHolderName' />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className={labelClasses} htmlFor="expiry-date">Expiration Date</label>
+                                            <input className={inputClasses} id="expiry-date" placeholder="MM/YY" type="text" name='cardExpirationDate' />
+                                        </div>
+                                        <div>
+                                            <label className={labelClasses} htmlFor="cvv">
+                                                CVV
+                                                <span className="material-symbols-outlined text-xs align-middle text-gray-400 cursor-help" title="3-4 digit code on the back of your card">help</span>
+                                            </label>
+                                            <input className={inputClasses} id="cvv" placeholder="123" type="password" name='cardCVVNumber' />
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="cursor-pointer px-4 py-2 my-3 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-sm font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-300/80 dark:hover:bg-slate-700/80 transition-colors"
+                                        type='submit'
+                                    >
+                                        Verify
+                                    </button>
+                                </div>
+                            </form>
+                        </>
+                    }
                 </div>
             )
             }
@@ -658,6 +721,20 @@ const LoadingScreen = () => {
     return (
         <div className="space-y-8">
             <div className="h-100 flex items-center justify-center bg-white dark:bg-gray-900/50 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
+                <div className="loader">
+                    <div className="bar1"></div>
+                    <div className="bar2"></div>
+                    <div className="bar3"></div>
+                    <div className="bar4"></div>
+                    <div className="bar5"></div>
+                    <div className="bar6"></div>
+                    <div className="bar7"></div>
+                    <div className="bar8"></div>
+                    <div className="bar9"></div>
+                    <div className="bar10"></div>
+                    <div className="bar11"></div>
+                    <div className="bar12"></div>
+                </div>
                 <span className='text-white text-3xl'>Loading ...</span>
             </div>
         </div>

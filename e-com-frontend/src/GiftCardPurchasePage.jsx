@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
-// --- Mock Data ---
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const amountOptions = [
     { value: 25, label: '₹25' },
     { value: 50, label: '₹50' },
     { value: 100, label: '₹100' },
     { value: 'custom', label: 'Custom' },
 ];
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const faqItems = [
     {
         question: 'How is the gift card delivered?',
@@ -22,7 +26,8 @@ const faqItems = [
         answer: 'You can check your gift card balance by navigating to the "Redeem a Gift Card" tab on this page. Enter your gift card code in the provided field and click "Check Balance".'
     },
 ];
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // --- Sub-Components ---
 const HeroSection = () => (
     <div className="@container">
@@ -41,7 +46,8 @@ const HeroSection = () => (
         </div>
     </div>
 );
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const Tabs = () => (
     <div className="pb-3 pt-6">
         <div className="flex border-b border-slate-200 dark:border-slate-800 px-4 gap-8">
@@ -54,7 +60,8 @@ const Tabs = () => (
         </div>
     </div>
 );
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const GiftCardForm = ({ selectedAmount, setSelectedAmount, details, setDetails }) => {
 
     const handleChange = (e) => {
@@ -89,10 +96,10 @@ const GiftCardForm = ({ selectedAmount, setSelectedAmount, details, setDetails }
                 </div>
                 {selectedAmount === 'custom' && (
                     <div className="pt-3">
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="custom-amount">Enter Custom Amount (₹10 - ₹500)</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="customAmount">Enter Custom Amount (₹10 - ₹500)</label>
                         <input
                             className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary dark:placeholder-slate-500"
-                            id="custom-amount"
+                            id="customAmount"
                             type="number"
                             min="10"
                             max="500"
@@ -110,10 +117,10 @@ const GiftCardForm = ({ selectedAmount, setSelectedAmount, details, setDetails }
                 <div className="space-y-4 pt-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="recipient-name">Recipient's Name</label>
+                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="recipientName">Recipient's Name</label>
                             <input
                                 className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary dark:placeholder-slate-500"
-                                id="recipient-name"
+                                id="recipientName"
                                 placeholder="Jane Doe"
                                 type="text"
                                 defaultValue={details.recipientName}
@@ -121,10 +128,10 @@ const GiftCardForm = ({ selectedAmount, setSelectedAmount, details, setDetails }
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="recipient-email">Recipient's Email</label>
+                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="recipientEmail">Recipient's Email</label>
                             <input
                                 className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary dark:placeholder-slate-500"
-                                id="recipient-email"
+                                id="recipientEmail"
                                 placeholder="jane.doe@example.com"
                                 type="email"
                                 defaultValue={details.recipientEmail}
@@ -133,10 +140,10 @@ const GiftCardForm = ({ selectedAmount, setSelectedAmount, details, setDetails }
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="sender-name">Your Name</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" htmlFor="senderName">Your Name</label>
                         <input
                             className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary dark:placeholder-slate-500"
-                            id="sender-name"
+                            id="senderName"
                             placeholder="John Smith"
                             type="text"
                             defaultValue={details.senderName}
@@ -161,11 +168,11 @@ const GiftCardForm = ({ selectedAmount, setSelectedAmount, details, setDetails }
         </div>
     );
 };
-
-const GiftCardPreview = ({ selectedAmount, details }) => {
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+const GiftCardPreview = ({ selectedAmount, handleCardNumber, details }) => {
     let displayAmount = typeof selectedAmount === 'number' ? selectedAmount : 0;
-    console.log(details);
-    
+
     if (selectedAmount === 'custom' && details.customAmount) {
         displayAmount = parseFloat(details.customAmount) || 0;
     }
@@ -178,10 +185,12 @@ const GiftCardPreview = ({ selectedAmount, details }) => {
         <div className="lg:col-span-1 space-y-6">
             <h3 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">Gift Card Preview</h3>
             <div className="bg-slate-900 rounded-xl p-6 flex flex-col justify-between shadow-lg text-white aspect-[1.586/1]">
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-start mb-3">
                     <div className="text-primary size-8">
-                        {/* Brand Icon SVG */}
-                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path></svg>
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor" />
+                        </svg>
+                        <p className='underline'>Khapara</p>
                     </div>
                     <div className="text-right">
                         <p className="text-xs text-slate-400">GIFT CARD</p>
@@ -192,15 +201,19 @@ const GiftCardPreview = ({ selectedAmount, details }) => {
                     <p className={`text-sm italic ${messageStyle}`}>{displayMessage}</p>
                     <p className="text-sm text-slate-400 mt-2">To: {details.recipientName || 'Recipient Name'}</p>
                     <p className="text-sm text-slate-400">From: {details.senderName || 'Sender Name'}</p>
+                    <p className="text-sm text-slate-400">Redeem: {details.giftCardNum || 'Gift Card Number'}</p>
                 </div>
             </div>
-            <button className="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+            <button
+                onClick={() => handleCardNumber()}
+                className="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
                 <span className="truncate">Add to Cart - {formattedAmount}</span>
             </button>
-        </div>
+        </div >
     );
 };
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 const FAQSection = ({ items }) => (
     <div className="px-4 py-12 border-t border-slate-200 dark:border-slate-800 mt-8">
         <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">Frequently Asked Questions</h2>
@@ -217,10 +230,9 @@ const FAQSection = ({ items }) => (
         </div>
     </div>
 );
-
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // --- Main Page Component ---
-
 const GiftCardPurchasePage = () => {
     const [selectedAmount, setSelectedAmount] = useState(25); // Default to $25
     const [details, setDetails] = useState({
@@ -229,44 +241,54 @@ const GiftCardPurchasePage = () => {
         senderName: '',
         message: '',
         customAmount: '',
+        giftCardNum: '',
     });
 
+    const handleCardNumber = () => {
+        setDetails(prev =>
+        ({
+            ...prev,
+            giftCardNum: crypto.randomUUID(),
+        })
+        );
+        console.log(details);
+    };
+
     return (
-        <div className="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen">
-            <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-                <div className="layout-container flex h-full grow flex-col">
+        <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+            <div className="layout-container flex h-full grow flex-col">
 
-                    <main className="flex flex-1 justify-center py-5 sm:py-10">
-                        <div className="layout-content-container flex flex-col w-full max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
+                <main className="flex flex-1 justify-center py-5 sm:py-10">
+                    <div className="layout-content-container flex flex-col w-full max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
 
-                            {/* Hero Section */}
-                            <HeroSection />
+                        {/* Hero Section */}
+                        <HeroSection />
 
-                            {/* Tabs */}
-                            <Tabs />
+                        {/* Tabs */}
+                        <Tabs />
 
-                            {/* Main Content: Form and Preview */}
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4 py-8">
-                                {/* Left Column: Form */}
-                                <GiftCardForm
-                                    selectedAmount={selectedAmount}
-                                    setSelectedAmount={setSelectedAmount}
-                                    details={details}
-                                    setDetails={setDetails}
-                                />
+                        {/* Main Content: Form and Preview */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4 py-8">
+                            {/* Left Column: Form */}
+                            <GiftCardForm
+                                selectedAmount={selectedAmount}
+                                setSelectedAmount={setSelectedAmount}
+                                details={details}
+                                setDetails={setDetails}
+                            />
 
-                                {/* Right Column: Preview & Summary */}
-                                <GiftCardPreview
-                                    selectedAmount={selectedAmount}
-                                    details={details}
-                                />
-                            </div>
-
-                            {/* FAQ Section */}
-                            <FAQSection items={faqItems} />
+                            {/* Right Column: Preview & Summary */}
+                            <GiftCardPreview
+                                selectedAmount={selectedAmount}
+                                handleCardNumber={handleCardNumber}
+                                details={details}
+                            />
                         </div>
-                    </main>
-                </div>
+
+                        {/* FAQ Section */}
+                        <FAQSection items={faqItems} />
+                    </div>
+                </main>
             </div>
         </div>
     );

@@ -7,8 +7,8 @@ import { products, myWishlist, cartList } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-const ProductPage = () => {
+//-- Main Components --
+const SelectedProductPage = () => {
 
     const [allProducts, setAllProducts] = useState(products);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -50,11 +50,10 @@ const ProductPage = () => {
     );
 };
 
-export default ProductPage;
+export default SelectedProductPage;
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const ProductInfoTabs = () => {
-    // In a real app, this would be stateful and switch content based on the active tab
     const tabs = ['Description', 'Specifications', 'Shipping & Returns'];
     const [activeTab, setActiveTab] = useState('Description');
 
