@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 
@@ -48,18 +48,30 @@ const HeroSection = () => (
 );
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-const Tabs = () => (
-    <div className="pb-3 pt-6">
-        <div className="flex border-b border-slate-200 dark:border-slate-800 px-4 gap-8">
-            <a className="flex flex-col items-center justify-center border-b-[3px] border-primary text-slate-900 dark:text-white pb-[13px] pt-4" href="#">
-                <p className="text-sm font-bold leading-normal tracking-[0.015em]">Purchase a Gift Card</p>
-            </a>
-            <a className="flex flex-col items-center justify-center border-b-[3px] border-transparent text-slate-500 dark:text-slate-400 pb-[13px] pt-4 hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600 transition-colors" href="#">
-                <p className="text-sm font-bold leading-normal tracking-[0.015em]">Redeem a Gift Card</p>
-            </a>
-        </div>
-    </div>
-);
+const Tabs = ({ tabSwitch, setTabSwitch }) => {
+
+    const menuList = [
+        { id: "purchase", label: "Purchase a Gift Card" },
+        { id: "redeem", label: "Redeem a Gift Card" },
+    ];
+
+    return (
+        <div className="pb-3 pt-6">
+            <div className="flex border-b border-slate-200 dark:border-slate-800 px-4 gap-8">
+                {menuList.map(process => (
+                    <a
+                        onClick={(e) => { e.preventDefault(); setTabSwitch(process.id); }}
+                        key={process.id}
+                        className={`flex flex-col items-center justify-center border-b-[3px] pb-[13px] pt-4' ${process.id === tabSwitch ? 'border-primary text-slate-900 dark:text-white' : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600 transition-colors'}`}
+                        href="#">
+                        <p className="text-sm font-bold leading-normal tracking-[0.015em]" > {process.label}</p>
+                    </a>
+                ))
+                }
+            </div >
+        </div >
+    )
+};
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const GiftCardForm = ({ selectedAmount, setSelectedAmount, details, setDetails }) => {
@@ -232,6 +244,28 @@ const FAQSection = ({ items }) => (
 );
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
+const RedeemForm = ({ setRedeemCode }) => {
+    return (
+        <section>
+            <div className="space-y-4 pt-3">
+                <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                        htmlFor="giftCardCode">Gift Card Code
+                    </label>
+                    <input
+                        className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary dark:placeholder-slate-500"
+                        id="giftCardCode"
+                        placeholder="Gift Card Code"
+                        type="text"
+                        onChange={(e) => setRedeemCode(e.target.value)}
+                    />
+                </div>
+            </div>
+        </section>
+    )
+};
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // --- Main Page Component ---
 const GiftCardPurchasePage = () => {
     const [selectedAmount, setSelectedAmount] = useState(25); // Default to $25
@@ -245,14 +279,23 @@ const GiftCardPurchasePage = () => {
     });
 
     const handleCardNumber = () => {
-        setDetails(prev =>
-        ({
-            ...prev,
-            giftCardNum: crypto.randomUUID(),
-        })
-        );
+        setDetails(prev => ({ ...prev, giftCardNum: crypto.randomUUID(), }));
         console.log(details);
     };
+
+    // Redeem a Gift Card
+    const [tabSwitch, setTabSwitch] = useState('purchase');
+    const [redeemCode, setRedeemCode] = useState('');
+    useEffect(() => {
+        if (tabSwitch === 'redeem') {
+            setSelectedAmount(0);
+        }
+    }, [tabSwitch]);
+    useEffect(() => {
+        if (tabSwitch === 'redeem') {
+            setSelectedAmount(0);
+        }
+    }, [redeemCode]);
 
     return (
         <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
@@ -265,32 +308,50 @@ const GiftCardPurchasePage = () => {
                         <HeroSection />
 
                         {/* Tabs */}
-                        <Tabs />
+                        <Tabs tabSwitch={tabSwitch} setTabSwitch={setTabSwitch} />
 
                         {/* Main Content: Form and Preview */}
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4 py-8">
-                            {/* Left Column: Form */}
-                            <GiftCardForm
-                                selectedAmount={selectedAmount}
-                                setSelectedAmount={setSelectedAmount}
-                                details={details}
-                                setDetails={setDetails}
-                            />
+                        {tabSwitch === "redeem" &&
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-4 py-8">
+                                {/* Left Column: Form */}
 
-                            {/* Right Column: Preview & Summary */}
-                            <GiftCardPreview
-                                selectedAmount={selectedAmount}
-                                handleCardNumber={handleCardNumber}
-                                details={details}
-                            />
-                        </div>
+                                <RedeemForm
+                                    setRedeemCode={setRedeemCode}
+                                />
+
+                                <GiftCardPreview
+                                    selectedAmount={selectedAmount}
+                                    handleCardNumber={handleCardNumber}
+                                    details={details}
+                                />
+                            </div>
+                        }
+
+                        {tabSwitch === "purchase" &&
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4 py-8">
+                                {/* Left Column: Form */}
+                                <GiftCardForm
+                                    selectedAmount={selectedAmount}
+                                    setSelectedAmount={setSelectedAmount}
+                                    details={details}
+                                    setDetails={setDetails}
+                                />
+
+                                {/* Right Column: Preview & Summary */}
+                                <GiftCardPreview
+                                    selectedAmount={selectedAmount}
+                                    handleCardNumber={handleCardNumber}
+                                    details={details}
+                                />
+                            </div>
+                        }
 
                         {/* FAQ Section */}
                         <FAQSection items={faqItems} />
                     </div>
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

@@ -789,3 +789,10 @@ export const itemsStatus = [
             }],
     }
 ];
+
+export const giftCardInfo = [
+    {
+        id: 1,
+        
+    }
+];
