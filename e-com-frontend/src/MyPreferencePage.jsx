@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { shippingInfo } from "./utilities/rawData";
-import * as connectTo from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const MyPreferencePage = () => {
 
-    const [dark, setDark] = React.useState(false);
+    const [dark, setDark] = useState(() => {
+        if (typeof window === 'undefined') return false;
+        try {
+            const stored = localStorage.getItem('theme');
+            if (stored === 'dark') return true;
+            if (stored === 'light') return false;
+        } catch (e) {}
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (dark) {
             document.documentElement.classList.add("dark");
+            try { localStorage.setItem('theme', 'dark'); } catch (e) {}
         } else {
             document.documentElement.classList.remove("dark");
+            try { localStorage.setItem('theme', 'light'); } catch (e) {}
         }
     }, [dark]);
 
@@ -33,7 +40,7 @@ const MyPreferencePage = () => {
                         </div>
                         <div>
                             <label className="switch cursor-pointer">
-                                <input type="checkbox" onChange={() => setDark(!dark)} />
+                                <input type="checkbox" checked={dark} onChange={() => setDark(prev => !prev)} />
                                 <span className="slider"></span>
                             </label>
                         </div>
@@ -71,8 +78,8 @@ const MyPreferencePage = () => {
                         </div>
                     </div>
                 </section>
-            </ div>
-        </ main >
+            </div>
+        </main>
     )
 }
 export default MyPreferencePage;

@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 // ---------------------------------------------------------------------------
 import { OrderSummary } from './components/reusables/OrderSummary';
 import OrderReviewPage from './ReviewPage';
-import { cartList, products, paymentInfo, shippingInfo, totalSummarys, promoCodes } from './utilities/rawData';
+import { cartList, products, paymentInfo, shippingInfo, totalSummarys, promoCodes, itemsStatus } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
 import { useNavigate } from 'react-router-dom';
 // ---------------------------------------------------------------------------
@@ -52,6 +52,7 @@ function calculateOrderPrices(cartItems, selectedShippingMethod) {
 
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
+// -- Main Component --
 const CheckoutShippingInfoPage = () => {
 
     const Navigate = useNavigate();
@@ -59,7 +60,6 @@ const CheckoutShippingInfoPage = () => {
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(shippingOptions.find(o => o.id === 'standard'));
     const [cartItems, setCartItems] = useState(cartList);
     const orderPrices = calculateOrderPrices(cartItems, selectedShippingMethod);
-    console.log(orderPrices);
     const [total, setTotal] = useState(orderPrices.total);
     const originalPrice = orderPrices.total;
 
@@ -84,8 +84,21 @@ const CheckoutShippingInfoPage = () => {
 
     const handleFinalProcess = () => {
         const id = crypto.randomUUID();
-        connectTo.addToArray(totalSummarys, { id, ...totalSummary })
+
+        let newItemsStatus = cartItems.map(item => ({
+            ...item,
+            status: "Pending",
+            orderDate: format(new Date, "MMM-dd"),
+            eta: selectedShippingMethod.eta,
+            ata: "Jan-06"
+        }));
+        newItemsStatus = { items: [...newItemsStatus] };
+
+        connectTo.addToArray(totalSummarys, { id, ...totalSummary });
+        connectTo.addToArray(itemsStatus, { id, ...newItemsStatus });
+
         console.log(totalSummarys);
+        console.log(itemsStatus);
         Navigate(`/confirmation?id=${id}`);
     };
 

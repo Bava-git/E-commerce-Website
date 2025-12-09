@@ -27,7 +27,7 @@ export const Header = ({ links }) => {
                 <div className="hidden sm:block w-7xl max-w-xl">
                     <label className="relative">
                         <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark pointer-events-none"> search </span>
-                        <input className="text-white w-full rounded-lg border-none bg-border-light dark:bg-border-dark py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Search..." type="search" id="search" />
+                        <input className="text-white w-full rounded-lg border-none bg-border-light dark:bg-border-dark py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary mx-2" placeholder="Search..." type="search" id="search" />
                     </label>
                 </div>
                 <div className="flex items-center gap-2 relative">

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { totalSummarys, itemsStatus } from './utilities/rawData';
+import { itemsStatus, totalSummarys } from './utilities/rawData';
 import { CopyButton } from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -259,8 +259,13 @@ const ShipmentTrackingPage = () => {
 
     const [searchParam, setSearchParam] = useSearchParams();
     const orderId = searchParam.get("orderId");
-    const congineeDetail = totalSummarys?.find(o => o.id === orderId)?.congineeDetail || totalSummarys[0];
-    const selectedItemsStatus = itemsStatus?.find(o => o.id === orderId)?.items || itemsStatus[0];
+    const congineeDetail = totalSummarys?.find(o => o.id === orderId)?.congineeDetail;
+    const selectedItemsStatus = itemsStatus?.find(o => o.id === orderId)?.items;
+
+    if (!congineeDetail || !selectedItemsStatus) {
+        window.location.href = "/orders"
+    }
+
     const [selectedItem, setSelectedItem] = useState(selectedItemsStatus[0]);
 
     return (
@@ -290,3 +295,5 @@ const ShipmentTrackingPage = () => {
 };
 
 export default ShipmentTrackingPage;
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------

@@ -96,7 +96,7 @@ export const Pagination = ({ data, ItemPerPage, setTableData }) => {
 
         if (data?.length === 0) {
             return;
-        } else if (data?.length <= 10) {
+        } else if (data?.length <= ItemPerPage) {
             setTableData(data);
             return;
         }
@@ -115,6 +115,7 @@ export const Pagination = ({ data, ItemPerPage, setTableData }) => {
 
     const pagenation = (data) => {
         let NoOfPages = Math.ceil(data?.length / ItemPerPage);
+
         const allButtons = [
             <a key="previous" className='flex size-10 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-primary' onClick={() => {
                 if (CurrentPage === 0) {
@@ -154,15 +155,17 @@ export const Pagination = ({ data, ItemPerPage, setTableData }) => {
                 }
                 CurrentPage++;
                 loadPage(data, CurrentPage);
-            }}>Next</a>,
+            }}>
+                <span className="material-symbols-outlined">chevron_right</span>
+            </a>,
         );
         setButtons(allButtons);
     };
 
     return (
-        <nav className="pagination">
+        <nav className="pagination flex justify-between cursor-pointer" >
             {buttons}
-        </nav>
+        </nav >
     )
 
 };

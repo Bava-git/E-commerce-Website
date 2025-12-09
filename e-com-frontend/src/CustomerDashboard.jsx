@@ -5,18 +5,18 @@ import MyOrdersPage from "./MyOrdersPage";
 import MyDashboardPage from "./MyDashboardPage";
 import MyAddressPage from "./MyAddressPage";
 import MyPreferencePage from "./MyPreferencePage";
-import GiftCardPurchasePage from "./GiftCardPurchasePage";
+import GiftCardPurchasePage from "./components/giftcard/MyGiftCardPage";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // --- Sub-Components ---
 const Sidebar = ({ activeTab, setActiveTab }) => {
     const navItems = [
-        { icon: "dashboard", label: "Dashboard", href: "#" },
-        { icon: "package_2", label: "Orders", href: "#" },
-        { icon: "pin_drop", label: "Addresses", href: "#" },
-        { icon: "payment_card", label: "Gift Card", href: "#" },
-        { icon: "person", label: "Profile", href: "#" },
-        { icon: "settings", label: "Preferences", href: "#" },
+        { id: "dashboard", icon: "dashboard", label: "Dashboard", href: "#" },
+        { id: "orders", icon: "package_2", label: "Orders", href: "#" },
+        { id: "addresses", icon: "pin_drop", label: "Addresses", href: "#" },
+        { id: "giftcard", icon: "payment_card", label: "Gift Card", href: "#" },
+        { id: "profile", icon: "person", label: "Profile", href: "#" },
+        { id: "preferences", icon: "settings", label: "Preferences", href: "#" },
     ];
 
     return (
@@ -48,12 +48,12 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                             {navItems.map((item) => (
                                 <a
                                     key={item.label}
-                                    onClick={() => setActiveTab(item.label)}
-                                    className={`cursor-pointer flex items-center gap-3 px-3 py-2 rounded-lg transition-colors duration-200 ${activeTab === item.label
-                                        ? "bg-primary/10 text-primary"
-                                        : "text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                                    onClick={() => setActiveTab(item.id)}
+                                    className={`cursor-pointer flex items-center gap-3 px-3 py-2 rounded-lg transition-colors duration-200 
+                                        ${activeTab === item.id
+                                            ? "bg-primary/10 text-primary"
+                                            : "text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
                                         }`}
-                                    href="#"
                                 >
                                     <span className="material-symbols-outlined">{item.icon}</span>
                                     <p className="text-sm font-medium leading-normal">
@@ -81,8 +81,8 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 };
 
 // --- Main Page Component ---
-const CustomerDashboard = () => {
-    const [activeTab, setActiveTab] = useState("Dashboard");
+const CustomerDashboard = ({ section }) => {
+    const [activeTab, setActiveTab] = useState(section);
 
     return (
         <div className="font-display bg-background-light dark:bg-background-dark min-h-screen">
@@ -96,23 +96,23 @@ const CustomerDashboard = () => {
                         setActiveTab={setActiveTab}
                     />
 
-                    {activeTab === "Dashboard" &&
+                    {activeTab === "dashboard" &&
                         <MyDashboardPage />
                     }
 
-                    {activeTab === "Orders" &&
+                    {activeTab === "orders" &&
                         <MyOrdersPage />
                     }
 
-                    {activeTab === "Gift Card" &&
+                    {activeTab === "giftcard" &&
                         <GiftCardPurchasePage />
                     }
 
-                    {activeTab === "Addresses" &&
+                    {activeTab === "addresses" &&
                         <MyAddressPage />
                     }
 
-                    {activeTab === "Preferences" &&
+                    {activeTab === "preferences" &&
                         <MyPreferencePage />
                     }
                 </main>

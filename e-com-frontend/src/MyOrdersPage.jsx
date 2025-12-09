@@ -6,14 +6,17 @@ import { Pagination } from './utilities/reusables';
 import { totalSummarys } from './utilities/rawData';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-const getStatusBadge = (status, color) => {
-    const colorMap = {
-        green: { bg: 'bg-green-100 dark:bg-green-900/50', text: 'text-green-700 dark:text-green-300', dot: 'bg-green-500' },
-        blue: { bg: 'bg-blue-100 dark:bg-blue-900/50', text: 'text-blue-700 dark:text-blue-300', dot: 'bg-blue-500' },
-        orange: { bg: 'bg-orange-100 dark:bg-orange-900/50', text: 'text-orange-700 dark:text-orange-300', dot: 'bg-orange-500' },
-        slate: { bg: 'bg-slate-100 dark:bg-slate-700', text: 'text-slate-600 dark:text-slate-300', dot: 'bg-slate-400' },
+const getStatusBadge = (status) => {
+    const statusColorPanel = {
+        Confirmed: { bg: 'bg-blue-100 dark:bg-blue-900/50', text: 'text-blue-700 dark:text-blue-300', dot: 'bg-blue-500' },
+        Shipped: { bg: 'bg-blue-100 dark:bg-blue-900/50', text: 'text-blue-700 dark:text-blue-300', dot: 'bg-blue-500' },
+        Pending: { bg: 'bg-slate-100 dark:bg-slate-700', text: 'text-slate-600 dark:text-slate-300', dot: 'bg-slate-400' },
+        'In Transit': { bg: 'bg-orange-100 dark:bg-orange-900/50', text: 'text-orange-700 dark:text-orange-300', dot: 'bg-orange-500' },
+        'Out for Delivery': { bg: 'bg-green-100 dark:bg-green-900/50', text: 'text-green-700 dark:text-green-300', dot: 'bg-green-500' },
+        Delivered: { bg: 'bg-green-100 dark:bg-green-900/50', text: 'text-green-700 dark:text-green-300', dot: 'bg-green-500' },
     };
-    const { bg, text, dot } = colorMap[color] || colorMap.slate;
+
+    const { bg, text, dot } = statusColorPanel[status] || statusColorPanel.Pending;
 
     return (
         <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium ${bg} ${text}`}>
@@ -64,7 +67,7 @@ const OrderRow = ({ order }) => (
             <p className="text-sm font-medium text-slate-800 dark:text-slate-200">₹{order?.totalSummary.total.toFixed(2)}</p>
         </div>
         <div className="md:col-span-2">
-            {getStatusBadge(order?.deliveryStatus.status, order.statusColor)}
+            {getStatusBadge(order?.deliveryStatus.status)}
         </div>
         <div className="col-span-2 md:col-span-2 flex justify-end">
             <button

@@ -1,77 +1,79 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'sonner';
 
+// Import CSS
+import './App.css';
 
-import './App.css'
-
-import SearchedProductsListingPage from './SearchedProductsListingPage'
-import ShoppingCartPage from './CartPage'
-import SelectedProductPage from './SelectedProductPage'
-import CheckoutPage from './CheckoutPage'
-import OrderConfirmationPage from './ConfirmationPage'
-import OrderReviewPage from './ReviewPage'
-import MyOrdersPage from './MyOrdersPage'
-import LoginPage from './LoginPage'
-import CreateAccountPage from './CreateAccountPage'
-import CustomerDashboard from './CustomerDashboard'
-import WishlistPage from './WishlistPage'
-import ShipmentTrackingPage from './TrackingPage'
-import GiftCardPurchasePage from './GiftCardPurchasePage'
-
-// Bin -----------------------------------------------------------------------------
-// import CheckoutShippingMethodPage from './components/bin/CheckoutShippingMethodPage'
-// import CheckoutPaymentPage from './components/bin/CheckoutPaymentPage'
-
-// General -----------------------------------------------------------------------------
-import { Header, Footer } from './HeaderAndFooter'
-import HomePage from './HomePage'
-import ReturnsAndShippingPage from './components/general/ReturnsAndShippingPage'
-import HelpCenterPage from './components/general/HelpCenterPage'
-import AboutUsPage from './components/general/AboutUsPage'
-import ContactUsPage from './components/general/ContactUsPage'
-import NotFoundPage from './components/general/NotFoundPage'
+// Common  -----------------------------------------------------------------------------
+import { Header, Footer } from './HeaderAndFooter'; // NOT-IN-LAZY-LOAD
+import HomePage from './HomePage'; // NOT-IN-LAZY-LOAD
+// General Pages  -----------------------------------------------------------------------------
+const AboutUsPage = lazy(() => import('./components/general/AboutUsPage'));
+const ContactUsPage = lazy(() => import('./components/general/ContactUsPage'));
+const HelpCenterPage = lazy(() => import('./components/general/HelpCenterPage'));
+const NotFoundPage = lazy(() => import('./components/general/NotFoundPage'));
+const ReturnsAndShippingPage = lazy(() => import('./components/general/ReturnsAndShippingPage'));
+// Other Pages -----------------------------------------------------------------------------
+const ShoppingCartPage = lazy(() => import('./CartPage'));
+const CheckoutPage = lazy(() => import('./CheckoutPage'));
+const OrderConfirmationPage = lazy(() => import('./ConfirmationPage'));
+const CreateAccountPage = lazy(() => import('./CreateAccountPage'));
+const CustomerDashboard = lazy(() => import('./CustomerDashboard'));
+const LoginPage = lazy(() => import('./LoginPage'));
+const SearchedProductsListingPage = lazy(() => import('./SearchedProductsListingPage'));
+const SelectedProductPage = lazy(() => import('./SelectedProductPage'));
+const ShipmentTrackingPage = lazy(() => import('./TrackingPage'));
+const WishlistPage = lazy(() => import('./WishlistPage'));
 
 // Developer -----------------------------------------------------------------------------
-import TestScreen from './TestScreen'
-import AllScreens from './AllScreens'
+import AllScreens from './AllScreens';
+import TestScreen from './TestScreen';
 
 
 function App() {
 
   return (
     <div className="bg-white dark:bg-background-dark">
-      <Header links={dealsLinks} />
       <Toaster richColors duration={3000} position='top-right' />
+      <Header links={dealsLinks} />
       <BrowserRouter>
-        <Routes>
-          {/* Developer */}
-          <Route path='/testscreen' element={<TestScreen />} />
-          <Route path='/allscreens' element={<AllScreens />} />
-          <Route path='/loading' element={<loadingScreen />} />
-          {/* General */}
-          <Route path='/aboutus' element={<AboutUsPage />} />
-          <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
-          <Route path='/helpcenter' element={<HelpCenterPage />} />
-          <Route path='/contactus' element={<ContactUsPage />} />
-          <Route path='/*' element={<NotFoundPage />} />
-          {/* READY */}
-          <Route path='/' element={<HomePage />} />
-          <Route path='/signin' element={<LoginPage />} />
-          <Route path='/signup' element={<CreateAccountPage />} />
-          <Route path='/product' element={<SelectedProductPage />} />
-          <Route path='/wishlist' element={<WishlistPage />} />
-          <Route path='/cart' element={<ShoppingCartPage />} />
-          <Route path='/checkout' element={<CheckoutPage />} />
-          <Route path='/confirmation' element={<OrderConfirmationPage />} />
-          <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
-          {/* NOT-READY */}
-          <Route path='/dashboard' element={<CustomerDashboard />} />
-          <Route path='/productlist' element={<SearchedProductsListingPage />} />
-        </Routes>
+        <Suspense element={<loadingScreen />}>
+          <Routes>
+            {/* Developer */}
+            <Route path='/testscreen' element={<TestScreen />} />
+            <Route path='/allscreens' element={<AllScreens />} />
+            <Route path='/loading' element={<loadingScreen />} />
+            {/* General */}
+            <Route path='/aboutus' element={<AboutUsPage />} />
+            <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
+            <Route path='/helpcenter' element={<HelpCenterPage />} />
+            <Route path='/contactus' element={<ContactUsPage />} />
+            <Route path='/*' element={<NotFoundPage />} />
+            {/* READY */}
+            <Route path='/' element={<HomePage />} />
+            <Route path='/signin' element={<LoginPage />} />
+            <Route path='/signup' element={<CreateAccountPage />} />
+            <Route path='/product' element={<SelectedProductPage />} />
+            <Route path='/wishlist' element={<WishlistPage />} />
+            <Route path='/cart' element={<ShoppingCartPage />} />
+            <Route path='/checkout' element={<CheckoutPage />} />
+            <Route path='/confirmation' element={<OrderConfirmationPage />} />
+            <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
+            {/* Customer Dashboard*/}
+            <Route path='/dashboard' element={<CustomerDashboard section="dashboard" />} />
+            <Route path='/orders' element={<CustomerDashboard section="orders" />} />
+            <Route path='/addresses' element={<CustomerDashboard section="addresses" />} />
+            <Route path='/giftcard' element={<CustomerDashboard section="giftcard" />} />
+            <Route path='/profile' element={<CustomerDashboard section="profile" />} />
+            <Route path='/preferences' element={<CustomerDashboard section="preferences" />} />
+            {/* NOT-READY */}
+            <Route path='/productlist' element={<SearchedProductsListingPage />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
       <Footer />
-    </div>
+    </div >
   )
 }
 
