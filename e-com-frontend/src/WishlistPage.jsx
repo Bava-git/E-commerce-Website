@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { myWishlist, cartList } from './utilities/rawData';
+import { cartList, myWishlist } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
-import { Pagination } from './utilities/reusables';
+import { Pagination, safeSortAscending, safeSortDescending } from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 
@@ -75,8 +75,23 @@ const WishlistItemCard = ({ item }) => (
 // --- Main Page Component ---
 const WishlistPage = () => {
 
-    const [tableData, setTableData] = useState([]);
+    const [myWishlistCopy, setMyWishlistCopy] = useState(myWishlist);
+    const [tableData, setTableData] = useState(myWishlistCopy);
     const Navigate = useNavigate();
+
+    const handleSort = (e) => {
+        let sortedData = [];
+
+        if (e.target.value === 'Ascending') {
+            sortedData = safeSortAscending([...myWishlistCopy], "price");
+        } else if (e.target.value === 'Descending') {
+            sortedData = safeSortDescending([...myWishlistCopy], "price");
+        } else {
+            sortedData = [...myWishlistCopy]; // fallback to original
+        }
+
+        setTableData(sortedData);
+    };
 
     return (
         <div className="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen">
@@ -94,14 +109,14 @@ const WishlistPage = () => {
                                 </div>
                                 {myWishlist?.length != 0 &&
                                     <div className="flex gap-2">
-                                        <button className="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 px-4 hover:bg-slate-300/80 dark:hover:bg-slate-700/80 transition-colors">
-                                            <p className="text-slate-700 dark:text-slate-300 text-sm font-medium">Sort by Price</p>
-                                            <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-lg">arrow_drop_down</span>
-                                        </button>
-                                        <button className="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 px-4 hover:bg-slate-300/80 dark:hover:bg-slate-700/80 transition-colors">
-                                            <p className="text-slate-700 dark:text-slate-300 text-sm font-medium">Date Added</p>
-                                            <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-lg">arrow_drop_down</span>
-                                        </button>
+                                        <div className="flex items-center gap-2">
+                                            <label className="text-sm" htmlFor="sort">Sort by:</label>
+                                            <select onChange={(e) => handleSort(e)} className="rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:border-primary focus:ring-primary pr-8" id="sort">
+                                                <option>Featured</option>
+                                                <option value='Ascending'>Price: Low to High</option>
+                                                <option value='Descending'>Price: High to Low</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 }
                             </div>
@@ -134,7 +149,7 @@ const WishlistPage = () => {
                             }
 
                             {/* Pagination */}
-                            <Pagination data={myWishlist} ItemPerPage={10} setTableData={setTableData} />
+                            <Pagination data={tableData} ItemPerPage={10} setTableData={setTableData} />
                         </div>
                     </div>
                 </main>

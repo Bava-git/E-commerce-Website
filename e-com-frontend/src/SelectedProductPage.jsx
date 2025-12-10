@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { products, myWishlist, cartList } from './utilities/rawData';
+import { cartList, myWishlist, products } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -53,6 +53,7 @@ const SelectedProductPage = () => {
 export default SelectedProductPage;
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
+//-- Sub Components --
 const ProductInfoTabs = () => {
     const tabs = ['Description', 'Specifications', 'Shipping & Returns'];
     const [activeTab, setActiveTab] = useState('Description');
@@ -195,18 +196,50 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
 
                 {/* Rating */}
                 <div className="flex items-center gap-2 pt-2">
+                    <p className="text-text-secondary-light dark:text-text-secondary-dark">
+                        {product.averageRating.toFixed(1)}
+                    </p>
                     <div className="flex items-center text-amber-400">
                         {/* Full Stars */}
-                        {[...Array(4)].map((_, i) => (
-                            <span key={`full-${i}`} className="material-symbols-outlined fill-1! text-[20px]!">star</span>
+                        {[...Array(Math.floor(product.averageRating))].map((_, i) => (
+                            <span
+                                key={`full-${i}`}
+                                className="material-symbols-outlined text-yellow-500 !text-[20px]"
+                                style={{ fontVariationSettings: "'FILL' 1" }}
+                            >
+                                star
+                            </span>
                         ))}
+
                         {/* Half Star */}
-                        <span className="material-symbols-outlined text-[20px]!">star_half</span>
+                        {product.averageRating % 1 >= 0.5 && (
+                            <span
+                                className="material-symbols-outlined text-yellow-500 !text-[20px]"
+                                style={{ fontVariationSettings: "'FILL' 1" }}
+                            >
+                                star_half
+                            </span>
+                        )}
+
+                        {/* Empty Stars */}
+                        {[...Array(5 - Math.round(product.averageRating))].map((_, i) => (
+                            <span
+                                key={`empty-${i}`}
+                                className="material-symbols-outlined text-yellow-500 !text-[20px]"
+                                style={{ fontVariationSettings: "'FILL' 0" }}
+                            >
+                                star
+                            </span>
+                        ))}
                     </div>
-                    <a className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:underline">
+                    <a
+                        href="#reviews"
+                        className="text-sm cursor-pointer font-medium text-text-secondary-light dark:text-text-secondary-dark hover:underline"
+                    >
                         ({product.reviewCount} reviews)
                     </a>
                 </div>
+
             </div>
 
             {/* Price */}
@@ -306,18 +339,39 @@ const reviews = [
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const renderStars = (rating) => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
     return (
         <div className="flex items-center text-amber-400">
-            {[...Array(fullStars)].map((_, i) => (
-                <span key={`full-${i}`} className="material-symbols-outlined !fill-1 !text-[16px]">star</span>
+            {/* Full Stars */}
+            {[...Array(Math.floor(rating))].map((_, i) => (
+                <span
+                    key={`full-${i}`}
+                    className="material-symbols-outlined text-yellow-500 !text-[20px]"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                >
+                    star
+                </span>
             ))}
-            {hasHalfStar && <span className="material-symbols-outlined !text-[16px]">star_half</span>}
-            {[...Array(emptyStars)].map((_, i) => (
-                <span key={`empty-${i}`} className="material-symbols-outlined !text-[16px]">star</span>
+
+            {/* Half Star */}
+            {rating % 1 >= 0.5 && (
+                <span
+                    className="material-symbols-outlined text-yellow-500 !text-[20px]"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                >
+                    star_half
+                </span>
+            )}
+
+            {/* Empty Stars */}
+            {[...Array(5 - Math.round(rating))].map((_, i) => (
+                <span
+                    key={`empty-${i}`}
+                    className="material-symbols-outlined text-yellow-500 !text-[20px]"
+                    style={{ fontVariationSettings: "'FILL' 0" }}
+                >
+                    star
+                </span>
             ))}
         </div>
     );
@@ -329,7 +383,7 @@ const ReviewSection = ({ averageRating, totalReviews }) => {
         <div className="pt-12" id="reviews">
             <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold tracking-tight">Customer Reviews</h2>
+                    <h2 className="text-2xl font-bold tracking-tight">Reviews</h2>
                     <button className="rounded-lg bg-primary/10 px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/20 transition-colors">
                         Write a review
                     </button>

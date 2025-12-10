@@ -109,7 +109,7 @@ const MyAddressPage = () => {
                         <p className="dark:text-white font-medium">Address ({shippingInfo?.length})</p>
                     </div>
                     <button
-                        onClick={() => handleShowForm()}
+                        onClick={() => handleShowForm({ address: [",", ",", ""], })}
                         className="m-2 p-2 flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                         New
                     </button>
@@ -220,13 +220,12 @@ const MyAddressPage = () => {
                                 <div className="mt-6 flex items-center justify-between">
                                     <a
                                         onClick={() => handleDeleteShippingInfo(editData?.id)}
-                                        className="cursor-pointer flex items-center justify-center gap-2 rounded-lg bg-red-500 px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                                        type='button'
+                                        className={`${editData?.name ?? "hidden"} cursor-pointer flex items-center justify-center gap-2 rounded-lg bg-red-500 px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
                                         href='#'
                                     >
                                         Delete
                                     </a>
-                                    <a
+                                    <button
                                         onClick={() => {
                                         }}
                                         className="cursor-pointer flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -234,7 +233,7 @@ const MyAddressPage = () => {
                                         href='#'
                                     >
                                         Save
-                                    </a>
+                                    </button>
                                 </div>
 
                             </form >

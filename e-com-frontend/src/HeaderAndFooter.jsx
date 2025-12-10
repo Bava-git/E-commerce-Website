@@ -1,15 +1,59 @@
-import { useEffect } from "react";
-import { cartList, myWishlist } from "./utilities/rawData";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Typo from "typo-js";
+import { useProducts } from "./components/context/ProductContext";
+import { cartList, myWishlist, products } from "./utilities/rawData";
+
+async function loadDictionary(words) {
+    const aff = await fetch("/dictionary/index.aff").then(res => res.text());
+    const dic = await fetch("/dictionary/index.dic").then(res => res.text());
+
+    const dictionary = new Typo("en_US", aff, dic, { platform: "browser" });
+    // const words = "Tat Vit errors is expecte sx b";
+    const wordsArr = words.split(/\s+/);
+    let newSuggestions = "";
+    wordsArr.forEach(word => {
+        if (word && !dictionary.check(word)) {
+            newSuggestions = newSuggestions + " " + dictionary.suggest(word).join(" ");
+        } else {
+            newSuggestions = newSuggestions + " " + word;
+        }
+    });
+
+    return newSuggestions;
+}
 
 export const Header = ({ links }) => {
 
+    const [productsCopy, setProductsCopy] = useState(products);
     let cartItemCount = cartList?.length;
     let wishlistItemCount = myWishlist?.length;
 
     useEffect(() => {
         cartItemCount = cartList?.length;
         wishlistItemCount = myWishlist?.length;
-    }, [cartList, myWishlist])
+    }, [cartList, myWishlist]);
+
+    function buildKeywords(product) {
+        return [
+            product.name,
+            product.brand,
+            product.tagline,
+            product.color?.name,
+            ...product.sizes.map(s => s.label)
+        ].join(" ").toLowerCase();
+    }
+
+    const { setProducts } = useProducts();
+    const navigate = useNavigate();
+    async function searchProducts(query) {
+        // query = await loadDictionary(query);
+        // console.log("query - ", query);
+
+        const searchedItems = productsCopy.filter(p => buildKeywords(p).includes(query.toLowerCase()));
+        setProducts(searchedItems);
+        navigate("/productlist");
+    }
 
     return (<header>
         <div className="z-50 flex items-center justify-center whitespace-nowrap border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
@@ -27,7 +71,18 @@ export const Header = ({ links }) => {
                 <div className="hidden sm:block w-7xl max-w-xl">
                     <label className="relative">
                         <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark pointer-events-none"> search </span>
-                        <input className="text-white w-full rounded-lg border-none bg-border-light dark:bg-border-dark py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary mx-2" placeholder="Search..." type="search" id="search" />
+                        <input
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    searchProducts(e.target.value);
+                                }
+                            }}
+                            // onMouseDown={}
+                            spellCheck={true}
+                            className="text-white w-full rounded-lg border-none bg-border-light dark:bg-border-dark py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary mx-2"
+                            placeholder="Search..."
+                            type="search"
+                            id="search" />
                     </label>
                 </div>
                 <div className="flex items-center gap-2 relative">

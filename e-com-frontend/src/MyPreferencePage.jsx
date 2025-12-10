@@ -11,17 +11,18 @@ const MyPreferencePage = () => {
             const stored = localStorage.getItem('theme');
             if (stored === 'dark') return true;
             if (stored === 'light') return false;
-        } catch (e) {}
-        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        } catch (e) { }
+        return false; // 👈 default to light, not system
+        window.media
     });
 
     useEffect(() => {
         if (dark) {
             document.documentElement.classList.add("dark");
-            try { localStorage.setItem('theme', 'dark'); } catch (e) {}
+            try { localStorage.setItem('theme', 'dark'); } catch (e) { }
         } else {
             document.documentElement.classList.remove("dark");
-            try { localStorage.setItem('theme', 'light'); } catch (e) {}
+            try { localStorage.setItem('theme', 'light'); } catch (e) { }
         }
     }, [dark]);
 

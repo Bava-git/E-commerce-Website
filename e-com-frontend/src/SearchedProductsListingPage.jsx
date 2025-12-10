@@ -1,79 +1,115 @@
-import React from 'react';
-import ProductCard from './components/reusables/ProductCard';
+import { useEffect, useState } from 'react';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+import { useNavigate } from 'react-router-dom';
+import { useProducts } from './components/context/ProductContext';
 import FilterSidebar from './components/reusables/FilterSidebar';
-
-const productData = [
-    { id: 9, brand: 'Nike', name: 'Air Zoom Pegasus', price: 120.00, rating: 4, reviews: 124 },
-    { id: 10, brand: 'Adidas', name: 'Ultraboost 22', price: 180.00, rating: 5, reviews: 302 },
-    { id: 11, brand: 'New Balance', name: 'Fresh Foam 1080', price: 150.00, rating: 5, reviews: 98 },
-    { id: 12, brand: 'Puma', name: 'RS-X³', price: 110.00, rating: 4, reviews: 215 },
-    { id: 13, brand: 'ASICS', name: 'Gel-Kayano 28', price: 160.00, rating: 5, reviews: 450 },
-    { id: 14, brand: 'Reebok', name: 'Classic Leather', price: 75.00, rating: 4, reviews: 188 },
-];
-
+import ProductCard from './components/reusables/ProductCard';
+import { Pagination, safeSortAscending, safeSortDescending } from './utilities/reusables';
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// --Main Component--
 const ProductListingPage = () => {
+
+    const navigate = useNavigate();
+    const { products } = useProducts();
+    const [tableData, setTableData] = useState(products);
+    useEffect(() => {
+        setTableData(products);
+        if (products?.length === 0) {
+
+        }
+    }, [products]);
+
+    const handleSort = (e) => {
+        let sortedData = [];
+
+        if (e.target.value === 'Ascending') {
+            sortedData = safeSortAscending([...products], "price");
+        } else if (e.target.value === 'Descending') {
+            sortedData = safeSortDescending([...products], "price");
+        } else {
+            sortedData = [...products]; // fallback to original
+        }
+
+        setTableData(sortedData);
+    };
+
     return (
         <div className="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
             <div className="relative flex min-h-screen w-full flex-col">
 
                 {/* Main Content */}
                 <main className="container mx-auto flex flex-1 flex-col px-4 py-8">
-                    <div className="flex flex-col gap-4">
-                        {/* Page Heading */}
-                        <h1 className="text-4xl font-black tracking-tighter">Men's Running Shoes</h1>
-                    </div>
 
-                    <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
                         {/* Filters Sidebar */}
-                        <FilterSidebar />
+                        <FilterSidebar
+
+                        />
 
                         {/* Product Grid Area */}
-                        <div className="col-span-1 lg:col-span-3">
-                            {/* Toolbar */}
-                            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-lg bg-card-light dark:bg-card-dark p-4 border border-border-light dark:border-border-dark">
-                                <p className="text-sm text-muted-light dark:text-muted-dark">
-                                    Showing <span className="font-semibold text-text-light dark:text-text-dark">48</span> of <span className="font-semibold text-text-light dark:text-text-dark">200</span> products
-                                </p>
-                                <div className="flex items-center gap-4">
-                                    <div className="flex items-center gap-2">
-                                        <label className="text-sm" htmlFor="sort">Sort by:</label>
-                                        <select className="rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:border-primary focus:ring-primary pr-8" id="sort">
-                                            <option>Featured</option>
-                                            <option>Price: Low to High</option>
-                                            <option>Price: High to Low</option>
-                                            <option>Newest Arrivals</option>
-                                        </select>
-                                    </div>
-                                    <div className="hidden sm:flex items-center gap-1 rounded-lg bg-border-light dark:bg-border-dark p-1">
-                                        <button className="h-8 w-8 flex items-center justify-center rounded-md bg-primary text-white"><span className="material-symbols-outlined text-base">grid_view</span></button>
-                                        <button className="h-8 w-8 flex items-center justify-center rounded-md text-muted-light dark:text-muted-dark hover:bg-background-light dark:hover:bg-background-dark"><span className="material-symbols-outlined text-base">view_list</span></button>
+                        {tableData?.length > 0 ?
+                            <div className="col-span-1 lg:col-span-3">
+                                {/* Toolbar */}
+                                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-lg bg-card-light dark:bg-card-dark p-4 border border-border-light dark:border-border-dark">
+                                    <p className="text-sm text-muted-light dark:text-muted-dark">
+                                        Showing <span className="font-semibold text-text-light dark:text-text-dark">{tableData?.length}</span> of <span className="font-semibold text-text-light dark:text-text-dark">{products?.length}</span> products
+                                    </p>
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <label className="text-sm" htmlFor="sort">Sort by:</label>
+                                            <select
+                                                onChange={(e) => handleSort(e)}
+                                                className="rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:border-primary focus:ring-primary pr-8" id="sort">
+                                                <option>Featured</option>
+                                                <option value="Ascending">Price: Low to High</option>
+                                                <option value="Descending">Price: High to Low</option>
+                                                <option>Newest Arrivals</option>
+                                            </select>
+                                        </div>
+                                        <div className="hidden sm:flex items-center gap-1 rounded-lg bg-border-light dark:bg-border-dark p-1">
+                                            <button className="h-8 w-8 flex items-center justify-center rounded-md bg-primary text-white"><span className="material-symbols-outlined text-base">grid_view</span></button>
+                                            <button className="h-8 w-8 flex items-center justify-center rounded-md text-muted-light dark:text-muted-dark hover:bg-background-light dark:hover:bg-background-dark"><span className="material-symbols-outlined text-base">view_list</span></button>
+                                        </div>
                                     </div>
                                 </div>
+
+                                {/* Product Grid */}
+                                <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                                    {tableData.map(product => (
+                                        <ProductCard
+                                            key={product.id}
+                                            product={product}
+                                        />
+                                    ))}
+                                </div>
+
+                                {/* Pagination */}
+                                <Pagination data={tableData} ItemPerPage={50} setTableData={setTableData} />
                             </div>
+                            :
+                            <div className="col-span-3 w-full text-center py-24 px-6 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+                                <div className="flex justify-center mb-4">
+                                    <div className="flex items-center justify-center size-16 rounded-full bg-primary/10 text-primary">
+                                        <span className="material-symbols-outlined text-4xl">inventory_2</span>
+                                    </div>
+                                </div>
+                                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                                    No products found
+                                </h2>
+                                <p className="text-slate-600 dark:text-slate-400 mb-6">
+                                    We couldn`t find any products matching your search. Try adjusting your filters or keywords!
+                                </p>
 
-                            {/* Product Grid */}
-                            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                                {productData.map(product => (
-                                    <ProductCard
-                                        key={product.id}
-                                        brand={product.brand}
-                                        name={product.name}
-                                        price={product.price}
-                                        rating={product.rating}
-                                        reviews={product.reviews}
-                                        imageId={product.id}
-                                    />
-                                ))}
+                                <button onClick={() => navigate("/")} className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-primary text-white gap-2 text-base font-bold leading-normal tracking-wide min-w-[160px] mx-auto px-6">Start Shopping</button>
                             </div>
-
-                            {/* Pagination */}
-
-                        </div>
+                        }
                     </div>
                 </main>
 
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

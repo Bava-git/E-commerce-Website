@@ -8,7 +8,7 @@ export const safeSortAscending = (array, identifier) => {
 
     return array.sort((a, b) => {
         if (a?.[identifier] && b?.[identifier]) {
-            return a[identifier].localeCompare(b[identifier]);
+            return String(a[identifier]).localeCompare(String(b[identifier]));
         }
         return 0;
     });
@@ -21,7 +21,7 @@ export const safeSortDescending = (array, identifier) => {
 
     return array.sort((a, b) => {
         if (a?.[identifier] && b?.[identifier]) {
-            return b[identifier].localeCompare(a[identifier]);
+            return String(b[identifier]).localeCompare(String(a[identifier]));
         }
         return 0;
     });

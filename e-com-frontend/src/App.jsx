@@ -1,12 +1,14 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'sonner';
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Import CSS
 import './App.css';
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Common  -----------------------------------------------------------------------------
-import { Header, Footer } from './HeaderAndFooter'; // NOT-IN-LAZY-LOAD
+import { Footer, Header } from './HeaderAndFooter'; // NOT-IN-LAZY-LOAD
 import HomePage from './HomePage'; // NOT-IN-LAZY-LOAD
 // General Pages  -----------------------------------------------------------------------------
 const AboutUsPage = lazy(() => import('./components/general/AboutUsPage'));
@@ -25,53 +27,59 @@ const SearchedProductsListingPage = lazy(() => import('./SearchedProductsListing
 const SelectedProductPage = lazy(() => import('./SelectedProductPage'));
 const ShipmentTrackingPage = lazy(() => import('./TrackingPage'));
 const WishlistPage = lazy(() => import('./WishlistPage'));
-
 // Developer -----------------------------------------------------------------------------
 import AllScreens from './AllScreens';
 import TestScreen from './TestScreen';
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Context -----------------------------------------------------------------------------
+import { ProductProvider } from './components/context/ProductContext';
 
 function App() {
 
+  // console.log(document.documentElement.classList.contains('dark'));
+
   return (
-    <div className="bg-white dark:bg-background-dark">
+    <div className="bg-background-light dark:bg-background-dark">
       <Toaster richColors duration={3000} position='top-right' />
-      <Header links={dealsLinks} />
-      <BrowserRouter>
-        <Suspense element={<loadingScreen />}>
-          <Routes>
-            {/* Developer */}
-            <Route path='/testscreen' element={<TestScreen />} />
-            <Route path='/allscreens' element={<AllScreens />} />
-            <Route path='/loading' element={<loadingScreen />} />
-            {/* General */}
-            <Route path='/aboutus' element={<AboutUsPage />} />
-            <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
-            <Route path='/helpcenter' element={<HelpCenterPage />} />
-            <Route path='/contactus' element={<ContactUsPage />} />
-            <Route path='/*' element={<NotFoundPage />} />
-            {/* READY */}
-            <Route path='/' element={<HomePage />} />
-            <Route path='/signin' element={<LoginPage />} />
-            <Route path='/signup' element={<CreateAccountPage />} />
-            <Route path='/product' element={<SelectedProductPage />} />
-            <Route path='/wishlist' element={<WishlistPage />} />
-            <Route path='/cart' element={<ShoppingCartPage />} />
-            <Route path='/checkout' element={<CheckoutPage />} />
-            <Route path='/confirmation' element={<OrderConfirmationPage />} />
-            <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
-            {/* Customer Dashboard*/}
-            <Route path='/dashboard' element={<CustomerDashboard section="dashboard" />} />
-            <Route path='/orders' element={<CustomerDashboard section="orders" />} />
-            <Route path='/addresses' element={<CustomerDashboard section="addresses" />} />
-            <Route path='/giftcard' element={<CustomerDashboard section="giftcard" />} />
-            <Route path='/profile' element={<CustomerDashboard section="profile" />} />
-            <Route path='/preferences' element={<CustomerDashboard section="preferences" />} />
-            {/* NOT-READY */}
-            <Route path='/productlist' element={<SearchedProductsListingPage />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+      <ProductProvider>
+        <BrowserRouter>
+          <Header links={dealsLinks} />
+          <Suspense element={<loadingScreen />}>
+            <Routes>
+              {/* Developer */}
+              <Route path='/testscreen' element={<TestScreen />} />
+              <Route path='/allscreens' element={<AllScreens />} />
+              <Route path='/loading' element={<loadingScreen />} />
+              {/* General */}
+              <Route path='/aboutus' element={<AboutUsPage />} />
+              <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
+              <Route path='/helpcenter' element={<HelpCenterPage />} />
+              <Route path='/contactus' element={<ContactUsPage />} />
+              <Route path='/*' element={<NotFoundPage />} />
+              {/* READY */}
+              <Route path='/' element={<HomePage />} />
+              <Route path='/signin' element={<LoginPage />} />
+              <Route path='/signup' element={<CreateAccountPage />} />
+              <Route path='/product' element={<SelectedProductPage />} />
+              <Route path='/wishlist' element={<WishlistPage />} />
+              <Route path='/cart' element={<ShoppingCartPage />} />
+              <Route path='/checkout' element={<CheckoutPage />} />
+              <Route path='/confirmation' element={<OrderConfirmationPage />} />
+              <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
+              {/* Customer Dashboard*/}
+              <Route path='/dashboard' element={<CustomerDashboard section="dashboard" />} />
+              <Route path='/orders' element={<CustomerDashboard section="orders" />} />
+              <Route path='/addresses' element={<CustomerDashboard section="addresses" />} />
+              <Route path='/giftcard' element={<CustomerDashboard section="giftcard" />} />
+              <Route path='/profile' element={<CustomerDashboard section="profile" />} />
+              <Route path='/preferences' element={<CustomerDashboard section="preferences" />} />
+              {/* NOT-READY */}
+              <Route path='/productlist' element={<SearchedProductsListingPage />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </ProductProvider>
       <Footer />
     </div >
   )
