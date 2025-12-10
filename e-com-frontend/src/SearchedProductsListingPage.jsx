@@ -45,7 +45,7 @@ const ProductListingPage = () => {
                     <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
                         {/* Filters Sidebar */}
                         <FilterSidebar
-
+                            setTableData={setTableData}
                         />
 
                         {/* Product Grid Area */}
