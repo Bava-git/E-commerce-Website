@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { Pagination } from './utilities/reusables';
 import { totalSummarys } from './utilities/rawData';
+import * as connectTo from './utilities/reusables';
+import { Pagination } from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const getStatusBadge = (status) => {
@@ -27,32 +28,80 @@ const getStatusBadge = (status) => {
 };
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-const SearchAndFilterBar = () => (
-    <div className="p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-                <label className="flex flex-col w-full">
-                    <div className="flex w-full flex-1 items-stretch rounded-lg h-12">
-                        <div className="text-slate-500 flex bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg h-12">
-                            <span className="material-symbols-outlined text-xl">search</span>
+const SearchAndFilterBar = ({ tableData, setTableData }) => {
+
+    const statusList = [
+        { id: 0, label: "All" },
+        { id: 1, label: "Pending" },
+        { id: 2, label: "Confirmed" },
+        { id: 3, label: "Shipped" },
+        { id: 4, label: "In Transit" },
+        { id: 5, label: "Out for Delivery" },
+        { id: 6, label: "Delivered" },
+    ];
+
+    const handleSort = (e) => {
+        let sortedData = [];
+
+        if (e.target.value === 'Ascending') {
+            sortedData = safeSortAscending([...products], "price");
+        } else if (e.target.value === 'Descending') {
+            sortedData = safeSortDescending([...products], "price");
+        } else {
+            sortedData = [...products]; // fallback to original
+        }
+
+        setTableData(sortedData);
+    };
+
+    const handleFilterer = (e) => {
+        let sortedData = [];
+        if (e.target.value === "All") {
+            sortedData = [...totalSummarys];
+        } else {
+            sortedData = connectTo.multipleItemFromArray([...totalSummarys], "deliveryStatus.status", e.target.value);
+        }
+        setTableData(sortedData);
+    };
+
+
+    return (
+        <div className="p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex-1">
+                    <label className="flex flex-col w-full">
+                        <div className="flex w-full flex-1 items-stretch rounded-lg h-12">
+                            <div className="text-slate-500 flex bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg h-12">
+                                <span className="material-symbols-outlined text-xl">search</span>
+                            </div>
+                            <input className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-slate-100 dark:bg-slate-800 h-12 placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 text-base font-normal" placeholder="Search by order number or product name" defaultValue="" />
                         </div>
-                        <input className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-slate-100 dark:bg-slate-800 h-12 placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 text-base font-normal" placeholder="Search by order number or product name" defaultValue="" />
+                    </label>
+                </div>
+                <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                    <div className="flex items-center gap-2">
+                        <select
+                            onChange={(e) => handleFilterer(e)}
+                            className="text-sm font-medium px-4 h-12 rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-slate-800 focus:border-primary focus:ring-primary pr-8" id="sort">
+                            <option>Status: All</option>
+                            {statusList.map(s => (
+                                <option key={s.id} value={s.label}>{s.label}</option>
+                            ))}
+                        </select>
                     </div>
-                </label>
-            </div>
-            <div className="flex items-center gap-3">
-                <button className="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-100 dark:bg-slate-800 px-4">
-                    <p className="text-slate-700 dark:text-slate-300 text-sm font-medium">Status: All</p>
-                    <span className="material-symbols-outlined text-slate-500 text-xl">expand_more</span>
-                </button>
-                <button className="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-100 dark:bg-slate-800 px-4">
-                    <p className="text-slate-700 dark:text-slate-300 text-sm font-medium">Last 6 months</p>
-                    <span className="material-symbols-outlined text-slate-500 text-xl">expand_more</span>
-                </button>
+                    <div className="flex items-center gap-2">
+                        <select
+                            onChange={(e) => handleSort(e)}
+                            className="text-sm font-medium px-4 h-12 rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-slate-800 focus:border-primary focus:ring-primary pr-8" id="sort">
+                            <option>Last 6 months</option>
+                            <option value="Ascending">Pending</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-);
+    )
+};
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const OrderRow = ({ order }) => (
@@ -117,7 +166,7 @@ const MyOrdersPage = () => {
                 {totalSummarys?.length != 0 ?
                     (<>
                         {/* Search and Filter */}
-                        < SearchAndFilterBar />
+                        < SearchAndFilterBar tableData={tableData} setTableData={setTableData} />
 
                         {/* Order List Table */}
                         < OrderTable orders={tableData} />

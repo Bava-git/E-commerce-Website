@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export const safeSortAscending = (array, identifier) => {
@@ -43,7 +43,7 @@ export const oneItemFromArray = (array, identifier, selectedId) => {
         return [];
     }
 
-    const returnArray = array.filter(item => String(item?.[identifier]) === String(selectedId));
+    const returnArray = array.filter(item => String(getNestedValue(item, identifier)) === String(selectedId));
     return returnArray[0];
 };
 
@@ -51,10 +51,13 @@ export const multipleItemFromArray = (array, identifier, selectedId) => {
     if (!Array.isArray(array) || array.length === 0) {
         return [];
     }
-
-    const returnArray = array.filter(item => item?.[identifier] === selectedId);
+    const returnArray = array.filter(item => getNestedValue(item, identifier) === selectedId);
     return returnArray;
 };
+
+function getNestedValue(obj, path) {
+    return path.split('.').reduce((acc, key) => acc?.[key], obj);
+}
 
 export const addToArray = (array, newItem) => {
     if (!Array.isArray(array)) {
