@@ -1,5 +1,4 @@
-import CustomerDashboard from './CustomerDashboard'
-import CheckoutPage from './CheckoutPage'
+import CheckoutPage from './components/checkoutpage/CheckoutPage';
 
 const AllScreens = () => {
     return (

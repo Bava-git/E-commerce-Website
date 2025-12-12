@@ -16,28 +16,27 @@ const ContactUsPage = lazy(() => import('./components/general/ContactUsPage'));
 const HelpCenterPage = lazy(() => import('./components/general/HelpCenterPage'));
 const NotFoundPage = lazy(() => import('./components/general/NotFoundPage'));
 const ReturnsAndShippingPage = lazy(() => import('./components/general/ReturnsAndShippingPage'));
+// Customer Dashboard -----------------------------------------------------------------------------
+const CustomerDashboard = lazy(() => import('./components/customerdashboard/CustomerDashboard'));
+const ShipmentTrackingPage = lazy(() => import('./components/customerdashboard/TrackingPage'));
+// Credentials -----------------------------------------------------------------------------
+const LoginPage = lazy(() => import('./components/credentials/LoginPage'));
+const CreateAccountPage = lazy(() => import('./components/credentials/CreateAccountPage'));
 // Other Pages -----------------------------------------------------------------------------
 const ShoppingCartPage = lazy(() => import('./CartPage'));
-const CheckoutPage = lazy(() => import('./CheckoutPage'));
-const OrderConfirmationPage = lazy(() => import('./ConfirmationPage'));
-const CreateAccountPage = lazy(() => import('./CreateAccountPage'));
-const CustomerDashboard = lazy(() => import('./CustomerDashboard'));
-const LoginPage = lazy(() => import('./LoginPage'));
+const CheckoutPage = lazy(() => import('./components/checkoutpage/CheckoutPage'));
+const OrderConfirmationPage = lazy(() => import('./components/checkoutpage/ConfirmationPage'));
 const SearchedProductsListingPage = lazy(() => import('./SearchedProductsListingPage'));
 const SelectedProductPage = lazy(() => import('./SelectedProductPage'));
-const ShipmentTrackingPage = lazy(() => import('./TrackingPage'));
 const WishlistPage = lazy(() => import('./WishlistPage'));
 // Developer -----------------------------------------------------------------------------
 import AllScreens from './AllScreens';
-import TestScreen from './TestScreen';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // Context -----------------------------------------------------------------------------
-import { ProductProvider } from './components/context/ProductContext';
+import { ProductProvider } from './utilities/context/ProductContext';
 
 function App() {
-
-  // console.log(document.documentElement.classList.contains('dark'));
 
   return (
     <div className="bg-background-light dark:bg-background-dark">
@@ -45,12 +44,12 @@ function App() {
       <ProductProvider>
         <BrowserRouter>
           <Header links={dealsLinks} />
-          <Suspense element={<loadingScreen />}>
+          <Suspense fallback={<LoadingScreen />}>
             <Routes>
               {/* Developer */}
-              <Route path='/testscreen' element={<TestScreen />} />
+              <Route path='/testscreen' element={<LoadingScreen />} />
               <Route path='/allscreens' element={<AllScreens />} />
-              <Route path='/loading' element={<loadingScreen />} />
+              <Route path='/loading' element={<LoadingScreen />} />
               {/* General */}
               <Route path='/aboutus' element={<AboutUsPage />} />
               <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
@@ -67,6 +66,7 @@ function App() {
               <Route path='/checkout' element={<CheckoutPage />} />
               <Route path='/confirmation' element={<OrderConfirmationPage />} />
               <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
+              <Route path='/productlist' element={<SearchedProductsListingPage />} />
               {/* Customer Dashboard*/}
               <Route path='/dashboard' element={<CustomerDashboard section="dashboard" />} />
               <Route path='/orders' element={<CustomerDashboard section="orders" />} />
@@ -75,7 +75,6 @@ function App() {
               <Route path='/profile' element={<CustomerDashboard section="profile" />} />
               <Route path='/preferences' element={<CustomerDashboard section="preferences" />} />
               {/* NOT-READY */}
-              <Route path='/productlist' element={<SearchedProductsListingPage />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
@@ -93,25 +92,67 @@ export const dealsLinks = [
   { title: "Men", links: "#" },
   { title: "Women", links: "#" },
   { title: "Best Sellers", links: "#" },
-  { title: "Gift Cards", links: "#" },
+  { title: "Gift Cards", links: "/giftcard" },
   { title: "Browsing History's", links: "#" },
 ];
 
-export const loadingScreen = () => {
+const LoadingScreen = () => {
+
+  const randomNumber = Math.floor(Math.random() * (100 - 60 + 1)) + 60;
+
   return (
-    <div className="loader">
-      <div className="bar1"></div>
-      <div className="bar2"></div>
-      <div className="bar3"></div>
-      <div className="bar4"></div>
-      <div className="bar5"></div>
-      <div className="bar6"></div>
-      <div className="bar7"></div>
-      <div className="bar8"></div>
-      <div className="bar9"></div>
-      <div className="bar10"></div>
-      <div className="bar11"></div>
-      <div className="bar12"></div>
+    <div className="relative flex h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-hidden font-display transition-colors duration-200">
+      {/* Background Ambient Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div className="layout-container flex h-full grow flex-col justify-center items-center relative z-10">
+        <div className="layout-content-container flex flex-col max-w-md w-full px-6">
+
+          {/* Central Brand/Logo Area (Modified HeaderImage) */}
+          <div className="flex justify-center mb-8">
+            <div className="animate-subtle-pulse p-1 rounded-2xl bg-gradient-to-br from-gray-800 to-transparent border border-gray-800/50 shadow-2xl">
+              <div
+                className="w-24 h-24 bg-center bg-no-repeat bg-cover rounded-xl bg-gray-900 text-slate-900 dark:text-slate-50"
+                data-alt="Minimalist abstract geometric logo with blue accents"
+                style={{ backgroundImage: 'url("")' }}
+              >
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Headline (Modified HeadlineText) */}
+          <h2 className="text-gray-900 dark:text-white tracking-tight text-[28px] font-bold leading-tight text-center pb-2">
+            Khapara Store
+          </h2>
+
+          {/* Status Message (Modified BodyText) */}
+          <p className="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal pb-8 text-center animate-pulse">
+            Curating your personalized experience...
+          </p>
+
+          {/* Progress Bar Section (Modified ProgressBar) */}
+          <div className="flex flex-col gap-3 p-4 bg-white/5 dark:bg-black/20 rounded-xl border border-gray-200/10 dark:border-gray-800/50 backdrop-blur-sm">
+            <div className="flex gap-6 justify-between items-center">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[20px] animate-spin">sync</span>
+                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium leading-normal">Loading...</p>
+              </div>
+              <p className="text-primary text-sm font-bold leading-normal">{randomNumber}%</p>
+            </div>
+            <div className="rounded-full bg-gray-200 dark:bg-gray-700/50 h-1.5 overflow-hidden">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-500 ease-out shadow-[0_0_10px_rgba(19,109,236,0.5)]"
+                style={{ width: `${randomNumber}%` }}
+              ></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   );
-}
+};

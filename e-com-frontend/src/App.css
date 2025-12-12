@@ -185,3 +185,22 @@
     background-color: #fff;
     font-weight: 600;
 }
+
+/* Loading Page ------------------------------------------------------------------------------------------------------------ */
+@keyframes subtle-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+}
+
+.animate-subtle-pulse {
+    animation: subtle-pulse 3s ease-in-out infinite;
+}

@@ -67,7 +67,7 @@ const ProductInfoTabs = () => {
                             key={tab}
                             // href={tab === activeTab ? '#' : `/${tab.toLowerCase().replace(/\s/g, '-')}`}
                             onClick={() => setActiveTab(tab)}
-                            className={`whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition-colors 
+                            className={`whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition-colors cursor-pointer select-none
                                 ${tab === activeTab
                                     ? 'border-primary text-primary'
                                     : 'border-transparent text-text-secondary-light dark:text-text-secondary-dark hover:border-gray-300 dark:hover:border-gray-600 hover:text-text-light dark:hover:text-text-dark'
@@ -81,8 +81,34 @@ const ProductInfoTabs = () => {
 
             {activeTab === "Description" &&
                 <div className="py-10 text-base text-text-secondary-light dark:text-text-secondary-dark space-y-4">
-                    <p>1Discover the epitome of elegance with our Premium Leather Watch. Designed for those who appreciate fine craftsmanship, this timepiece features a genuine leather strap that develops a rich patina over time, making it uniquely yours. The stainless steel case houses a precision quartz movement, ensuring you're always on time, every time.</p>
-                    <p>With its minimalist dial, sapphire crystal glass, and water resistance up to 50 meters, this watch is as durable as it is stylish. Whether you're in a boardroom or on a weekend adventure, it's the perfect accessory to complement any outfit.</p>
+                    <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                        <h2 className="text-2xl font-semibold text-gray-900">Khapara Black Shoe</h2>
+
+                        <p className="mt-3 text-gray-700">
+                            The Khapara Black Shoe blends style and comfort. Its sleek black finish and modern
+                            silhouette pair with formal attire or elevate casual looks.
+                        </p>
+
+                        <ul className="mt-4 space-y-2 text-gray-700">
+                            <li>
+                                <span className="font-medium">Premium material:</span> High‑quality leather for durability.
+                            </li>
+                            <li>
+                                <span className="font-medium">Elegant design:</span> Classic black finish for any occasion.
+                            </li>
+                            <li>
+                                <span className="font-medium">Comfort fit:</span> Cushioned insole and ergonomic support.
+                            </li>
+                            <li>
+                                <span className="font-medium">Durability:</span> Sturdy sole with reliable grip.
+                            </li>
+                            <li>
+                                <span className="font-medium">Sizes available:</span> Includes s9.
+                            </li>
+                        </ul>
+                    </section>
+
+
                 </div>
             }
 
@@ -184,6 +210,19 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
         toast.success("Product added in cart");
     };
 
+    const [isDiscount, setIsDiscount] = useState(false);
+    useEffect(() => {
+        if (product.price < 1000) {
+            setIsDiscount(true);
+        }
+    }, [product.price]);
+
+    const generaterandomdiscount = (price) => {
+        const discount = Math.floor(Math.random() * 201) + 50; // Random discount between 50 and 250
+        const discountedPrice = price - discount;
+        return discountedPrice.toFixed(2);
+    };
+
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
@@ -243,9 +282,14 @@ const ProductDetails = ({ product, allProducts, setProductId }) => {
             </div>
 
             {/* Price */}
-            <p className="text-3xl font-semibold text-text-light dark:text-text-dark">
-                ₹{product.price.toFixed(2)}
-            </p>
+            <div className="flex items-center gap-4">
+                <p className={`text-3xl text-text-light dark:text-text-dark ${isDiscount ? 'line-through decoration-red-500 font-base' : 'font-semibold'}`}>
+                    ₹{product.price.toFixed(2)}
+                </p>
+                {isDiscount && <p className={`text-3xl font-semibold text-text-light dark:text-text-dark `}>
+                    ₹{generaterandomdiscount(product.price)}
+                </p>}
+            </div>
 
             <div className="flex flex-col gap-4">
 

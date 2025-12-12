@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useProducts } from '../context/ProductContext';
+import { useProducts } from '../../utilities/context/ProductContext';
 
 function applyFilters(products, filters) {
     return products.filter(p => {

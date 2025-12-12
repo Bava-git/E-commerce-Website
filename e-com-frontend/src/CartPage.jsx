@@ -1,14 +1,14 @@
 import { useState } from 'react';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
+import { OrderSummary } from './components/reusables/OrderSummary';
 import { cartList, products } from './utilities/rawData';
 import * as connectTo from './utilities/reusables';
-import { OrderSummary } from './components/reusables/OrderSummary';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const CartItem = ({ product, onDelete, onUpdateQuantity }) => {
 
-    const { id, name, color, size, price, quantity, image } = product;
+    const { cartlistId, name, color, size, price, quantity, image } = product;
     const details = `Color: ${color} ${size ? `\nSize : ${size}` : ""}`;
     const itemTotal = price * quantity;
 
@@ -38,7 +38,7 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }) => {
                 <div className="flex items-center gap-2 text-gray-900 dark:text-white">
                     <button
                         className="text-base font-medium leading-normal flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
-                        onClick={() => onUpdateQuantity(id, quantity - 1)}
+                        onClick={() => onUpdateQuantity(cartlistId, quantity - 1)}
                     >-</button>
                     <input
                         className="text-base font-medium leading-normal w-8 p-0 text-center bg-transparent focus:outline-0 focus:ring-0 focus:border-none border-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
@@ -48,7 +48,7 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }) => {
                     />
                     <button
                         className="text-base font-medium leading-normal flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
-                        onClick={() => onUpdateQuantity(id, quantity + 1)}
+                        onClick={() => onUpdateQuantity(cartlistId, quantity + 1)}
                     >+</button>
                 </div>
             </div>
@@ -61,34 +61,36 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }) => {
             {/* Delete Button */}
             <button
                 className="cursor-pointer text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-500 p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50 shrink-0"
-                onClick={() => onDelete(id)}
+                onClick={() => onDelete(cartlistId)}
             >
                 <span className="material-symbols-outlined text-xl!">delete</span>
             </button>
         </div>
     );
 };
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// --- Main Component ---
 const ShoppingCartPage = () => {
     const [cartItems, setCartItems] = useState(cartList);
 
     // Cart Management Handlers
-    const handleUpdateQuantity = (id, newQuantity) => {
-        if (newQuantity < 1) return handleDelete(id);
+    const handleUpdateQuantity = (cartlistId, newQuantity) => {
+        if (newQuantity < 1) return handleDelete(cartlistId);
 
         setCartItems(prevItems =>
             prevItems.map(item =>
-                item.id === id ? { ...item, quantity: newQuantity } : item
+                item.cartlistId === cartlistId ? { ...item, quantity: newQuantity } : item
             )
         );
     };
 
-    const handleDelete = (id) => {
-        setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    const handleDelete = (cartlistId) => {
+        setCartItems(prevItems => prevItems.filter(item => item.cartlistId !== cartlistId));
     };
 
     cartList.forEach(item => {
-        let tempProduct = connectTo.oneItemFromArray(products, "id", item.id);
+        let tempProduct = connectTo.oneItemFromArray(products, "id", item.productId);
         item.price = tempProduct.price;
     });
 
@@ -118,7 +120,7 @@ const ShoppingCartPage = () => {
                             <div className="flex flex-col gap-px rounded-xl bg-gray-200 dark:bg-gray-800 overflow-hidden shadow-sm">
                                 {cartItems.map(item => (
                                     <CartItem
-                                        key={item.id}
+                                        key={item.cartlistId}
                                         product={item}
                                         onDelete={handleDelete}
                                         onUpdateQuantity={handleUpdateQuantity}

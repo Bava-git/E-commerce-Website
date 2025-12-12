@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 import { useNavigate } from 'react-router-dom';
-import { useProducts } from './components/context/ProductContext';
 import FilterSidebar from './components/reusables/FilterSidebar';
 import ProductCard from './components/reusables/ProductCard';
+import { useProducts } from './utilities/context/ProductContext';
 import { Pagination, safeSortAscending, safeSortDescending } from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------

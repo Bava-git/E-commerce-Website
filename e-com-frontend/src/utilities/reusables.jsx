@@ -68,12 +68,12 @@ export const addToArray = (array, newItem) => {
     return array;
 };
 
-export const updateToArray = (array, identifier, updateItem) => {
+export const updateToArray = (array, identifier, selectedId, updateItem) => {
     if (!Array.isArray(array) || array.length === 0) {
         return [];
     }
 
-    const returnArray = array.map(item => item?.[identifier] === updateItem?.[identifier] ? updateItem : item);
+    const returnArray = array.map(item => item?.[identifier] === selectedId ? updateItem : item);
     return returnArray;
 };
 

@@ -9,29 +9,25 @@ import { Pagination, safeSortAscending, safeSortDescending } from './utilities/r
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 
-const handleDeleteWishlist = (id) => {
-    connectTo.delFromArray(myWishlist, "id", id);
+const handleDeleteWishlist = (wishlistId) => {
+    connectTo.delFromArray(myWishlist, "wishlistId", wishlistId);
     window.location.href = "/cart"
-};
-
-const handleWishlistProducts = (id) => {
-    window.location.href = `/product?id=${id}`;
 };
 
 const handleAddCart = (product) => {
     const cartItem = {
-        id: cartList?.length + 1,
-        productId: product?.id,
+        cartlistId: cartList?.length + 1,
+        productId: product?.productId,
         name: product?.name,
         price: product?.price,
         image: product?.image,
         color: product?.color,
         size: product?.size || "",
         quantity: 1,
-    }
+    };
     connectTo.addToArray(cartList, cartItem);
     toast.success("Product added in cart");
-    handleDeleteWishlist(product.id);
+    handleDeleteWishlist(product.wishlistId);
 };
 
 // --- Sub-Components ---
@@ -43,16 +39,16 @@ const WishlistItemCard = ({ item }) => (
             style={{ backgroundImage: `url("${item.image}")` }}
         >
             <button
-                onClick={() => handleDeleteWishlist(item.id)}
+                onClick={() => handleDeleteWishlist(item.wishlistId)}
                 className="cursor-pointer absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="material-symbols-outlined">delete</span>
             </button>
         </div>
         <div className="flex flex-col gap-4 p-4 flex-grow">
             <div className="flex-grow">
-                <h3
-                    onClick={() => handleWishlistProducts(item.id)}
-                    className="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal select-none cursor-pointer hover:underline">{item.name}</h3>
+                <a
+                    href={`/product/${item.productId}`}
+                    className="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal select-none cursor-pointer hover:underline">{item.name}</a>
                 <p className="text-slate-500 dark:text-slate-400 text-sm font-normal">{item.brand}</p>
                 <p className="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
                     <strong className="text-gray-300">Color:</strong> <span>{item?.color}</span>
@@ -125,7 +121,7 @@ const WishlistPage = () => {
                             {tableData?.length != 0 ?
                                 (<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                     {tableData.map(item => (
-                                        <WishlistItemCard key={item.id} item={item} />
+                                        <WishlistItemCard key={item.wishlistId} item={item} />
                                     ))}
                                 </div>)
                                 :

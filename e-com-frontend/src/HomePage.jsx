@@ -10,7 +10,7 @@ export default function HomePage() {
 
     const handleAddCart = (product) => {
         const cartItem = {
-            id: cartList?.length + 1,
+            cartlistId: cartList?.length + 1,
             productId: product?.id,
             name: product?.name,
             price: product?.price,
@@ -103,7 +103,7 @@ export default function HomePage() {
                                 <h2 className="text-slate-900 dark:text-slate-50 text-2xl font-bold leading-tight tracking-tight px-0 pb-4 pt-5">Shop by Category</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                     <a className="group relative flex h-80 items-end justify-start rounded-xl overflow-hidden text-white p-6" href="#">
-                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488161628813-99425205fdd2?q=80&w=2600&auto=format&fit=crop')" }}></div>
+                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('/mens.jpg')" }}></div>
                                         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                                         <h3 className="relative z-10 text-2xl font-bold">Men's</h3>
                                     </a>
@@ -113,7 +113,7 @@ export default function HomePage() {
                                         <h3 className="relative z-10 text-2xl font-bold">Women's</h3>
                                     </a>
                                     <a className="group relative flex h-80 items-end justify-start rounded-xl overflow-hidden text-white p-6" href="#">
-                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=2669&auto=format&fit=crop')" }}></div>
+                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('/electronic_accessories.jpg')" }}></div>
                                         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                                         <h3 className="relative z-10 text-2xl font-bold">Accessories</h3>
                                     </a>
