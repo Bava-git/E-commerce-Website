@@ -17,7 +17,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(1000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/shoe/blackshoe/shoe (1).png", alt: 'AngledView' },
             { id: 2, href: "/shoe/blackshoe/shoe (2).png", alt: 'BackView' },
@@ -34,6 +34,27 @@ export const products = [
             { label: '9 (27.3cm)', value: 's9' },
             { label: '10 (28.1cm)', value: 's10' },
         ],
+        specifications: [
+            { label: 'Style Name', value: 'Performance Road Runner 3.0' },
+            { label: 'Toe Style', value: 'Round Toe' },
+            { label: 'Sport Type', value: 'Running, Cross-Training, Walking' },
+            { label: 'Shoe Type', value: 'Athletic Trainer (Neutral)' },
+            { label: 'Upper Material', value: 'Breathable Mesh with Synthetic Overlays' },
+            { label: 'Sole Material', value: 'Durable Rubber Outsole, EVA Foam Midsole' },
+            { label: 'Closure Type', value: 'Lace-Up' },
+            { label: 'Heel Type', value: 'Flat/Block' },
+            { label: 'Water Resistance Level', value: 'None (Breathable Mesh)' },
+            { label: 'Country of Origin', value: 'Vietnam' },
+            { label: 'Item Weight', value: '800 g' },
+            { label: 'Item Dimensions (LxWxH)', value: '24.1 x 10 x 8 centimeters' },
+            {
+                label: 'Key Features', value:
+                    ['Moderate cushioning for shock absorption',
+                        'Speckled midsole design',
+                        'Multi-directional traction tread',
+                        'Reinforced heel counter for stability']
+            },
+        ],
     },
     {
         id: 2,
@@ -44,7 +65,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/shoe/blueshoe/shoe (1).png", alt: 'AngledView' },
             { id: 2, href: "/shoe/blueshoe/shoe (2).png", alt: 'BackView' },
@@ -61,6 +82,28 @@ export const products = [
             { label: '9 (27.3cm)', value: 's9' },
             { label: '10 (28.1cm)', value: 's10' },
         ],
+        specifications: [
+            { "label": "Style Name", "value": "Velocity Sprint Runner X2" },
+            { "label": "Toe Style", "value": "Round Toe" },
+            { "label": "Sport Type", "value": "Running, Cross-Training, Walking" },
+            { "label": "Shoe Type", "value": "Athletic Trainer (Neutral)" },
+            { "label": "Upper Material", "value": "Breathable Mesh with Synthetic Overlays" },
+            { "label": "Sole Material", "value": "Durable Rubber Outsole, EVA Foam Midsole" },
+            { "label": "Closure Type", "value": "Lace-Up" },
+            { "label": "Heel Type", "value": "Flat/Block" },
+            { "label": "Water Resistance Level", "value": "None (Breathable Mesh)" },
+            { "label": "Country of Origin", "value": "Vietnam" },
+            { "label": "Item Weight", "value": "800 g" },
+            { "label": "Item Dimensions (LxWxH)", "value": "24.1 x 10 x 8 centimeters" },
+            {
+                "label": "Key Features", "value": [
+                    "Moderate cushioning for shock absorption",
+                    "Speckled midsole design",
+                    "Multi-directional traction tread",
+                    "Reinforced heel counter for stability"
+                ]
+            }
+        ],
     },
     {
         id: 3,
@@ -71,7 +114,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Male",
+        gender: ["Men"],
         images: [
             { id: 1, href: "/shoe/classic-bold-brown/shoe (1).png", alt: 'AngledView' },
             { id: 2, href: "/shoe/classic-bold-brown/shoe (2).png", alt: 'BackView' },
@@ -88,6 +131,25 @@ export const products = [
             { label: '9 (27.3cm)', value: 's9' },
             { label: '10 (28.1cm)', value: 's10' },
         ],
+        specifications: [
+            { "label": "Style Name", "value": "Classic Bold Brown" },
+            { "label": "Toe Style", "value": "Round Toe" },
+            { "label": "Sport Type", "value": "Walking, Casual" },
+            { "label": "Shoe Type", "value": "Casual Sneaker" },
+            { "label": "Upper Material", "value": "Premium Leather with Synthetic Overlays" },
+            { "label": "Sole Material", "value": "Durable Rubber Outsole, EVA Foam Midsole" },
+            { "label": "Closure Type", "value": "Lace-Up" },
+            { "label": "Heel Type", "value": "Flat/Block" },
+            {
+                label: 'Key Features',
+                value: [
+                    'Premium leather upper for durability',
+                    'EVA foam midsole for cushioning',
+                    'Multi-directional traction tread',
+                    'Reinforced heel counter for stability'
+                ]
+            }
+        ]
     },
     {
         id: 4,
@@ -98,7 +160,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Male",
+        gender: ["Men"],
         images: [
             { id: 1, href: "/shoe/classic-brown/shoe (1).png", alt: 'AngledView' },
             { id: 2, href: "/shoe/classic-brown/shoe (2).png", alt: 'BackView' },
@@ -115,6 +177,25 @@ export const products = [
             { label: '9 (27.3cm)', value: 's9' },
             { label: '10 (28.1cm)', value: 's10' },
         ],
+        specifications: [
+            { "label": "Style Name", "value": "Classic Bold Brown" },
+            { "label": "Toe Style", "value": "Round Toe" },
+            { "label": "Sport Type", "value": "Walking, Casual" },
+            { "label": "Shoe Type", "value": "Casual Sneaker" },
+            { "label": "Upper Material", "value": "Premium Leather with Synthetic Overlays" },
+            { "label": "Sole Material", "value": "Durable Rubber Outsole, EVA Foam Midsole" },
+            { "label": "Closure Type", "value": "Lace-Up" },
+            { "label": "Heel Type", "value": "Flat/Block" },
+            {
+                label: 'Key Features',
+                value: [
+                    'Premium leather upper for durability',
+                    'EVA foam midsole for cushioning',
+                    'Multi-directional traction tread',
+                    'Reinforced heel counter for stability'
+                ]
+            }
+        ]
     },
     {
         id: 5,
@@ -125,7 +206,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/shoe/whiteshoe/shoe (1).png", alt: 'AngledView' },
             { id: 2, href: "/shoe/whiteshoe/shoe (2).png", alt: 'BackView' },
@@ -142,6 +223,25 @@ export const products = [
             { label: '9 (27.3cm)', value: 's9' },
             { label: '10 (28.1cm)', value: 's10' },
         ],
+        specifications: [
+            { "label": "Style Name", "value": "Performance Road Runner 3.0" },
+            { "label": "Toe Style", "value": "Round Toe" },
+            { "label": "Sport Type", "value": "Walking, Casual" },
+            { "label": "Shoe Type", "value": "Casual Sneaker" },
+            { "label": "Upper Material", "value": "Premium Leather with Synthetic Overlays" },
+            { "label": "Sole Material", "value": "Durable Rubber Outsole, EVA Foam Midsole" },
+            { "label": "Closure Type", "value": "Lace-Up" },
+            { "label": "Heel Type", "value": "Flat/Block" },
+            {
+                label: 'Key Features',
+                value: [
+                    'Premium leather upper for durability',
+                    'EVA foam midsole for cushioning',
+                    'Multi-directional traction tread',
+                    'Reinforced heel counter for stability'
+                ]
+            }
+        ]
     },
     {
         id: 6,
@@ -152,7 +252,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/shoe/redshoe/shoe (1).png", alt: 'AngledView' },
             { id: 2, href: "/shoe/redshoe/shoe (2).png", alt: 'BackView' },
@@ -169,6 +269,25 @@ export const products = [
             { label: '9 (27.3cm)', value: 's9' },
             { label: '10 (28.1cm)', value: 's10' },
         ],
+        specifications: [
+            { "label": "Style Name", "value": "Performance Road Runner 3.0" },
+            { "label": "Toe Style", "value": "Round Toe" },
+            { "label": "Sport Type", "value": "Walking, Casual" },
+            { "label": "Shoe Type", "value": "Casual Sneaker" },
+            { "label": "Upper Material", "value": "Premium Leather with Synthetic Overlays" },
+            { "label": "Sole Material", "value": "Durable Rubber Outsole, EVA Foam Midsole" },
+            { "label": "Closure Type", "value": "Lace-Up" },
+            { "label": "Heel Type", "value": "Flat/Block" },
+            {
+                label: 'Key Features',
+                value: [
+                    'Premium leather upper for durability',
+                    'EVA foam midsole for cushioning',
+                    'Multi-directional traction tread',
+                    'Reinforced heel counter for stability'
+                ]
+            }
+        ]
     },
     {
         id: 7,
@@ -179,7 +298,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Male",
+        gender: ["Men"],
         images: [
             { id: 1, href: "/watch/watch (1).png", alt: 'AngledView' },
             { id: 2, href: "/watch/watch (2).png", alt: 'FrontView' },
@@ -191,6 +310,26 @@ export const products = [
             { label: 'Medium (180mm)', value: 'medium', selected: true },
             { label: 'Large (200mm)', value: 'large' },
         ],
+        specifications: [
+            { label: 'Display Type', value: 'Analog' },
+            { label: 'Movement', value: 'Quartz' },
+            { label: 'Case Material', value: 'Stainless Steel' },
+            { label: 'Band Material', value: 'Leather Strap' },
+            { label: 'Water Resistance', value: '50 meters' },
+            { label: 'Features', value: 'Date Display, Luminous Hands' },
+            { label: 'Warranty', value: '2 years limited warranty' },
+            { label: 'Country of Origin', value: 'Japan' },
+            { label: 'Item Weight', value: '150 g' },
+            { label: 'Item Dimensions (LxWxH)', value: '4.2 x 4.2 x 1.2 centimeters' },
+            {
+                label: 'Key Features', value: [
+                    'Elegant design suitable for formal occasions',
+                    'Durable stainless steel case',
+                    'Leather strap for comfort',
+                    'Water-resistant design'
+                ]
+            }
+        ],
     },
     {
         id: 8,
@@ -201,7 +340,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/fan/batteryBlueFan/batteryFan (1).jpg", alt: 'FrontView' },
             { id: 2, href: "/fan/batteryBlueFan/batteryFan (2).jpg", alt: 'OtherView' },
@@ -211,6 +350,25 @@ export const products = [
         ],
         color: { id: 8, name: 'Grey', hex: 'bg-[#8D8D8D]', selected: false },
         sizes: [],
+        specifications: [
+            { label: 'Power Source', value: 'Battery Operated' },
+            { label: 'Number of Speeds', value: '3' },
+            { label: 'Battery Life', value: '10 hours' },
+            { label: 'Charging Time', value: '2 hours' },
+            { label: 'Warranty', value: '1 year limited warranty' },
+            { label: 'Country of Origin', value: 'China' },
+            { label: 'Item Weight', value: '250 g' },
+            { label: 'Item Dimensions (LxWxH)', value: '15 x 10 x 5 centimeters' },
+            {
+                label: 'Key Features',
+                value: [
+                    '3-speed operation for customizable airflow',
+                    'Long-lasting battery with quick charging',
+                    'Compact and portable design',
+                    'Quiet operation for comfortable use'
+                ]
+            }
+        ],
     },
     {
         id: 9,
@@ -221,7 +379,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Female",
+        gender: ["Women"],
         images: [
             { id: 1, href: "/ladiesPurse/ladiesPurse (1).jpg", alt: 'FrontView' },
             { id: 2, href: "/ladiesPurse/ladiesPurse (2).jpg", alt: 'OtherView' },
@@ -230,6 +388,26 @@ export const products = [
         ],
         color: { id: 9, name: 'Grey', hex: 'bg-[#F4EEF0]', selected: false },
         sizes: [],
+        specifications: [
+            { label: 'Material', value: 'Genuine Leather' },
+            { label: 'Dimensions', value: '25cm x 15cm x 10cm' },
+            { label: 'Compartments', value: '3 main compartments, 2 side pockets' },
+            { label: 'Closure Type', value: 'Zipper and Magnetic Snap' },
+            { label: 'Strap Type', value: 'Adjustable Shoulder Strap' },
+            { label: 'Warranty', value: '6 months limited warranty' },
+            { label: 'Country of Origin', value: 'Italy' },
+            { label: 'Item Weight', value: '500 g' },
+            { label: 'Item Dimensions (LxWxH)', value: '25 x 15 x 10 centimeters' },
+            {
+                label: 'Key Features',
+                value: [
+                    'Premium genuine leather for durability',
+                    'Spacious compartments for organization',
+                    'Elegant design suitable for all occasions',
+                    'Adjustable strap for comfortable carrying'
+                ]
+            }
+        ],
     },
     {
         id: 10,
@@ -240,7 +418,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/nechband/blackNeckband/nechbandBlack (1).jpg", alt: 'FrontView' },
             { id: 2, href: "/nechband/nechband (1).jpg", alt: 'OtherView' },
@@ -250,6 +428,25 @@ export const products = [
         ],
         color: { id: 10, name: 'Black', hex: 'bg-black', selected: true },
         sizes: [],
+        specifications: [
+            { label: 'Bluetooth Version', value: '5.0' },
+            { label: 'Battery Life', value: '8 hours' },
+            { label: 'Charging Time', value: '2 hours' },
+            { label: 'Water Resistance', value: 'IPX5' },
+            { label: 'Warranty', value: '1 year limited warranty' },
+            { label: 'Country of Origin', value: 'China' },
+            { label: 'Item Weight', value: '50 g' },
+            { label: 'Item Dimensions (LxWxH)', value: '15 x 10 x 5 centimeters' },
+            {
+                label: 'Key Features',
+                value: [
+                    'Wireless Bluetooth 5.0 for stable connection',
+                    '8-hour battery life for extended use',
+                    '2-hour charging time for quick power-up',
+                    'Waterproof IPX5 rating for durability'
+                ]
+            }
+        ],
     },
     {
         id: 11,
@@ -260,7 +457,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/nechband/greenNeckBand/nechbandSliverAndGreen (1).jpg", alt: 'FrontView' },
             { id: 2, href: "/nechband/nechband (1).jpg", alt: 'OtherView' },
@@ -272,6 +469,25 @@ export const products = [
         ],
         color: { id: 11, name: 'Green', hex: 'bg-[#BFD456]', selected: false },
         sizes: [],
+        specifications: [
+            { label: 'Bluetooth Version', value: '5.0' },
+            { label: 'Battery Life', value: '8 hours' },
+            { label: 'Charging Time', value: '2 hours' },
+            { label: 'Water Resistance', value: 'IPX5' },
+            { label: 'Warranty', value: '1 year limited warranty' },
+            { label: 'Country of Origin', value: 'China' },
+            { label: 'Item Weight', value: '50 g' },
+            { label: 'Item Dimensions (LxWxH)', value: '15 x 10 x 5 centimeters' },
+            {
+                label: 'Key Features',
+                value: [
+                    'Wireless Bluetooth 5.0 for stable connection',
+                    '8-hour battery life for extended use',
+                    '2-hour charging time for quick power-up',
+                    'Waterproof IPX5 rating for durability'
+                ]
+            }
+        ],
     },
     {
         id: 12,
@@ -282,7 +498,7 @@ export const products = [
         price: generateInteger(1000),
         reviewCount: generateInteger(100000),
         averageRating: generateOneDecimalUnder5(),
-        gender: "Unisex",
+        gender: ["Men", "Women", "Unisex"],
         images: [
             { id: 1, href: "/nechband/redNeckband/nechbandRed (1).jpg", alt: 'FrontView' },
             { id: 2, href: "/nechband/nechband (1).jpg", alt: 'OtherView' },
@@ -292,6 +508,25 @@ export const products = [
         ],
         color: { id: 12, name: 'Red', hex: 'bg-[#FD1924]', selected: false },
         sizes: [],
+        specifications: [
+            { label: 'Bluetooth Version', value: '5.0' },
+            { label: 'Battery Life', value: '8 hours' },
+            { label: 'Charging Time', value: '2 hours' },
+            { label: 'Water Resistance', value: 'IPX5' },
+            { label: 'Warranty', value: '1 year limited warranty' },
+            { label: 'Country of Origin', value: 'China' },
+            { label: 'Item Weight', value: '50 g' },
+            { label: 'Item Dimensions (LxWxH)', value: '15 x 10 x 5 centimeters' },
+            {
+                label: 'Key Features',
+                value: [
+                    'Wireless Bluetooth 5.0 for stable connection',
+                    '8-hour battery life for extended use',
+                    '2-hour charging time for quick power-up',
+                    'Waterproof IPX5 rating for durability'
+                ]
+            }
+        ],
     },
 ];
 

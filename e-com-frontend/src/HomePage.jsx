@@ -22,6 +22,12 @@ export default function HomePage() {
         connectTo.addToArray(cartList, cartItem);
         toast.success("Product added in cart");
     };
+    const categoryItems = [
+        { label: "Men's", link: "/s", keywords: ["men", "mens", "unisex"], image: "/website/mens.jpg" },
+        { label: "Women's", link: "/s", keywords: ["women", "womens", "unisex"], image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2670&auto=format&fit=crop" },
+        { label: "Accessories", link: "/s", keywords: ["accessories", "accessory"], image: "/website/electronic_accessories.jpg" },
+        { label: "Sale", link: "/s", keywords: ["sale", "discount"], image: "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?q=80&w=2670&auto=format&fit=crop" },
+    ];
 
     return (
         <div className="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
@@ -102,26 +108,17 @@ export default function HomePage() {
                             <section className="mb-12">
                                 <h2 className="text-slate-900 dark:text-slate-50 text-2xl font-bold leading-tight tracking-tight px-0 pb-4 pt-5">Shop by Category</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                    <a className="group relative flex h-80 items-end justify-start rounded-xl overflow-hidden text-white p-6" href="#">
-                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('/mens.jpg')" }}></div>
-                                        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                                        <h3 className="relative z-10 text-2xl font-bold">Men's</h3>
-                                    </a>
-                                    <a className="group relative flex h-80 items-end justify-start rounded-xl overflow-hidden text-white p-6" href="#">
-                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2670&auto=format&fit=crop')" }}></div>
-                                        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                                        <h3 className="relative z-10 text-2xl font-bold">Women's</h3>
-                                    </a>
-                                    <a className="group relative flex h-80 items-end justify-start rounded-xl overflow-hidden text-white p-6" href="#">
-                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('/electronic_accessories.jpg')" }}></div>
-                                        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                                        <h3 className="relative z-10 text-2xl font-bold">Accessories</h3>
-                                    </a>
-                                    <a className="group relative flex h-80 items-end justify-start rounded-xl overflow-hidden text-white p-6" href="#">
-                                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?q=80&w=2670&auto=format&fit=crop')" }}></div>
-                                        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                                        <h3 className="relative z-10 text-2xl font-bold">Sale</h3>
-                                    </a>
+                                    {categoryItems.map((item, index) => (
+                                        <a
+                                            key={item.label}
+                                            className="group relative flex h-80 items-end justify-start rounded-xl overflow-hidden text-white p-6"
+                                            href={item.link + `?k=${Array.isArray(item.keywords) ? item.keywords.join("+") : item.keywords}`}
+                                        >
+                                            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: `url('${item.image}')` }}></div>
+                                            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
+                                            <h3 className="relative z-10 text-2xl font-bold">{item.label}</h3>
+                                        </a>
+                                    ))}
                                 </div>
                             </section>
 

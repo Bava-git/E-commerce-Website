@@ -49,7 +49,6 @@ function App() {
               {/* Developer */}
               <Route path='/testscreen' element={<LoadingScreen />} />
               <Route path='/allscreens' element={<AllScreens />} />
-              <Route path='/loading' element={<LoadingScreen />} />
               {/* General */}
               <Route path='/aboutus' element={<AboutUsPage />} />
               <Route path='/returninfo' element={<ReturnsAndShippingPage />} />
@@ -66,7 +65,7 @@ function App() {
               <Route path='/checkout' element={<CheckoutPage />} />
               <Route path='/confirmation' element={<OrderConfirmationPage />} />
               <Route path='/trackingshipment' element={<ShipmentTrackingPage />} />
-              <Route path='/productlist' element={<SearchedProductsListingPage />} />
+              <Route path='/s' element={<SearchedProductsListingPage />} />
               {/* Customer Dashboard*/}
               <Route path='/dashboard' element={<CustomerDashboard section="dashboard" />} />
               <Route path='/orders' element={<CustomerDashboard section="orders" />} />
@@ -87,13 +86,13 @@ function App() {
 export default App
 
 export const dealsLinks = [
-  { title: "New Arrivals", links: "#" },
-  { title: "Today's Deals", links: "#" },
-  { title: "Men", links: "#" },
-  { title: "Women", links: "#" },
-  { title: "Best Sellers", links: "#" },
+  { title: "New Arrivals", links: "/s?k=newarrivals" },
+  { title: "Today's Deals", links: "/s?k=todaysdeals" },
+  { title: "Men", links: "/s?k=men" },
+  { title: "Women", links: "/s?k=women" },
+  { title: "Best Sellers", links: "/s?k=bestsellers" },
   { title: "Gift Cards", links: "/giftcard" },
-  { title: "Browsing History's", links: "#" },
+  { title: "Browsing History's", links: "/s?k=browsinghistory" },
 ];
 
 const LoadingScreen = () => {

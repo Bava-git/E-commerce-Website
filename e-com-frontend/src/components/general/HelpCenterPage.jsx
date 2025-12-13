@@ -1,14 +1,12 @@
-import React from 'react';
 
-// --- Mock Data ---
-const faqItems = [
+export const faqItems = [
     {
         category: 'Shipping & Delivery',
         answer: "Your order will typically be dispatched within 1-2 business days. Standard shipping takes 5-7 business days, while express shipping takes 2-3 business days. You can track your order from the 'My Account' page."
     },
     {
         category: 'Returns & Refunds',
-        answer: "We offer a 30-day return policy on all items. To initiate a return, please visit our Returns Center and enter your order number. Once your return is approved, we will provide a shipping label. Refunds are processed within 5-7 business days after we receive the returned item."
+        answer: "We offer a 7-day return policy on all items. To initiate a return, please visit our Returns Center and enter your order number. Once your return is approved, we will provide a shipping label. Refunds are processed within 5-7 business days after we receive the returned item."
     },
     {
         category: 'Payments & Pricing',

@@ -110,7 +110,7 @@ const LoginPage = () => {
                                 <div
                                     className="hidden md:flex w-full bg-center bg-no-repeat bg-cover flex-col justify-end overflow-hidden"
                                     data-alt="A stylish person wearing modern fashion accessories, representing the e-commerce brand's lifestyle."
-                                    style={{ backgroundImage: 'url("/signinimagecompact.jpg")' }}
+                                    style={{ backgroundImage: 'url("/website/signinimagecompact.jpg")' }}
                                 >
                                 </div>
 

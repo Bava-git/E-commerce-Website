@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 export const safeSortAscending = (array, identifier) => {
     if (!Array.isArray(array) || array.length === 0) {
         return [];
@@ -184,3 +186,23 @@ export const CopyButton = async (textToCopy) => {
         return false;
     }
 };
+
+// export async function searchProducts(query, setProducts, products, navigate) {
+
+//     function buildKeywords(product) {
+//         return [
+//             product.name,
+//             product.brand,
+//             product.tagline,
+//             product.color?.name,
+//             ...product.gender.map(g => g),
+//             ...product.sizes.map(s => s.label),
+//             ...product.specifications.map(s => s.label),
+//             ...product.specifications.map(s => s.value),
+//         ].join(" ").toLowerCase();
+//     };
+
+//     const searchedItems = products.filter(p => buildKeywords(p).includes(query.toLowerCase()));
+//     setProducts(searchedItems);
+//     navigate("/products/search");
+// };

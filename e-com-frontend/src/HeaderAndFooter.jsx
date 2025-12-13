@@ -40,7 +40,10 @@ export const Header = ({ links }) => {
             product.brand,
             product.tagline,
             product.color?.name,
-            ...product.sizes.map(s => s.label)
+            ...product.gender.map(g => g),
+            ...product.sizes.map(s => s.label),
+            ...product.specifications.map(s => s.label),
+            ...product.specifications.map(s => s.value),
         ].join(" ").toLowerCase();
     }
 
@@ -52,7 +55,7 @@ export const Header = ({ links }) => {
 
         const searchedItems = productsCopy.filter(p => buildKeywords(p).includes(query.toLowerCase()));
         setProducts(searchedItems);
-        navigate("/productlist");
+        navigate("/s");
     }
 
     return (<header>
@@ -68,16 +71,15 @@ export const Header = ({ links }) => {
                         <h2 className="text-xl font-bold leading-tight tracking-tighter cursor-pointer underline" onClick={() => window.location.href = "/"}>Khapara</h2>
                     </div>
                 </div>
-                <div className="hidden sm:block w-7xl max-w-xl">
+                <div className="w-full mx-10">
                     <label className="relative">
                         <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark pointer-events-none"> search </span>
                         <input
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") {
-                                    searchProducts(e.target.value);
+                                    navigate(`/s?k=${e.target.value}`);
                                 }
                             }}
-                            // onMouseDown={}
                             spellCheck={true}
                             className="text-white w-full rounded-lg border-none bg-border-light dark:bg-border-dark py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary mx-2"
                             placeholder="Search..."

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // --- Sub-Components ---
 const SignUpForm = () => {
@@ -60,36 +60,26 @@ const CreateAccountPage = () => {
             <div className="relative flex min-h-screen w-full flex-col justify-center items-center p-4">
 
                 {/* Main Content Card */}
-                <main className="w-full max-w-md bg-white dark:bg-background-dark p-8 md:p-10 rounded-xl shadow-lg">
+                <main className="w-full bg-white dark:bg-background-dark p-8 md:p-10 rounded-xl shadow-lg flex flex-col max-w-md">
 
-                    <div>
-                        {/* Heading Block */}
-                        <div className="flex flex-col gap-2 mb-8 text-center">
-                            <h1 className="text-[#0d131b] dark:text-slate-50 text-xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Create Your Account</h1>
-                            <p className="text-[#4c6c9a] dark:text-slate-400 text-sm font-normal leading-normal">Join us to start shopping and discover amazing products.</p>
-                        </div>
-
-                        {/* Sign Up Form */}
-                        <SignUpForm />
-
-                        {/* Legal Links */}
-                        <p className="text-xs text-center text-[#4c6c9a] dark:text-slate-500 mt-6">
-                            By creating an account, you agree to our <a className="font-medium text-primary hover:underline" href="#">Terms of Service</a> and <a className="font-medium text-primary hover:underline" href="#">Privacy Policy</a>.
-                        </p>
-
-                        {/* Log In Prompt (Mobile/Small Screen) */}
-                        <p className="text-sm text-center text-[#4c6c9a] dark:text-slate-400 mt-8 sm:hidden">
-                            Already have an account? <a className="font-bold text-primary hover:underline" href="#">Log In</a>
-                        </p>
+                    {/* Heading Block */}
+                    <div className="flex flex-col gap-2 mb-8 text-center">
+                        <h1 className="text-[#0d131b] dark:text-slate-50 text-xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Create Your Account</h1>
+                        <p className="text-[#4c6c9a] dark:text-slate-400 text-sm font-normal leading-normal">Join us to start shopping and discover amazing products.</p>
                     </div>
 
-                    {/* Left Column: Image */}
-                    <div
-                        className="hidden md:flex w-full bg-center bg-no-repeat bg-cover flex-col justify-end overflow-hidden"
-                        data-alt="A stylish person wearing modern fashion accessories, representing the e-commerce brand's lifestyle."
-                        style={{ backgroundImage: 'url("/signinimage.jpg")' }}
-                    >
-                    </div>
+                    {/* Sign Up Form */}
+                    <SignUpForm />
+
+                    {/* Legal Links */}
+                    <p className="text-xs text-center text-[#4c6c9a] dark:text-slate-500 mt-6">
+                        By creating an account, you agree to our <a className="font-medium text-primary hover:underline" href="#">Terms of Service</a> and <a className="font-medium text-primary hover:underline" href="#">Privacy Policy</a>.
+                    </p>
+
+                    {/* Log In Prompt (Mobile/Small Screen) */}
+                    <p className="text-sm text-center text-[#4c6c9a] dark:text-slate-400 mt-8 sm:hidden">
+                        Already have an account? <a className="font-bold text-primary hover:underline" href="#">Log In</a>
+                    </p>
 
                 </main>
             </div>

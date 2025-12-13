@@ -1,25 +1,128 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { useNavigate } from 'react-router-dom';
 import FilterSidebar from './components/reusables/FilterSidebar';
 import ProductCard from './components/reusables/ProductCard';
 import { useProducts } from './utilities/context/ProductContext';
 import { Pagination, safeSortAscending, safeSortDescending } from './utilities/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
+const genderSynonyms = {
+    women: ["women", "woman", "ladies", "lady", "girls", "girl", "female"],
+    men: ["men", "man", "male", "gents", "gentlemen", "boys", "boy"],
+    unisex: ["unisex", "all", "everyone"]
+};
+// ---------------------------------------------------------------------------
+function normalizeGender(word) {
+    const lower = word.toLowerCase();
+    for (const [key, synonyms] of Object.entries(genderSynonyms)) {
+        if (synonyms.includes(lower)) return key; // return standardized gender
+    }
+    return lower; // fallback
+}
+
+// ---------------------------------------------------------------------------
 // --Main Component--
 const ProductListingPage = () => {
 
-    const navigate = useNavigate();
     const { products } = useProducts();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const keywords = searchParams.get("k") || "";
+    const navigate = useNavigate();
     const [tableData, setTableData] = useState(products);
-    useEffect(() => {
-        setTableData(products);
-        if (products?.length === 0) {
 
+    function buildKeywords(product) {
+        const keywords = [];
+
+        // Core product type gets higher weight
+        if (product.name) {
+            const name = product.name.trim().split(/\s+/);
+            name.flatMap(n => {
+                keywords.push({ word: n.toLowerCase(), weight: 3 });
+            });
+            keywords.push({ word: product.name.toLowerCase(), weight: 3 });
         }
-    }, [products]);
+
+        // Brand/tagline moderate weight
+        if (product.brand) keywords.push({ word: product.brand.toLowerCase(), weight: 2 });
+        if (product.tagline) keywords.push({ word: product.tagline.toLowerCase(), weight: 2 });
+        if (product?.color?.name) keywords.push({ word: product.color.name.toLowerCase(), weight: 2 });
+
+        // Gender synonyms lower weight
+        if (Array.isArray(product.gender)) {
+            product.gender.forEach(g => {
+                keywords.push({ word: normalizeGender(g), weight: 1 });
+            });
+        };
+
+        // Other attributes moderate weight
+        if (Array.isArray(product.sizes)) {
+            product.sizes.forEach(s => keywords.push({ word: s.label.toLowerCase(), weight: 2 }));
+        };
+
+        if (Array.isArray(product.specifications)) {
+            product.specifications.forEach(s => {
+                if (s.label) keywords.push({ word: s.label.toLowerCase(), weight: 2 });
+                if (Array.isArray(s.value)) {
+                    s.value.forEach(v => keywords.push({ word: v.toLowerCase(), weight: 2 }));
+                } else if (s.value) {
+                    keywords.push({ word: s.value.toLowerCase(), weight: 2 });
+                }
+            });
+        };
+
+        // NormalizeGender synonyms lower weight
+        if (Array.isArray(keywords)) {
+            keywords.forEach(k => {
+                k.word = normalizeGender(k.word);
+            });
+        };
+
+        // console.log(keywords);
+        return keywords;
+    }
+
+
+    function searchProducts(query, products) {
+        const q = query.toLowerCase();
+
+        return products.filter(product => {
+            const keywords = buildKeywords(product);
+            let score = 0;
+
+            keywords.forEach(k => {
+                // console.log(k);
+                if (q.includes(k.word)) {
+                    score += k.weight;
+                }
+            });
+
+            return score >= 2; // threshold for match
+        });
+    };
+
+    useEffect(() => {
+        if (!keywords) return;
+
+        let searchedItems = [];
+        const keywordsArray = keywords.trim().split(/\s+/);
+
+        if (keywordsArray.length > 1) {
+            console.log("Multi");
+            searchedItems = keywordsArray.flatMap(kw => searchProducts(normalizeGender(kw), products));
+        } else {
+            console.log("Single");
+            searchedItems = searchProducts(normalizeGender(keywords), products);
+        }
+
+        // Deduplicate by product id (or name if no id)
+        const uniqueItems = Array.from(new Set(searchedItems.map(p => p.id)))
+            .map(id => searchedItems.find(p => p.id === id));
+
+        setTableData(uniqueItems);
+    }, [keywords, products]);
+
 
     const handleSort = (e) => {
         let sortedData = [];
@@ -68,10 +171,10 @@ const ProductListingPage = () => {
                                                 <option>Newest Arrivals</option>
                                             </select>
                                         </div>
-                                        <div className="hidden sm:flex items-center gap-1 rounded-lg bg-border-light dark:bg-border-dark p-1">
+                                        {/* <div className="lg:hidden md:hidden sm:hidden sm:flex items-center gap-1 rounded-lg bg-border-light dark:bg-border-dark p-1">
                                             <button className="h-8 w-8 flex items-center justify-center rounded-md bg-primary text-white"><span className="material-symbols-outlined text-base">grid_view</span></button>
                                             <button className="h-8 w-8 flex items-center justify-center rounded-md text-muted-light dark:text-muted-dark hover:bg-background-light dark:hover:bg-background-dark"><span className="material-symbols-outlined text-base">view_list</span></button>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
 
