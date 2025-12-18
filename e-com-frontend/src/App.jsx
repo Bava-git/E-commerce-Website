@@ -85,6 +85,8 @@ function App() {
 
 export default App
 
+// ---------------------------------------------------------------------------
+// Deals Links Data -----------------------------------------------------------------------------
 const dealsLinks = [
   { label: "Men", link: "/s", keywords: ["men", "mens", "unisex"], image: "/website/mens.jpg" },
   { label: "Women", link: "/s", keywords: ["women", "womens", "unisex"], image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2670&auto=format&fit=crop" },
