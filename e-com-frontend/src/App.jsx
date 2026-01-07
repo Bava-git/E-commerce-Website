@@ -8,33 +8,35 @@ import './App.css';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // Common  -----------------------------------------------------------------------------
-import { Footer, Header } from './HeaderAndFooter'; // NOT-IN-LAZY-LOAD
-import HomePage from './HomePage'; // NOT-IN-LAZY-LOAD
+import { Footer, Header } from './pages/HeaderAndFooter'; // NOT-IN-LAZY-LOAD
+import HomePage from './pages/HomePage'; // NOT-IN-LAZY-LOAD
 // General Pages  -----------------------------------------------------------------------------
-const AboutUsPage = lazy(() => import('./components/general/AboutUsPage'));
-const ContactUsPage = lazy(() => import('./components/general/ContactUsPage'));
-const HelpCenterPage = lazy(() => import('./components/general/HelpCenterPage'));
-const NotFoundPage = lazy(() => import('./components/general/NotFoundPage'));
-const ReturnsAndShippingPage = lazy(() => import('./components/general/ReturnsAndShippingPage'));
+const AboutUsPage = lazy(() => import('./pages/general/AboutUsPage'));
+const ContactUsPage = lazy(() => import('./pages/general/ContactUsPage'));
+const HelpCenterPage = lazy(() => import('./pages/general/HelpCenterPage'));
+const NotFoundPage = lazy(() => import('./pages/general/NotFoundPage'));
+const ReturnsAndShippingPage = lazy(() => import('./pages/general/ReturnsAndShippingPage'));
 // Customer Dashboard -----------------------------------------------------------------------------
-const CustomerDashboard = lazy(() => import('./components/customerdashboard/CustomerDashboard'));
-const ShipmentTrackingPage = lazy(() => import('./components/customerdashboard/TrackingPage'));
+const CustomerDashboard = lazy(() => import('./pages/customerdashboard/CustomerDashboard'));
+const ShipmentTrackingPage = lazy(() => import('./pages/customerdashboard/TrackingPage'));
 // Credentials -----------------------------------------------------------------------------
-const LoginPage = lazy(() => import('./components/credentials/LoginPage'));
-const CreateAccountPage = lazy(() => import('./components/credentials/CreateAccountPage'));
+const LoginPage = lazy(() => import('./pages/credentials/LoginPage'));
+const CreateAccountPage = lazy(() => import('./pages/credentials/CreateAccountPage'));
 // Other Pages -----------------------------------------------------------------------------
-const ShoppingCartPage = lazy(() => import('./CartPage'));
-const CheckoutPage = lazy(() => import('./components/checkoutpage/CheckoutPage'));
-const OrderConfirmationPage = lazy(() => import('./components/checkoutpage/ConfirmationPage'));
-const SearchedProductsListingPage = lazy(() => import('./SearchedProductsListingPage'));
-const SelectedProductPage = lazy(() => import('./SelectedProductPage'));
-const WishlistPage = lazy(() => import('./WishlistPage'));
-// Developer -----------------------------------------------------------------------------
-import AllScreens from './AllScreens';
+const ShoppingCartPage = lazy(() => import('./pages/CartPage'));
+const CheckoutPage = lazy(() => import('./pages/checkoutpage/CheckoutPage'));
+const OrderConfirmationPage = lazy(() => import('./pages/checkoutpage/ConfirmationPage'));
+const SearchedProductsListingPage = lazy(() => import('./pages/SearchedProductsListingPage'));
+const SelectedProductPage = lazy(() => import('./pages/SelectedProductPage'));
+const WishlistPage = lazy(() => import('./pages/WishlistPage'));
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// New Feature -----------------------------------------------------------------------------
+const TestScreen = lazy(() => import('../env/TestScreen').catch(() => ({ default: () => <div>Not available</div> })));
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // Context -----------------------------------------------------------------------------
-import { ProductProvider } from './utilities/context/ProductContext';
+import { ProductProvider } from './service/context/ProductContext';
 
 function App() {
 
@@ -47,8 +49,7 @@ function App() {
           <Suspense fallback={<LoadingScreen />}>
             <Routes>
               {/* Developer */}
-              <Route path='/testscreen' element={<LoadingScreen />} />
-              <Route path='/allscreens' element={<AllScreens />} />
+              <Route path='/testscreen' element={<TestScreen />} />
               {/* General */}
               <Route path='/aboutus' element={<AboutUsPage />} />
               <Route path='/returninfo' element={<ReturnsAndShippingPage />} />

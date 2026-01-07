@@ -1,12 +1,11 @@
 import { useState } from "react";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import MyOrdersPage from "./MyOrdersPage";
-import MyDashboardPage from "./MyDashboardPage";
 import MyAddressPage from "./MyAddressPage";
-import MyPreferencePage from "./MyPreferencePage";
+import MyDashboardPage from "./MyDashboardPage";
 import GiftCardPurchasePage from "./MyGiftCardPage";
-import { useSearchParams } from "react-router-dom";
+import MyOrdersPage from "./MyOrdersPage";
+import MyPreferencePage from "./MyPreferencePage";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // --- Sub-Components ---

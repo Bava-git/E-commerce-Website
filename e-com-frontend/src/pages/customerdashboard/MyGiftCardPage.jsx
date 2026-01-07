@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { giftCardInfo } from '../../utilities/rawData';
-import * as connectTo from '../../utilities/reusables';
-import { Pagination } from '../../utilities/reusables';
+import { giftCardInfo } from '../../service/rawData';
+import * as connectTo from '../../service/reusables';
+import { Pagination } from '../../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // --- Sub-Components ---

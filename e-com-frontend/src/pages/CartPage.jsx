@@ -1,9 +1,9 @@
 import { useState } from 'react';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { OrderSummary } from './components/reusables/OrderSummary';
-import { cartList, products } from './utilities/rawData';
-import * as connectTo from './utilities/reusables';
+import { OrderSummary } from '../components/OrderSummary';
+import { cartList, products } from '../service/rawData';
+import * as connectTo from '../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const CartItem = ({ product, onDelete, onUpdateQuantity }) => {

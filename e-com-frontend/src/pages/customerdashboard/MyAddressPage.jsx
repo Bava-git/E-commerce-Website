@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { shippingInfo } from "../../utilities/rawData";
-import * as connectTo from '../../utilities/reusables';
+import { shippingInfo } from "../../service/rawData";
+import * as connectTo from '../../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // -- Main Component -- 

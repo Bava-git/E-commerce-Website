@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import FilterSidebar from './components/reusables/FilterSidebar';
-import ProductCard from './components/reusables/ProductCard';
-import { useProducts } from './utilities/context/ProductContext';
-import { Pagination, safeSortAscending, safeSortDescending } from './utilities/reusables';
+import FilterSidebar from '../components/FilterSidebar';
+import ProductCard from '../components/ProductCard';
+import { useProducts } from '../service/context/ProductContext';
+import { Pagination, safeSortAscending, safeSortDescending } from '../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const genderSynonyms = {

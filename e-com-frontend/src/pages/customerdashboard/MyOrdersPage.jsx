@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 import { format } from 'date-fns';
-import { totalSummarys, trackItems } from '../../utilities/rawData';
-import * as connectTo from '../../utilities/reusables';
-import { Pagination } from '../../utilities/reusables';
+import { totalSummarys, trackItems } from '../../service/rawData';
+import * as connectTo from '../../service/reusables';
+import { Pagination } from '../../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const getStatusBadge = (status) => {
@@ -165,7 +165,7 @@ const OrderTable = ({ orders }) => (
 
         {/* Order Rows */}
         {orders.map((order, index) => (
-            <OrderRow key={order.id} order={order} />
+            <OrderRow key={order.trackId} order={order} />
         ))}
     </div>
 );

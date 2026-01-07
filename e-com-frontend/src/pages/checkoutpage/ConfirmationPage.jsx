@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { totalSummarys } from '../../utilities/rawData';
-import * as connectTo from '../../utilities/reusables';
-import { CopyButton } from '../../utilities/reusables';
+import { totalSummarys } from '../../service/rawData';
+import * as connectTo from '../../service/reusables';
+import { CopyButton } from '../../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const OrderConfirmationPage = () => {

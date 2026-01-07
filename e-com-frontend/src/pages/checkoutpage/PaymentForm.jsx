@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { paymentInfo } from '../../utilities/rawData';
-import * as connectTo from '../../utilities/reusables';
+import { paymentInfo } from '../../service/rawData';
+import * as connectTo from '../../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 

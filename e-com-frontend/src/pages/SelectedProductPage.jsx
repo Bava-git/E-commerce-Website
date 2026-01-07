@@ -3,9 +3,9 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { faqItems } from "./components/general/HelpCenterPage";
-import { cartList, myWishlist, products } from './utilities/rawData';
-import * as connectTo from './utilities/reusables';
+import { faqItems } from "../pages/general/HelpCenterPage";
+import { cartList, myWishlist, products } from '../service/rawData';
+import * as connectTo from '../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 //-- Main Components --

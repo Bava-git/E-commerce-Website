@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Typo from "typo-js";
-import { useProducts } from "./utilities/context/ProductContext";
-import { cartList, myWishlist, products } from "./utilities/rawData";
+import { useProducts } from "../service/context/ProductContext";
+import { cartList, myWishlist, products } from "../service/rawData";
 
 async function loadDictionary(words) {
     const aff = await fetch("/dictionary/index.aff").then(res => res.text());

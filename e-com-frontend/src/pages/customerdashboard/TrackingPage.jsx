@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { totalSummarys, trackItems } from '../../utilities/rawData';
-import { CopyButton } from '../../utilities/reusables';
+import { totalSummarys, trackItems } from '../../service/rawData';
+import { CopyButton } from '../../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 const history = [

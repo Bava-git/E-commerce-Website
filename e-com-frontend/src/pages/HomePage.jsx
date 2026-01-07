@@ -1,8 +1,8 @@
 import { toast } from "sonner";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { cartList, products } from './utilities/rawData';
-import * as connectTo from './utilities/reusables';
+import { cartList, products } from '../service/rawData';
+import * as connectTo from '../service/rawData';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 

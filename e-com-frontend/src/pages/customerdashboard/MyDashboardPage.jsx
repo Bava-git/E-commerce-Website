@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { cartList, myWishlist, paymentInfo } from "../../utilities/rawData";
-import * as connectTo from '../../utilities/reusables';
+import { cartList, myWishlist, paymentInfo } from "../../service/rawData";
+import * as connectTo from '../../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // --- Main Page Component ---
@@ -210,6 +210,7 @@ const MyDashboardPage = () => {
                 <div className="flex flex-col gap-4">
                     {paymentInfoCopy.map((card, index) => (
                         <div
+                            key={index}
                             className="flex items-center justify-between p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg">
                             <div className="flex items-center gap-4">
                                 <img
@@ -304,7 +305,7 @@ const MyDashboardPage = () => {
                     <section className="flex flex-1 flex-wrap justify-center items-center flex-row gap-5 overflow-hidden">
                         {myWichlistCopy?.length != 0 ?
                             (myWichlistCopy.map((item) => (
-                                <div key={item.id} className="flex flex-col m-3 justify-between">
+                                <div key={item.wishlistId} className="flex flex-col m-3 justify-between">
                                     <div className="rounded-lg overflow-hidden size-40">
                                         <img
                                             src={item.image}
@@ -355,7 +356,7 @@ const MyDashboardPage = () => {
                     <section className="flex flex-1 flex-wrap justify-center items-center flex-row gap-5 overflow-hidden">
                         {cartListCopy?.length != 0 ?
                             (cartListCopy.map((item) => (
-                                <div key={item.id} className="flex flex-col m-3 justify-between">
+                                <div key={item.cartlistId} className="flex flex-col m-3 justify-between">
                                     <div className="rounded-lg overflow-hidden size-40">
                                         <img
                                             src={item.image}

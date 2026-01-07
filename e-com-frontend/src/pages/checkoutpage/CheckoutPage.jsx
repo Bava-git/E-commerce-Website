@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { cartList, paymentInfo, products, promoCodes, shippingInfo, totalSummarys, trackItems } from '../../utilities/rawData';
-import * as connectTo from '../../utilities/reusables';
-import { OrderSummary } from '../reusables/OrderSummary';
+import { cartList, paymentInfo, products, promoCodes, shippingInfo, totalSummarys, trackItems } from '../../service/rawData';
+import * as connectTo from '../../service/reusables';
+import { OrderSummary } from '../../components/OrderSummary';
 import OrderReviewPage from './OrderReviewPage';
 import PaymentForm from './PaymentForm';
 import ShippingForm from './ShippingForm';

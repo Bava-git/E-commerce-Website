@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-import { cartList, myWishlist } from './utilities/rawData';
-import * as connectTo from './utilities/reusables';
-import { Pagination, safeSortAscending, safeSortDescending } from './utilities/reusables';
+import { cartList, myWishlist } from '../service/rawData';
+import * as connectTo from '../service/reusables';
+import { Pagination, safeSortAscending, safeSortDescending } from '../service/reusables';
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 
